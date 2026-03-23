@@ -1,0 +1,33 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Keep the clean GitHub clone out of the parent repo.
+KGE_clean_20260323/
+Research_git_backup_20260323/
+
+# Preserve Research's previous local ignore behavior under the new repo root.
+Research/node_modules/
+Research/package.json
+Research/package-lock.json
+Research/**/__pycache__/
+Research/**/*.pyc
+Research/**/.ipynb_checkpoints/
+Research/.env
+Research/.venv/
+Research/venv/
+
+# KGE outputs
+KGE/models(dated)/
+KGE/models/**
+!KGE/models/**/
+!KGE/models/**/train.log
+!KGE/models/**/config.json
+!KGE/models/**/relation_embedding.npy

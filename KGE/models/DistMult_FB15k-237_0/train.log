@@ -1,0 +1,51 @@
+2026-03-23 15:19:27 INFO     Model: DistMult
+2026-03-23 15:19:27 INFO     Data Path: data/FB15k-237
+2026-03-23 15:19:27 INFO     #entity: 14541
+2026-03-23 15:19:27 INFO     #relation: 237
+2026-03-23 15:19:27 INFO     #train: 272115
+2026-03-23 15:19:27 INFO     #valid: 17535
+2026-03-23 15:19:27 INFO     #test: 20466
+2026-03-23 15:19:27 INFO     Model Parameter Configuration:
+2026-03-23 15:19:27 INFO     Parameter gamma: torch.Size([1]), require_grad = False
+2026-03-23 15:19:27 INFO     Parameter embedding_range: torch.Size([1]), require_grad = False
+2026-03-23 15:19:27 INFO     Parameter entity_embedding: torch.Size([14541, 2000]), require_grad = True
+2026-03-23 15:19:27 INFO     Parameter relation_embedding: torch.Size([237, 2000]), require_grad = True
+2026-03-23 15:19:30 INFO     Ramdomly Initializing DistMult Model...
+2026-03-23 15:19:30 INFO     Start Training...
+2026-03-23 15:19:30 INFO     init_step = 0
+2026-03-23 15:19:30 INFO     batch_size = 1024
+2026-03-23 15:19:30 INFO     negative_adversarial_sampling = 1
+2026-03-23 15:19:30 INFO     hidden_dim = 2000
+2026-03-23 15:19:30 INFO     gamma = 200.000000
+2026-03-23 15:19:30 INFO     negative_adversarial_sampling = True
+2026-03-23 15:19:30 INFO     adversarial_temperature = 1.000000
+2026-03-23 15:19:30 INFO     learning_rate = 0
+2026-03-23 15:19:31 INFO     Training average regularization at step 0: 0.076127
+2026-03-23 15:19:31 INFO     Training average positive_sample_loss at step 0: 0.693252
+2026-03-23 15:19:31 INFO     Training average negative_sample_loss at step 0: 0.693203
+2026-03-23 15:19:31 INFO     Training average loss at step 0: 0.769354
+2026-03-23 15:19:31 INFO     Evaluating on Valid Dataset...
+2026-03-23 15:19:32 INFO     Evaluating the model... (0/2192)
+2026-03-23 15:19:50 INFO     Evaluating the model... (1000/2192)
+2026-03-23 15:20:08 INFO     Evaluating the model... (2000/2192)
+2026-03-23 15:20:12 INFO     Valid MRR at step 0: 0.000839
+2026-03-23 15:20:12 INFO     Valid MR at step 0: 7135.926747
+2026-03-23 15:20:12 INFO     Valid HITS@1 at step 0: 0.000086
+2026-03-23 15:20:12 INFO     Valid HITS@3 at step 0: 0.000314
+2026-03-23 15:20:12 INFO     Valid HITS@10 at step 0: 0.001283
+2026-03-23 15:20:23 INFO     Training average regularization at step 100: 0.028601
+2026-03-23 15:20:23 INFO     Training average positive_sample_loss at step 100: 0.691627
+2026-03-23 15:20:23 INFO     Training average negative_sample_loss at step 100: 0.693160
+2026-03-23 15:20:23 INFO     Training average loss at step 100: 0.720995
+2026-03-23 15:20:35 INFO     Training average regularization at step 200: 0.007270
+2026-03-23 15:20:35 INFO     Training average positive_sample_loss at step 200: 0.689900
+2026-03-23 15:20:35 INFO     Training average negative_sample_loss at step 200: 0.693144
+2026-03-23 15:20:35 INFO     Training average loss at step 200: 0.698792
+2026-03-23 15:20:46 INFO     Training average regularization at step 300: 0.004619
+2026-03-23 15:20:46 INFO     Training average positive_sample_loss at step 300: 0.679377
+2026-03-23 15:20:46 INFO     Training average negative_sample_loss at step 300: 0.693037
+2026-03-23 15:20:46 INFO     Training average loss at step 300: 0.690826
+2026-03-23 15:20:58 INFO     Training average regularization at step 400: 0.008382
+2026-03-23 15:20:58 INFO     Training average positive_sample_loss at step 400: 0.638506
+2026-03-23 15:20:58 INFO     Training average negative_sample_loss at step 400: 0.692964
+2026-03-23 15:20:58 INFO     Training average loss at step 400: 0.674117
