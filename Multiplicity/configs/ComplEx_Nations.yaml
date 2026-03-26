@@ -1,0 +1,73 @@
+KvsAll:
+  label_smoothing: -0.006144240834859205
+dataset:
+  files:
+    test:
+      size: 201
+      split_type: test
+    test_without_unseen:
+      filename: test_without_unseen.del
+      size: 201
+      split_type: test
+      type: triples
+    train:
+      size: 1592
+      split_type: train
+    train_sample:
+      filename: train_sample.del
+      size: 199
+      split_type: train
+      type: triples
+    valid:
+      size: 199
+      split_type: valid
+    valid_without_unseen:
+      filename: valid_without_unseen.del
+      size: 199
+      split_type: valid
+      type: triples
+  name: nations
+  num_entities: 14
+  num_relations: 55
+entity_ranking:
+  metrics_per:
+    relation_type: true
+eval:
+  batch_size: 256
+import:
+- complex
+job:
+  auto_correct: true
+lookup_embedder:
+  dim: 256
+model: complex
+modules:
+- kge.model.embedder
+- kge.job
+- kge.model
+negative_sampling:
+  num_samples:
+    o: 12
+    s: 2
+train:
+  batch_size: 256
+  loss_arg: .nan
+  lr_scheduler: ReduceLROnPlateau
+  lr_scheduler_args:
+    factor: 0.95
+    mode: max
+    patience: 6
+    threshold: 0.0001
+  max_epochs: 400
+  optimizer:
+    default:
+      args:
+        lr: 0.6583728725514996
+  type: 1vsAll
+valid:
+  early_stopping:
+    patience: 10
+    threshold:
+      epochs: 50
+      metric_value: 0.05
+

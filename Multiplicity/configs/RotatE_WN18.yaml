@@ -1,0 +1,74 @@
+dataset:
+  name: wn18
+  num_entities: 40943
+  num_relations: 18
+  test_size: 5000
+  train_size: 141442
+  valid_size: 5000
+entity_ranking:
+  chunk_size: 5000
+  metrics_per:
+    relation_type: true
+eval:
+  batch_size: 256
+import:
+- reciprocal_relations_model
+- rotate
+job:
+  device: cuda
+lookup_embedder:
+  dim: 256
+  initialize_args:
+    normal_:
+      mean: 0.0
+      std: 0.12247115405668645
+    uniform_:
+      a: -0.9548907227460481
+    xavier_normal_:
+      gain: 1.0
+    xavier_uniform_:
+      gain: 1.0
+  regularize_args:
+    p: 3
+model: reciprocal_relations_model
+negative_sampling:
+  implementation: triple
+  num_samples:
+    o: 361
+    s: 49
+reciprocal_relations_model:
+  base_model:
+    relation_embedder:
+      dim: 128
+    type: rotate
+rotate:
+  entity_embedder:
+    dropout: -0.30615369975566864
+    regularize_weight: 1.0737553041346427e-08
+  l_norm: 2.0
+  relation_embedder:
+    dropout: -0.41836637165397406
+    regularize_weight: 5.952774869184378e-16
+train:
+  auto_correct: true
+  batch_size: 512
+  loss_arg: .nan
+  lr_scheduler: ReduceLROnPlateau
+  lr_scheduler_args:
+    factor: 0.95
+    mode: max
+    patience: 4
+    threshold: 0.0001
+  max_epochs: 400
+  optimizer:
+    default:
+      args:
+        lr: 0.46028005640776476
+  subbatch_auto_tune: true
+  type: negative_sampling
+valid:
+  early_stopping:
+    patience: 10
+    threshold:
+      epochs: 50
+      metric_value: 0.05

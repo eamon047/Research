@@ -1,0 +1,69 @@
+KvsAll:
+  label_smoothing: 0.2264272935779606
+conve:
+  convolution_bias: false
+  entity_embedder:
+    dropout: 0.15959740403963696
+    regularize_weight: 5.498907717010908e-18
+  feature_map_dropout: 0.1629875377182572
+  projection_dropout: 0.06790365544349346
+  relation_embedder:
+    dropout: 0.4402558985594808
+    regularize_weight: 2.4071656627418613e-06
+  round_dim: true
+dataset:
+  name: fb15k
+  num_entities: 14951
+  num_relations: 1345
+entity_ranking:
+  metrics_per:
+    relation_type: true
+eval:
+  batch_size: 256
+import:
+- reciprocal_relations_model
+- conve
+lookup_embedder:
+  dim: 512
+  initialize: xavier_normal_
+  initialize_args:
+    normal_:
+      mean: 0.0
+      std: 0.014833434347122039
+    uniform_:
+      a: -0.8194628126320124
+    xavier_normal_:
+      gain: 1.0
+    xavier_uniform_:
+      gain: 1.0
+  regularize_args:
+    weighted: true
+model: reciprocal_relations_model
+negative_sampling:
+  implementation: batch
+reciprocal_relations_model:
+  base_model:
+    entity_embedder:
+      dim: 512
+    relation_embedder:
+      dim: 512
+train:
+  auto_correct: true
+  batch_size: 512
+  loss: bce
+  loss_arg: 0.0
+  lr_scheduler: ReduceLROnPlateau
+  lr_scheduler_args:
+    factor: 0.95
+    mode: max
+    patience: 3
+    threshold: 0.0001
+  max_epochs: 400
+  optimizer_args:
+    lr: 0.11317299955849232
+valid:
+  early_stopping:
+    min_threshold:
+      epochs: 50
+      metric_value: 0.05
+    patience: 10
