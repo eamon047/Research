@@ -446,5 +446,3 @@ for model in ["TransE", "RESCAL", "DistMult", "ComplEx", "ConvE"]:
 
 df = pd.DataFrame({"Model": models, "Dataset": datasets, "Baselines": baselines, "Hits": hits, "Epsilon": epsilons, "Alpha": alphas, "Delta": deltas})
 df.to_csv("results_num10_agg8_k10.csv")
-
-# %%
