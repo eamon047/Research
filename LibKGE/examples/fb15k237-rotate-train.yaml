@@ -1,0 +1,43 @@
+job.type: train
+job.device: cuda:0
+
+dataset.name: fb15k-237
+model: rotate
+
+train:
+  type: negative_sampling
+  batch_size: 256
+  loss: margin_ranking
+  loss_arg: 6.0
+  max_epochs: 100
+  subbatch_auto_tune: true
+  optimizer.default:
+    type: Adagrad
+    args:
+      lr: 0.1
+
+valid:
+  early_stopping.patience: 5
+  every: 5
+  metric: mean_reciprocal_rank_filtered_with_test
+
+eval:
+  batch_size: 64
+  chunk_size: 500
+
+negative_sampling:
+  num_samples.s: 32
+  num_samples.o: 32
+  sampling_type: uniform
+  implementation: triple
+
+lookup_embedder:
+  dim: 400
+  regularize: lp
+  regularize_weight: 1.e-07
+  regularize_args:
+    p: 2
+    weighted: false
+
+rotate:
+  l_norm: 1.
