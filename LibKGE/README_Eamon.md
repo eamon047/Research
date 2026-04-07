@@ -1,22 +1,22 @@
-# LibKGE Learning Notes
+# LibKGE 本地说明
 
-This file records local environment status, what has already been prepared, and
-practical notes for continuing to learn and run this codebase.
+这份文件记录当前 `LibKGE` 目录下和复现任务直接相关的本地状态。
+它主要服务于 `Multiplicity` 复现，不是为了全面介绍 LibKGE。
 
-## Current Status
+## 当前状态
 
-- Repo path: `/data/satori_hdd1/EamonZhao/EamonFile/LibKGE`
-- Conda env used for this project: `LibKGE`
-- Installed in editable mode with `pip install -e .`
-- Dataset `fb15k-237` has been downloaded and preprocessed
+- 仓库路径：`/data/satori_hdd1/EamonZhao/EamonFile/LibKGE`
+- 当前使用的 conda 环境：`LibKGE`
+- 已使用 `pip install -e .` 进行可编辑安装
+- 数据集 `fb15k-237` 已经下载并预处理完成
 
-## Data Status
+## 数据状态
 
-Prepared dataset folder:
+已准备好的数据集目录：
 
 - `/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237`
 
-Important generated files:
+关键文件包括：
 
 - `dataset.yaml`
 - `train.del`
@@ -25,43 +25,51 @@ Important generated files:
 - `entity_ids.del`
 - `relation_ids.del`
 
-Meaning of preprocessing:
+这些文件说明：
 
-- Raw files such as `train.txt` use string IDs for entities and relations
-- LibKGE training uses indexed triples such as `train.del`
-- `dataset.yaml` describes the dataset in the format LibKGE expects
+- 原始 `train.txt` 等文本文件保存的是字符串形式的实体/关系
+- LibKGE 训练使用的是索引化后的 `*.del`
+- `dataset.yaml` 是 LibKGE 识别数据集格式所需的描述文件
 
-## Key Code Structure
+## 与当前任务最相关的配置
 
-Useful files to read first:
+当前第一目标是复现：
+
+- `RotatE + FB15k-237`
+
+当前实际在用的配置文件：
+
+- `examples/RotatE_FB15k237.yaml`
+
+这个文件来自：
+
+- `Multiplicity/configs/RotatE_FB15k237.yaml`
+
+并且当前已经加入：
+
+```yaml
+random_seed:
+  default: 1
+```
+
+## 重要结构
+
+后续遇到问题时，优先看这些位置：
 
 - `kge/cli.py`
-  Entry point for `kge start`, `kge resume`, `kge valid`, `kge test`
+  `kge start`, `kge resume`, `kge valid`, `kge test` 的入口
 - `kge/config-default.yaml`
-  Master configuration reference
+  所有默认配置的主参考
 - `kge/job/`
-  Training, evaluation, and search job implementations
+  训练、评估、搜索任务实现
 - `kge/model/rotate.py`
-  RotatE implementation
+  RotatE 模型实现
 - `kge/model/rotate.yaml`
-  RotatE-specific config options
-- `README.md`
-  Official project overview and usage
+  RotatE 相关配置项
 
-## Local Config Files
+## 当前已知的 RotatE FB15k-237 关键参数
 
-Two local experiment configs were prepared:
-
-- `examples/fb15k237-rotate-train.yaml`
-  A simplified learning-oriented RotatE config
-- `examples/fb15k237-rotate-official.yaml`
-  Local copy of the official published config for `fb15k-237 + RotatE`
-
-## Official fb15k-237 RotatE Notes
-
-The official result config is not a plain `model: rotate` setup.
-
-Important details:
+这份配置不是简单的 `model: rotate`，而是：
 
 - `model: reciprocal_relations_model`
 - `import: [rotate, reciprocal_relations_model]`
@@ -73,56 +81,54 @@ Important details:
 - `rotate.l_norm: 2.0`
 - `train.max_epochs: 400`
 
-So when reproducing the published result, use:
+## GPU 使用约定
 
-- `examples/fb15k237-rotate-official.yaml`
+经验上，不要只依赖 YAML 里的 `job.device`，因为 GPU 编号可能和实际可见卡不一致。
 
-## GPU Notes
-
-Important lesson:
-
-- Do not rely only on changing `job.device` inside YAML when GPU indexing is unclear
-- More stable approach:
-  use `CUDA_VISIBLE_DEVICES=<physical_gpu_id>` and keep the program-side device as `cuda:0`
-
-Recommended pattern:
+更稳妥的做法是：
 
 ```bash
-CUDA_VISIBLE_DEVICES=1 kge start examples/fb15k237-rotate-official.yaml --job.device cuda:0
+CUDA_VISIBLE_DEVICES=<物理GPU编号> kge start ... --job.device cuda:0
 ```
 
-Meaning:
+含义：
 
-- Only physical GPU 1 is visible to the process
-- Inside PyTorch / LibKGE, that visible GPU becomes `cuda:0`
+- 进程只能看到指定的那张物理 GPU
+- 在程序内部，这张卡会变成 `cuda:0`
 
-## Errors Encountered Before
+## 当前输出目录约定
+
+我们当前把 repeated runs 放在：
+
+- `local/multiplicity/RotatE_FB15k237/seed_<n>`
+
+目前已经存在：
+
+- `local/multiplicity/RotatE_FB15k237/seed_0`
+- `local/multiplicity/RotatE_FB15k237/seed_1`
+
+如果不指定 `--folder`，LibKGE 会默认把结果放到：
+
+- `local/experiments/`
+
+## 常见问题
 
 ### 1. `No CUDA GPUs are available`
 
-Meaning:
+含义：
 
-- The current shell/session could not see usable NVIDIA devices
-
-Observed checks:
-
-- `nvidia-smi` initially failed to communicate with driver
-- `torch.cuda.is_available()` returned `False`
+- 当前 shell / 会话没有看到可用的 NVIDIA GPU
 
 ### 2. `CUDA-capable device(s) is/are busy or unavailable`
 
-Meaning:
+含义：
 
-- The selected GPU was seen by CUDA, but the device was not usable for training at that time
-- Possible reasons include device state, allocation policy, or card availability fluctuation
+- CUDA 能看到所选 GPU，但这张卡当前不可用
+- 可能是被占用、状态异常或驱动层面问题
 
-### 3. Deprecated key warning
+### 3. `eval.chunk_size` deprecated warning
 
-Observed warning:
-
-- `eval.chunk_size` is deprecated
-
-Preferred newer form:
+旧写法会有警告。推荐改成：
 
 ```yaml
 eval:
@@ -132,36 +138,42 @@ entity_ranking:
   chunk_size: 5000
 ```
 
-The official config already uses the newer `entity_ranking.chunk_size` form.
+当前 `examples/RotatE_FB15k237.yaml` 已经使用了新的 `entity_ranking.chunk_size` 形式。
 
-## Minimal Run Reminder
+## 最小运行提醒
 
-Shortest basic workflow:
+如果当前配置文件里的 seed 已经设置好，例如：
 
-```bash
-conda activate LibKGE
-cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
-kge start examples/fb15k237-rotate-official.yaml
+```yaml
+random_seed:
+  default: 1
 ```
 
-More stable GPU-specific version:
+那么可以这样运行：
 
 ```bash
-conda activate LibKGE
 cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
-CUDA_VISIBLE_DEVICES=1 kge start examples/fb15k237-rotate-official.yaml --job.device cuda:0
+CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --folder local/multiplicity/RotatE_FB15k237/seed_1
 ```
 
-If no `--folder` is provided, LibKGE automatically creates an experiment folder under:
+如果之后要跑新的独立实验，就修改 YAML 中的 seed，并把输出目录同步改成对应的 `seed_n`。
 
-- `local/experiments/`
+## 与 Multiplicity 的关系
 
-## Good Next Topics To Learn
+`LibKGE` 在这里的作用是：
 
-- How checkpoints are named and used
-- Difference between `kge start`, `kge resume`, `kge valid`, and `kge test`
-- What `reciprocal_relations_model` changes compared with plain RotatE
-- How validation metrics choose `checkpoint_best.pt`
-- How to inspect logs and traces after a run
-- How hyperparameter search works in `manual_search`, `ax_search`, and `grash_search`
+1. 训练同一配置下的多个独立 run
+2. 为后续 `Multiplicity` 评估提供 checkpoint 和 config
 
+真正的 multiplicity 指标计算并不在这里，而在：
+
+- `Multiplicity/`
+
+## 新对话时的建议
+
+如果新开对话，不必每次先通读整个 `LibKGE/`。
+
+更省 token 的方式是：
+
+1. 先读 `Multiplicity/README_Eamon.md`
+2. 只有在需要训练命令、GPU、seed、输出目录时，再读这份文件

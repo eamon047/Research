@@ -1,0 +1,11 @@
+To start the RotatE FB15k-237 run, copy and paste one of the commands below.
+
+Single-line version:
+
+CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --folder local/multiplicity/RotatE_FB15k237/seed_0
+
+Multi-line version:
+
+CUDA_VISIBLE_DEVICES=1 kge start examples/RotatE_FB15k237.yaml \
+--job.device cuda:0 \
+--folder local/multiplicity/RotatE_FB15k237/seed_1
