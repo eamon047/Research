@@ -95,6 +95,10 @@ CUDA_VISIBLE_DEVICES=<物理GPU编号> kge start ... --job.device cuda:0
 
 - `LibKGE/local/multiplicity/RotatE_FB15k237/seed_0`
 - `LibKGE/local/multiplicity/RotatE_FB15k237/seed_1`
+- `LibKGE/local/multiplicity/RotatE_FB15k237/seed_2`
+- `LibKGE/local/multiplicity/RotatE_FB15k237/seed_3`
+- `LibKGE/local/multiplicity/RotatE_FB15k237/seed_4`
+- `LibKGE/local/multiplicity/RotatE_FB15k237/seed_5`
 
 理想结构类似：
 
@@ -105,11 +109,91 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
   seed_2/
 ```
 
+## 当前已核实的 repeated runs 状态
+
+已确认：
+
+- `seed_0` 到 `seed_5` 这 6 个目录都存在。
+- 每个目录里的 `config.yaml` 都记录了对应的 `random_seed.default`。
+- 目前这 6 个 run 没有发现“忘记改 seed，结果重复用了同一个 seed”的问题。
+
+对应关系是：
+
+- `seed_0 -> random_seed.default = 0`
+- `seed_1 -> random_seed.default = 1`
+- `seed_2 -> random_seed.default = 2`
+- `seed_3 -> random_seed.default = 3`
+- `seed_4 -> random_seed.default = 4`
+- `seed_5 -> random_seed.default = 5`
+
+此外，`trace.yaml` 也支持这个结论：
+
+- 6 个目录的训练 `job_id` 都不同。
+- 没有看到 `job_resumed` 事件。
+- 前几个 epoch 的 loss 轨迹彼此不同。
+
+因此当前可以把这 6 个 run 视为 6 次独立训练结果。
+
 ## 论文设定里需要记住的事实
 
 - 论文里的 epsilon-level set 是按 `Hits@K` 定义的。
 - 主链路预测表使用的是 `Hits@10`。
 - `epsilon = 0.01` 表示绝对容差 `0.01`，也就是 1 个百分点，不是 0.01%。
+- 更具体地说，在当前主实验里，是否属于近似模型，要看 `Hits@10` 的绝对差值是否 `<= 0.01`，不是看 `MRR`。
+
+## 关于 epsilon 的核实结果
+
+这件事已经结合论文和代码核实过：
+
+- 论文定义里，baseline 和 competing model 的差距是按 `Hits@K` 定义的，不是按 `MRR`。
+- 对当前 link prediction 主实验，代码里使用的是 `k = 10`。
+- `Multiplicity/main.py` 中的 `epsilon` 实现是同一组模型的 `max(hits) - min(hits)`。
+
+因此当前语境下：
+
+- `epsilon = 0.01`
+
+等价于：
+
+- `Hits@10` 的绝对差距不超过 `0.01`
+
+也就是：
+
+- 不超过 1 个百分点
+
+## 当前 6 个 run 与 epsilon 条件的关系
+
+当前已经做过一次粗核对：
+
+- 若按“验证集上达到过的最高 `Hits@10`”来选 baseline，
+  那么当前 6 个 run 里最强的是 `seed_3`。
+- 其余 `seed_0`、`seed_1`、`seed_2`、`seed_4`、`seed_5`
+  与最佳 run 的 `Hits@10` 差距都显著小于 `0.01`。
+
+这意味着：
+
+- 这 6 个 run 目前足够支持一个“小规模的 epsilon-level set 近似实验”。
+
+但要注意：
+
+- 这只能算是一个 `6-model` 的 pilot / 缩小版复现。
+- 它不能直接等同于论文里“收集到 10 个 competing models”的完整设定。
+
+## 下一步最合理的实验口径
+
+如果下一步继续推进 `RotatE + FB15k-237`，当前最合理的表述是：
+
+- 先基于现有 6 个独立 run，做一个缩小版的 multiplicity 评估。
+- baseline 可以先从这 6 个 run 里按验证 `Hits@10` 最高者选出。
+- 剩余满足 `epsilon <= 0.01` 的 run 可先作为 competing models。
+
+同时要记住一个重要细节：
+
+- 不要直接默认使用 `checkpoint_best.pt` 作为论文意义下的最佳模型。
+- LibKGE 的 `checkpoint_best.pt` 可能是按验证 `MRR` 选出来的。
+- 而论文这里构造 epsilon-level set 的基准应当是验证 `Hits@10`。
+- 因此后续真正进入 `Multiplicity` 评估前，最好先确定每个 run
+  “验证 `Hits@10` 最高的 epoch” 对应的是哪个 checkpoint。
 
 ## 当前 released code 的现实限制
 
@@ -129,4 +213,6 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 请先读 Multiplicity/README_Eamon.md。
 只有在需要训练或 GPU 细节时，再读 LibKGE/README_Eamon.md。
 我们当前在复现 Multiplicity，第一目标是 RotatE + FB15k-237。
+LibKGE/local/multiplicity/RotatE_FB15k237 里已有 seed_0 到 seed_5 六个独立 run。
+epsilon 已确认是按 Hits@10 的绝对差值 0.01 来判定，不是按 MRR。
 ```
