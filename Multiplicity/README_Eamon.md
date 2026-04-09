@@ -12,6 +12,22 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 
 重点是复现 `Multiplicity` 论文实验，不是单独研究 LibKGE。
 
+## 协作规范
+
+之后如果 Codex 需要修改现有文件，默认遵循下面的规则：
+
+- 优先在原文件基础上增量补充，不要随意覆盖或删除已有内容。
+- 如果一个文件里已有用户自己整理的命令、备注、历史记录，除非用户明确要求清理或替换，否则应保留。
+- 如果需要重写某个文件，先明确说明原因；若只是补充新内容，应尽量追加或局部修改。
+
+之后如果 Codex 参与方案讨论，默认采用下面的角色要求：
+
+- 以 KG / LLM 方向的专业研究导师视角分析问题，而不是仅仅做执行助手。
+- 保持独立判断和批判性思维，不要为了迎合用户而默认认可一个方案。
+- 如果用户的实验设计、指标口径、复现路径或结论表达不够严谨，要直接指出问题在哪里。
+- 在给建议时，优先区分“严格复现论文”与“工程上可行的近似验证”这两种口径。
+- 对论文、代码、实验日志的关键结论，尽量基于文本或实现核实，不要凭印象回答。
+
 ## 代码职责划分
 
 - `Multiplicity/`
@@ -40,6 +56,15 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 目前优先复现的组合是：
 
 - `RotatE + FB15k-237`
+- `TransE + FB15k-237`
+
+其中当前更适合作为代码调试和评估链路修正入口的是：
+
+- `RotatE + FB15k-237`
+
+而 `TransE + FB15k-237` 当前的定位更偏向：
+
+- 按更贴近论文口径的验证标准，重新生成一套更干净的 repeated runs
 
 当前在用的配置文件是：
 
@@ -113,26 +138,23 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 
 已确认：
 
-- `seed_0` 到 `seed_5` 这 6 个目录都存在。
-- 每个目录里的 `config.yaml` 都记录了对应的 `random_seed.default`。
-- 目前这 6 个 run 没有发现“忘记改 seed，结果重复用了同一个 seed”的问题。
+- `RotatE_FB15k237` 目前已有 `seed_0` 到 `seed_7` 共 8 个 run。
+- `TransE_FB15k237` 目前也已有 `seed_0` 到 `seed_7` 共 8 个 run。
+- 这些目录里的 `config.yaml` 都记录了对应的 `random_seed.default`。
+- 目前没有发现“目录名不同，但实际用了同一个 seed”的问题。
 
-对应关系是：
+进一步核查 `trace.yaml` 后可确认：
 
-- `seed_0 -> random_seed.default = 0`
-- `seed_1 -> random_seed.default = 1`
-- `seed_2 -> random_seed.default = 2`
-- `seed_3 -> random_seed.default = 3`
-- `seed_4 -> random_seed.default = 4`
-- `seed_5 -> random_seed.default = 5`
-
-此外，`trace.yaml` 也支持这个结论：
-
-- 6 个目录的训练 `job_id` 都不同。
+- 每个 run 都只有 1 个独立的 `train job_id` 和 1 个 `eval job_id`。
 - 没有看到 `job_resumed` 事件。
 - 前几个 epoch 的 loss 轨迹彼此不同。
 
-因此当前可以把这 6 个 run 视为 6 次独立训练结果。
+因此当前可以把：
+
+- `RotatE_FB15k237/seed_0~7`
+- `TransE_FB15k237/seed_0~7`
+
+都视为独立训练结果集合。
 
 ## 论文设定里需要记住的事实
 
@@ -178,6 +200,167 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 
 - 这只能算是一个 `6-model` 的 pilot / 缩小版复现。
 - 它不能直接等同于论文里“收集到 10 个 competing models”的完整设定。
+
+## 当前 RotatE / TransE 数据池的结论
+
+目前两套结果都已检查到 `seed_0~7`：
+
+- `RotatE_FB15k237`
+- `TransE_FB15k237`
+
+如果按论文口径，用每个 run 在训练过程中达到过的最佳验证 `Hits@10`
+来比较：
+
+- `RotatE` 当前最佳 run 是 `seed_3`
+- `TransE` 当前最佳 run 是 `seed_1`
+
+并且：
+
+- 两套结果中，其余 run 与各自最佳 run 的 `Hits@10` 差距都小于 `0.01`
+
+因此从“是否足够接近，可以构成 epsilon-level set 的近似样本”这个角度看：
+
+- `RotatE` 当前可用
+- `TransE` 当前也可用
+
+这意味着：
+
+- 对每一套结果，都可以从 8 个 run 里选 1 个 baseline，再选出至少 6 个近似模型，外加 1 个备用 run。
+
+## 目前最重要的技术风险
+
+当前最大的风险已经不是 seed，也不是 epsilon，而是：
+
+- 后续到底用哪个 checkpoint 来代表每个 run
+
+原因是：
+
+- 论文这里构造 baseline / competing models 的标准，本质上围绕验证 `Hits@10`
+- 但 LibKGE 默认的 `checkpoint_best.pt` 是按验证 `MRR` 选出来的
+
+这会导致：
+
+- 某个 run 的“MRR 最优 epoch”
+- 和它的“Hits@10 最优 epoch”
+
+不一定相同。
+
+此外，当前目录里通常只保留最后几个 numbered checkpoints，
+因此部分 run 的“Hits@10 最优 epoch 对应 checkpoint”已经不在本地目录里。
+
+所以目前要明确区分两种口径：
+
+- 工程上先跑通：直接使用现有 `checkpoint_best.pt`
+- 更严格地贴近论文：应尽量使用“验证 `Hits@10` 最优 epoch”的 checkpoint
+
+当前更合理的优先级是：
+
+- 先利用现有 repeated runs 把 `Multiplicity` 代码改到可运行
+- 再决定是否为了更严格的论文口径补跑部分 checkpoint
+
+## 关于 LibKGE 验证指标与 checkpoint_best 的关系
+
+这里已经专门核实过一次 LibKGE 的实现逻辑。
+
+结论是：
+
+- `checkpoint_best.pt` 的选择标准会自动跟随 `valid.metric`
+- 但 numbered checkpoints 的保留 / 删除策略，不会因为 `valid.metric` 改变而自动改变
+
+也就是说：
+
+- 如果把 `valid.metric` 从默认的 `MRR` 改成 `Hits@10`
+- 那么下一轮训练里，`checkpoint_best.pt` 会改为按 `Hits@10` 选
+- 这一点对后续 multiplicity 使用“每个 run 的 best checkpoint”是有帮助的
+
+但同时要知道：
+
+- 这并不会自动保留更多中间 epoch 的 checkpoint
+- 不过如果当前策略只是“每个 seed 最终只使用一个代表模型”，
+  那么现阶段不一定需要额外修改 checkpoint 保留策略
+
+## 当前关于 TransE 重跑的决定
+
+目前已做出的决定是：
+
+- 对 `TransE_FB15k237`，先只修改验证指标口径，不额外修改 checkpoint 保留策略
+
+原因是：
+
+- 当前更关注的是让 `checkpoint_best.pt` 不再按 `MRR` 选
+- 而是按更贴近论文定义的 `Hits@10` 口径来选
+
+当前已在以下配置文件中完成修改：
+
+- `LibKGE/examples/TransE_FB15k237.yaml`
+
+修改内容是：
+
+```yaml
+valid:
+  metric: hits_at_10_filtered_with_test
+```
+
+这里选用：
+
+- `hits_at_10_filtered_with_test`
+
+而不是默认的：
+
+- `mean_reciprocal_rank_filtered_with_test`
+
+这样做的含义是：
+
+- 之后新跑出来的 `TransE` repeated runs，其 `checkpoint_best.pt`
+  将按 `Hits@10` 相关指标选取
+
+当前这样做被视为一个务实折中：
+
+- 先把 run 内部 best checkpoint 的选择标准改正确
+- 暂时不扩大 checkpoint 保留范围
+- 后续优先把 `Multiplicity` 代码改到能吃下这些结果
+
+## 关于 RotatE 指标与 LibKGE README 数字的比较
+
+目前要特别注意，不要把以下两类数字直接比较：
+
+- 训练日志里的验证指标
+- `LibKGE/README.md` 里的最终结果表
+
+因为 `LibKGE/README.md` 里明确写的是：
+
+- `filtered MRR and HITS@k on test data`
+
+也就是说，README 表里的 `RotatE + FB15k-237 = Hits@10 0.522`
+是测试集结果，不是训练过程中的验证集结果。
+
+而我们之前在 `trace.yaml` 里一直看的主要是：
+
+- `split: valid`
+- `hits_at_10_filtered`
+
+所以：
+
+- 直接把当前日志里大约 `0.49x` 的验证结果，与 README 里的 `0.522`
+  进行一一对照，并不严格。
+
+另一个需要注意的点是：
+
+- `filtered` 不是导致数值偏低的原因
+
+`filtered` 的含义是：
+
+- 在 ranking 评估时，把其他已知为真的三元组过滤掉，避免把正确答案误算成负例
+
+一般来说：
+
+- `filtered` 指标应当不低于原始 `unfiltered` 指标
+
+因此当前数值差距的主要来源不是 “用了 filtered”，而是：
+
+- 你在看验证集而不是测试集
+- 你在看 `hits_at_10_filtered`，而不是最终测试设置下的报告值
+- 以及当前 run 的 checkpoint 选择标准仍默认跟随 `MRR`
 
 ## 下一步最合理的实验口径
 

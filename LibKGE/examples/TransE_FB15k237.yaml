@@ -61,6 +61,7 @@ transe:
       p: -1.0
     regularize_weight: 1.8180176908040284e-07
 valid:
+  metric: hits_at_10_filtered_with_test
   early_stopping:
     min_threshold:
       epochs: 50

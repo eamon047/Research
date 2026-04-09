@@ -1,3 +1,16 @@
+RotatE FB15k-237 commands for direct copy/paste.
+
+Single-line version:
+
+CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --folder local/multiplicity/RotatE_FB15k237/seed_0
+
+Multi-line version:
+
+CUDA_VISIBLE_DEVICES=1 kge start examples/RotatE_FB15k237.yaml \
+--job.device cuda:0 \
+--folder local/multiplicity/RotatE_FB15k237/seed_7
+
+
 TransE FB15k-237 commands for direct copy/paste.
 
 Recommended order:
@@ -13,7 +26,7 @@ Important:
 Single test run on GPU 0:
 
 cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
-CUDA_VISIBLE_DEVICES=0 kge start examples/TransE_FB15k237.yaml --job.device cuda:0 --random_seed.default 0 --folder local/multiplicity/TransE_FB15k237/seed_0
+CUDA_VISIBLE_DEVICES=0 kge start examples/TransE_FB15k237.yaml --job.device cuda:0 --random_seed.default 0 --folder local/multiplicity/TransE_FB15k237_N/seed_0
 
 tmux window A: GPU 0 runs seed 0, 1, 2, 3 sequentially:
 
@@ -22,7 +35,7 @@ for s in 0 1 2 3; do
   CUDA_VISIBLE_DEVICES=0 kge start examples/TransE_FB15k237.yaml \
     --job.device cuda:0 \
     --random_seed.default $s \
-    --folder local/multiplicity/TransE_FB15k237/seed_$s
+    --folder local/multiplicity/TransE_FB15k237_N/seed_$s
 done
 
 tmux window B: GPU 1 runs seed 4, 5, 6, 7 sequentially:
@@ -32,10 +45,9 @@ for s in 4 5 6 7; do
   CUDA_VISIBLE_DEVICES=1 kge start examples/TransE_FB15k237.yaml \
     --job.device cuda:0 \
     --random_seed.default $s \
-    --folder local/multiplicity/TransE_FB15k237/seed_$s
+    --folder local/multiplicity/TransE_FB15k237_N/seed_$s
 done
 
 After each run finishes, verify:
 - local/multiplicity/TransE_FB15k237/seed_<n>/config.yaml exists
 - random_seed.default in that config matches <n>
-
