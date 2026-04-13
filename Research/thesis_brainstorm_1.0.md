@@ -1,4 +1,4 @@
-# KGE Model Selection Brainstorm
+# Thesis Brainstorm 1.0
 
 ## 背景
 

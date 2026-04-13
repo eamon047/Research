@@ -12,6 +12,11 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 
 重点是复现 `Multiplicity` 论文实验，不是单独研究 LibKGE。
 
+当前已经进一步明确：
+
+- 短期最优先目标不是严格复现全文，而是先把 `link prediction` 主实验链路稳定跑通。
+- 之后再基于稳定输出去推进 relation pattern 与 multiplicity 的论文分析。
+
 ## 协作规范
 
 之后如果 Codex 需要修改现有文件，默认遵循下面的规则：
@@ -37,6 +42,34 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
   负责训练、验证、评估 KGE 模型。
   重复训练、多 seed 运行、超参数搜索都在这里完成。
 
+## 当前建议的代码入口
+
+当前要特别区分：
+
+- `Multiplicity/main.py`
+- `Multiplicity_rewrite/main.py`
+
+两者定位不同：
+
+- `Multiplicity/main.py`
+  更接近论文 release 的原始研究脚本。
+  它保留了原作者的主计算逻辑，但底部实验入口仍是占位路径和批处理写法，
+  不适合作为当前本地环境的首选可运行入口。
+- `Multiplicity_rewrite/main.py`
+  当前本地 debug 与运行的首选入口。
+  原则是：尽量保留 `main.py` 的主体计算逻辑，只把本地路径、单实验入口、
+  以及必要的显存适配改写到 `Multiplicity_rewrite/` 下。
+
+因此，如果新开对话，关于“当前能跑的 multiplicity 主实验”应优先看：
+
+- `Multiplicity_rewrite/main.py`
+
+而不是直接把：
+
+- `Multiplicity/main.py`
+
+当作现成可运行脚本。
+
 ## 当前复现思路
 
 当前默认假设：
@@ -50,6 +83,18 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 1. 在 `LibKGE` 中，用同一个配置、不同 seed 反复训练。
 2. 为同一个 model-dataset 收集多次独立训练结果。
 3. 之后再把这些训练结果交给 `Multiplicity/` 下的脚本做 multiplicity 评估。
+
+当前已额外明确一条本地 debug 原则：
+
+- 先把主实验代码跑通，再继续细化论文问题和 relation-level 分析
+
+也就是说，当前阶段最重要的是：
+
+- “评估链路是否稳定可运行”
+
+而不是：
+
+- “是否已经严格实现论文里的 baseline 选择与 `epsilon` 构造流程”
 
 ## 当前目标
 
@@ -65,6 +110,11 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 而 `TransE + FB15k-237` 当前的定位更偏向：
 
 - 按更贴近论文口径的验证标准，重新生成一套更干净的 repeated runs
+
+当前阶段还有一个进一步收缩后的目标：
+
+- 先跑通 `RotatE + FB15k-237` 的 multiplicity 主实验
+- 在此基础上再平移到 `TransE`，以及后续的 relation-pattern 分析
 
 当前在用的配置文件是：
 
@@ -156,6 +206,23 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 
 都视为独立训练结果集合。
 
+另外，目前还存在一套额外目录：
+
+- `TransE_FB15k237_N/seed_0~7`
+
+这里的 `_N` 含义是：
+
+- new
+
+并且其关键差异是：
+
+- 该套 run 的验证指标口径更贴近 `Hits@10`
+
+因此：
+
+- 如果后续需要更贴近论文口径地使用 `TransE`
+- 当前优先考虑 `TransE_FB15k237_N`
+
 ## 论文设定里需要记住的事实
 
 - 论文里的 epsilon-level set 是按 `Hits@K` 定义的。
@@ -182,6 +249,21 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 也就是：
 
 - 不超过 1 个百分点
+
+但要特别记住：
+
+- 论文中的 `epsilon` 更多是用来构造 competing model set 的准入条件
+- 当前 released `Multiplicity/main.py` 并没有严格实现这一构造过程
+
+当前代码实际做的是：
+
+- 从已有 runs 中随机抽样
+- 然后对抽到的模型组事后统计 `epsilon = max(hits) - min(hits)`
+
+因此当前一定要区分：
+
+- 论文中的严格 `epsilon`-level set 构造
+- 当前本地代码里的随机抽样 multiplicity 评估
 
 ## 当前 6 个 run 与 epsilon 条件的关系
 
@@ -227,6 +309,19 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 
 - 对每一套结果，都可以从 8 个 run 里选 1 个 baseline，再选出至少 6 个近似模型，外加 1 个备用 run。
 
+但在当前 debug 阶段，实际运行脚本时采用的是更务实的近似设定：
+
+- 从 8 个 run 中取 7 个进入主实验
+- 当前参数设定为：`num = 7`, `agg_num = 7`, `k = 10`
+
+这里应理解为：
+
+- 在 7 个近似等价 run 上进行 multiplicity 评估
+
+而不是：
+
+- 已经严格完成“best baseline + 6 个由 `epsilon` 过滤出的 competing models”的论文口径实现
+
 ## 目前最重要的技术风险
 
 当前最大的风险已经不是 seed，也不是 epsilon，而是：
@@ -257,6 +352,137 @@ LibKGE/local/multiplicity/RotatE_FB15k237/
 
 - 先利用现有 repeated runs 把 `Multiplicity` 代码改到可运行
 - 再决定是否为了更严格的论文口径补跑部分 checkpoint
+
+## 关于 `kge` 包
+
+`Multiplicity` 里的：
+
+```python
+import kge
+```
+
+这里的 `kge` 并不是另外一个神秘外部项目，而是：
+
+- `LibKGE` 仓库通过 `pip install -e .` 安装出来的本地 Python 包
+
+目前已确认：
+
+- `LibKGE` conda 环境中可以成功 `import kge`
+- 对应路径为 `LibKGE/kge/__init__.py`
+
+因此当前 multiplicity 主实验应默认使用：
+
+- `LibKGE` conda 环境
+
+如果之后新开对话，需要先确认：
+
+```bash
+conda activate LibKGE
+python -c "import kge; print(kge.__file__)"
+```
+
+只要输出的是：
+
+- `.../EamonFile/LibKGE/kge/__init__.py`
+
+就说明当前环境口径是对的。
+
+## 当前本地可运行入口的已知修改
+
+当前 `Multiplicity_rewrite/main.py` 的本地版本，已经采用了下面这些最小修改：
+
+1. 不再批量遍历所有论文模型和数据集。
+2. 当前只固定跑一个实验组合。
+3. 当前默认实验目录为：
+   - `LibKGE/local/multiplicity/RotatE_FB15k237`
+4. 当前默认参数为：
+   - `num = 7`
+   - `agg_num = 7`
+   - `k = 10`
+5. 为了避免显存不足，当前额外做了两处本地适配：
+   - 将 `eval.batch_size` 强制设为 `16`
+   - 在打分时使用 `torch.no_grad()`
+
+这里要明确：
+
+- 这两处调整只影响显存占用与运行时间
+- 不改变 multiplicity 评估的定义
+
+## 当前已验证的一次成功运行
+
+当前已经在本地服务器环境中成功跑通一次：
+
+- 入口：`Multiplicity_rewrite/main.py`
+- 组合：`RotatE + FB15k-237`
+- 参数：`num = 7`, `agg_num = 7`, `k = 10`
+- 结果文件：`results/RotatE_FB15k237_num7_agg7_k10.csv`
+
+该次运行的 wall-clock 总耗时约为：
+
+- `16:44.44`
+
+因此后续可以把：
+
+- 约 15 到 20 分钟
+
+视为当前这一组合的一次主实验运行时间量级参考。
+
+## 当前已知但暂不优先处理的 warning
+
+以下 warning 目前都已经见过，并且不影响实验定义：
+
+- `torch.load(... weights_only=False)` 的 `FutureWarning`
+- `torch.cuda.sparse.FloatTensor(...)` 的 deprecated / warning
+
+当前处理原则是：
+
+- 只要没有 traceback、OOM 或显式 `RuntimeError`
+- 且 GPU 与 Python 进程仍在工作
+- 就可以先视为程序仍在正常运行
+
+## 当前推荐运行命令
+
+当前推荐的运行方式是：
+
+```bash
+cd /data/satori_hdd1/EamonZhao/EamonFile
+conda activate LibKGE
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+/usr/bin/time -v python Multiplicity_rewrite/main.py 2>&1 | tee run_mul.log
+```
+
+这样做的好处是：
+
+- 使用正确的 `LibKGE` 环境
+- 对显存碎片更稳一些
+- 运行结束后可直接在日志里查看总耗时
+
+其中最应关注的时间字段是：
+
+- `Elapsed (wall clock) time`
+
+## 关于 query-answering 脚本的当前定位
+
+当前不建议优先投入：
+
+- `Multiplicity/query_answering_1.py`
+- `Multiplicity/query_asnwering_10.py`
+
+原因包括：
+
+- 依赖额外 score cache
+- 发布代码中仍残留作者机器路径
+- 当前主线是 link prediction multiplicity，不是 query-answering 扩展
+
+此外，这两份脚本里还有一个值得记住的可疑点：
+
+- `s_tensor.append(get_top10(o_agg_scores))`
+
+这里看起来很可能本应使用：
+
+- `s_agg_scores`
+
+因此在没有专门核实前，不建议把 query-answering 部分作为当前主线结果来源。
 
 ## 关于 LibKGE 验证指标与 checkpoint_best 的关系
 

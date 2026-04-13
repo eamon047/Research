@@ -1,29 +1,24 @@
 # %%
-# This is the script to evaluate predictive multiplicity for link prediction with a fixed rank threshold
-import datetime
+# This is the script to evaluate predictive multiplicity for link prediction
+# with a fixed rank threshold.
 import argparse
 import os
-import sys
-import traceback
-from pathlib import Path
-import yaml
-import math
-from tqdm import tqdm
 import random
-import pandas as pd
-
-from kge import Dataset
-from kge import Config
-from kge.job import Job
-from kge.misc import get_git_revision_short_hash, kge_base_dir, is_number
-from kge.util.dump import add_dump_parsers, dump
-from kge.util.io import get_checkpoint_file, load_checkpoint
-from kge.util.package import package_model, add_package_parser
-from kge.util.seed import seed_from_config
 from collections import defaultdict
+
+import pandas as pd
 import torch
 import torch.nn.functional as F
+
 import kge.job
+from kge import Config
+from kge import Dataset
+from kge.job import Job
+from kge.util.dump import add_dump_parsers
+from kge.util.io import get_checkpoint_file, load_checkpoint
+from kge.util.package import add_package_parser
+from kge.util.seed import seed_from_config
+
 
 def argparse_bool_type(v):
     "Type for argparse that correctly treats Boolean values"
@@ -36,14 +31,9 @@ def argparse_bool_type(v):
     else:
         raise argparse.ArgumentTypeError("Boolean value expected.")
 
+
 def process_meta_command(args, meta_command, fixed_args):
-    """Process&update program arguments for meta commands.
-
-    `meta_command` is the name of a special command, which fixes all key-value arguments
-    given in `fixed_args` to the specified value. `fxied_args` should contain key
-    `command` (for the actual command being run).
-
-    """
+    """Process and update program arguments for meta commands."""
     if args.command == meta_command:
         for k, v in fixed_args.items():
             if k != "command" and vars(args)[k] and vars(args)[k] != v:
@@ -54,8 +44,11 @@ def process_meta_command(args, meta_command, fixed_args):
                 )
             vars(args)[k] = v
 
-def create_parser(config, additional_args=[]):
-    # define short option names
+
+def create_parser(config, additional_args=None):
+    if additional_args is None:
+        additional_args = []
+
     short_options = {
         "dataset.name": "-d",
         "job.type": "-j",
@@ -63,7 +56,6 @@ def create_parser(config, additional_args=[]):
         "model": "-m",
     }
 
-    # create parser for config
     parser_conf = argparse.ArgumentParser(add_help=False)
     for key, value in Config.flatten(config.options).items():
         short = short_options.get(key)
@@ -75,27 +67,24 @@ def create_parser(config, additional_args=[]):
         else:
             parser_conf.add_argument("--" + key, type=argtype)
 
-    # add additional arguments
     for key in additional_args:
         parser_conf.add_argument(key)
 
-    # add argument to abort on outdated data
     parser_conf.add_argument(
         "--abort-when-cache-outdated",
         action="store_const",
         const=True,
         default=False,
-        help="Abort processing when an outdated cached dataset file is found "
-        "(see description of `dataset.pickle` configuration key). "
-        "Default is to recompute such cache files.",
+        help=(
+            "Abort processing when an outdated cached dataset file is found. "
+            "Default is to recompute such cache files."
+        ),
     )
 
-    # create main parsers and subparsers
     parser = argparse.ArgumentParser("kge")
     subparsers = parser.add_subparsers(title="command", dest="command")
     subparsers.required = True
 
-    # start and its meta-commands
     parser_start = subparsers.add_parser(
         "start", help="Start a new job (create and run it)", parents=[parser_conf]
     )
@@ -112,7 +101,6 @@ def create_parser(config, additional_args=[]):
             help="Whether to immediately run the created job",
         )
 
-    # resume and its meta-commands
     parser_resume = subparsers.add_parser(
         "resume", help="Resume a prior job", parents=[parser_conf]
     )
@@ -140,15 +128,17 @@ def create_parser(config, additional_args=[]):
             ),
             default="default",
         )
+
     add_dump_parsers(subparsers)
     add_package_parser(subparsers)
     return parser
+
 
 def get_job(folder):
     cmd = ["test", folder]
     config = Config()
     parser = create_parser(config)
-    args, unknown_args = parser.parse_known_args(cmd)
+    args, _unknown_args = parser.parse_known_args(cmd)
 
     process_meta_command(args, "create", {"command": "start", "run": False})
     process_meta_command(args, "eval", {"command": "resume", "job.type": "eval"})
@@ -156,9 +146,11 @@ def get_job(folder):
         args, "test", {"command": "resume", "job.type": "eval", "eval.split": "test"}
     )
     process_meta_command(
-        args, "valid", {"command": "resume", "job.type": "eval", "eval.split": "valid"}
+        args,
+        "valid",
+        {"command": "resume", "job.type": "eval", "eval.split": "valid"},
     )
-    # resume command
+
     if args.command == "resume":
         if os.path.isdir(args.config) and os.path.isfile(args.config + "/config.yaml"):
             args.config += "/config.yaml"
@@ -172,7 +164,11 @@ def get_job(folder):
             raise ValueError(
                 "{} is not a valid config file for resuming".format(args.config)
             )
-    # overwrite configuration with command line arguments
+
+    # Use a smaller evaluation batch to reduce GPU memory pressure during
+    # multiplicity evaluation. This changes runtime, not the evaluation logic.
+    config.set("eval.batch_size", 16)
+
     for key, value in vars(args).items():
         if key in [
             "command",
@@ -194,14 +190,13 @@ def get_job(folder):
             config.set(key, value)
             if key == "model":
                 config._import(value)
-    # load checkpoint
+
     checkpoint_file = get_checkpoint_file(config, args.checkpoint)
     Dataset._abort_when_cache_outdated = args.abort_when_cache_outdated
     seed_from_config(config)
-    # create dataset
     dataset = Dataset.create(config)
     checkpoint = load_checkpoint(checkpoint_file, config.get("job.device"))
-    job = Job.create_from(checkpoint, new_config=config, dataset=dataset) # create evaluate job
+    job = Job.create_from(checkpoint, new_config=config, dataset=dataset)
 
     if not job._is_prepared:
         job._prepare()
@@ -212,19 +207,25 @@ def get_job(folder):
 
     return job
 
+
 def majority_scoring(scores):
     max_indices = torch.argmax(scores, dim=1)
     return F.one_hot(max_indices, num_classes=scores.shape[1])
 
+
 def borda_scoring(scores):
     _, indices = torch.sort(scores, descending=True, dim=1)
-    borda_scores = torch.arange(scores.shape[1]-1, -1, -1).expand_as(scores).cuda()
-    return torch.zeros_like(scores, dtype=borda_scores.dtype).scatter_(1, indices, borda_scores)
+    borda_scores = torch.arange(scores.shape[1] - 1, -1, -1).expand_as(scores).cuda()
+    return torch.zeros_like(scores, dtype=borda_scores.dtype).scatter_(
+        1, indices, borda_scores
+    )
+
 
 def range_scoring(scores):
     min_score = torch.min(scores)
     max_score = torch.max(scores)
-    return 2*(scores - min_score)/(max_score-min_score)-1
+    return 2 * (scores - min_score) / (max_score - min_score) - 1
+
 
 def compute_ranks(jobs, agg_func=None):
     num_entities = jobs[0].dataset.num_entities()
@@ -233,38 +234,33 @@ def compute_ranks(jobs, agg_func=None):
     labels_for_ranking = defaultdict(lambda: None)
     s_ranks = []
     o_ranks = []
-    # aggregating scores
-    for batch_number, batch_coords in enumerate(loader):
+
+    for _batch_number, batch_coords in enumerate(loader):
         batch = batch_coords[0].to(device)
         s, p, o = batch[:, 0], batch[:, 1], batch[:, 2]
         label_coords = batch_coords[1].to(device)
 
-        # create sparse labels tensor
         labels = kge.job.util.coord_to_sparse_tensor(
             len(batch), 2 * num_entities, label_coords, device, float("Inf")
         )
         labels_for_ranking["_filt"] = labels
 
-        # aggregating scores
         scores_sp = torch.zeros([batch.shape[0], num_entities], device=device)
         scores_po = torch.zeros([batch.shape[0], num_entities], device=device)
-        if agg_func == None:
-            scores = jobs[-1].model.score_sp_po(s,p,o)
-            # re-scoring with voting methods
-            scores_sp = scores[:, :num_entities]
-            scores_po = scores[:, num_entities:]
-        else:
-            for job in jobs:
-                scores = job.model.score_sp_po(s,p,o)
-                # re-scoring with voting methods
-                scores_sp += agg_func(scores[:, :num_entities])
-                scores_po += agg_func(scores[:, num_entities:])
-        # get the true scores
+        with torch.no_grad():
+            if agg_func is None:
+                scores = jobs[-1].model.score_sp_po(s, p, o)
+                scores_sp = scores[:, :num_entities]
+                scores_po = scores[:, num_entities:]
+            else:
+                for job in jobs:
+                    scores = job.model.score_sp_po(s, p, o)
+                    scores_sp += agg_func(scores[:, :num_entities])
+                    scores_po += agg_func(scores[:, num_entities:])
+
         o_true_scores = scores_sp[range(o.shape[0]), o]
         s_true_scores = scores_po[range(s.shape[0]), s]
-        
-        # default dictionary storing rank and num_ties for each key in rankings
-        # as list of len 2: [rank, num_ties]
+
         ranks_and_ties_for_ranking = defaultdict(
             lambda: [
                 torch.zeros(s.size(0), dtype=torch.long, device=device),
@@ -274,25 +270,20 @@ def compute_ranks(jobs, agg_func=None):
 
         chunk_start = 0
         chunk_end = num_entities
-        # densify the needed part of the sparse labels tensor
         labels_chunk = jobs[0]._densify_chunk_of_labels(
             labels_for_ranking["_filt"], chunk_start, chunk_end
         )
 
-        # replace the precomputed true_scores with the ones occurring in the
-        # scores matrix to avoid floating point issues
         s_in_chunk_mask = (chunk_start <= s) & (s < chunk_end)
         o_in_chunk_mask = (chunk_start <= o) & (o < chunk_end)
         o_in_chunk = (o[o_in_chunk_mask] - chunk_start).long()
         s_in_chunk = (s[s_in_chunk_mask] - chunk_start).long()
-        # remove current example from labels
+
         labels_chunk[o_in_chunk_mask, o_in_chunk] = 0
         labels_chunk[
             s_in_chunk_mask, s_in_chunk + (chunk_end - chunk_start)
         ] = 0
 
-        # compute partial ranking and filter the scores (sets scores of true
-        # labels to infinity)
         (
             s_rank_chunk,
             s_num_ties_chunk,
@@ -304,15 +295,13 @@ def compute_ranks(jobs, agg_func=None):
             scores_sp, scores_po, labels_chunk, o_true_scores, s_true_scores
         )
 
-        # from now on, use filtered scores
         scores_sp = scores_sp_filt
         scores_po = scores_po_filt
 
-        # update rankings
-        ranks_and_ties_for_ranking["s" + "_filt"][0] += s_rank_chunk
-        ranks_and_ties_for_ranking["s" + "_filt"][1] += s_num_ties_chunk
-        ranks_and_ties_for_ranking["o" + "_filt"][0] += o_rank_chunk
-        ranks_and_ties_for_ranking["o" + "_filt"][1] += o_num_ties_chunk
+        ranks_and_ties_for_ranking["s_filt"][0] += s_rank_chunk
+        ranks_and_ties_for_ranking["s_filt"][1] += s_num_ties_chunk
+        ranks_and_ties_for_ranking["o_filt"][0] += o_rank_chunk
+        ranks_and_ties_for_ranking["o_filt"][1] += o_num_ties_chunk
 
         s_rank = jobs[0]._get_ranks(
             ranks_and_ties_for_ranking["s_filt"][0],
@@ -329,17 +318,19 @@ def compute_ranks(jobs, agg_func=None):
     o_ranks = torch.cat(o_ranks)
     return s_ranks, o_ranks
 
-# Functions for evaluation
+
 def hits_at_k(ranks, k):
-    hits = torch.sum(ranks < k)/ranks.shape[0]
+    hits = torch.sum(ranks < k) / ranks.shape[0]
     return hits.item()
+
 
 def ambiguity_at_k(ranks, k):
     hits_tensor = torch.stack(ranks) < k
     true_count = torch.sum(hits_tensor, dim=0)
     amb_bool = (true_count > 0) & (true_count < hits_tensor.shape[0])
-    ambiguity = torch.sum(amb_bool)/amb_bool.shape[0]
+    ambiguity = torch.sum(amb_bool) / amb_bool.shape[0]
     return ambiguity.item()
+
 
 def discrepancy_at_k(ranks, k):
     baseline = ranks[0] < k
@@ -349,165 +340,116 @@ def discrepancy_at_k(ranks, k):
         candidate = torch.sum(baseline != competing).item()
         if candidate > discrepancy:
             discrepancy = candidate
-    return discrepancy/baseline.shape[0]
+    return discrepancy / baseline.shape[0]
+
 
 def evaluation(jobs, agg_index_list, k, agg_func=None):
-    # loop for num* competing models
     ranks = []
-    for agg_indeces in agg_index_list:
-        agg_jobs = [jobs[i] for i in agg_indeces]
-        if agg_func == None:
+    for agg_indices in agg_index_list:
+        agg_jobs = [jobs[i] for i in agg_indices]
+        if agg_func is None:
             s_ranks, o_ranks = compute_ranks(agg_jobs)
         else:
             s_ranks, o_ranks = compute_ranks(agg_jobs, agg_func=agg_func)
         ranks.append(torch.cat([s_ranks, o_ranks]))
-    # filtering process
+
     mask = torch.any(torch.stack(ranks) < k, dim=0)
     masked_ranks = []
     for rank in ranks:
         masked_ranks.append(rank[mask])
 
-    # evaluate hits
     hits = []
     for rank in ranks:
         hits.append(hits_at_k(rank, k))
 
-    mean_hits = sum(hits)/len(hits)
-    epsilon = max(hits)-min(hits)
+    mean_hits = sum(hits) / len(hits)
+    epsilon = max(hits) - min(hits)
     ambiguity = ambiguity_at_k(masked_ranks, k)
     discrepancy = discrepancy_at_k(masked_ranks, k)
     return mean_hits, epsilon, ambiguity, discrepancy
 
-DEFAULT_MODELS = ["TransE", "RESCAL", "DistMult", "ComplEx", "ConvE"]
-DEFAULT_DATASETS = ["WN18", "WN18RR", "FB15k", "FB15k237"]
 
+def run_experiment():
+    # Minimal local configuration.
+    # For TransE_N, set EXPERIMENT_NAME = "TransE_FB15k237_N".
+    EXPERIMENTS_ROOT = "LibKGE/local/multiplicity"
+    MODEL = "RotatE"
+    DATASET = "FB15k237"
+    EXPERIMENT_NAME = "RotatE_FB15k237"
 
-def parse_name_list(values):
-    items = []
-    for value in values:
-        items.extend([part for part in value.split(",") if part])
-    return items
+    NUM = 7
+    AGG_NUM = 7
+    K = 10
+    RANDOM_SEED = 0
 
+    OUTPUT_CSV = "results/RotatE_FB15k237_num7_agg7_k10.csv"
 
-def resolve_run_folders(experiments_root, model, dataset):
-    run_root = Path(experiments_root) / model / f"{model}_{dataset}"
-    if not run_root.is_dir():
-        raise FileNotFoundError(
-            f"Cannot find experiment directory: {run_root}"
-        )
+    experiment_dir = os.path.join(EXPERIMENTS_ROOT, EXPERIMENT_NAME)
+    print(f"{MODEL}-{DATASET}")
+    print(f"Loading runs from: {experiment_dir}")
 
-    folders = sorted(
-        str(path)
-        for path in run_root.iterdir()
-        if path.is_dir() and (path / "config.yaml").is_file()
-    )
-    if not folders:
-        raise FileNotFoundError(
-            f"No LibKGE runs with config.yaml found under: {run_root}"
-        )
-    return folders
+    if not os.path.isdir(experiment_dir):
+        raise FileNotFoundError(f"Experiment directory does not exist: {experiment_dir}")
 
+    dir_paths = [
+        os.path.join(experiment_dir, name)
+        for name in sorted(os.listdir(experiment_dir))
+        if os.path.isdir(os.path.join(experiment_dir, name))
+        and os.path.isfile(os.path.join(experiment_dir, name, "config.yaml"))
+    ]
 
-def sample_aggregation_indices(num_jobs, num, agg_num, random_seed):
-    if num_jobs < agg_num:
+    if len(dir_paths) < NUM:
         raise ValueError(
-            f"Need at least {agg_num} runs, but found only {num_jobs}."
+            f"Need at least {NUM} runs, but only found {len(dir_paths)} in {experiment_dir}"
         )
-    if num_jobs < num:
+    if len(dir_paths) < AGG_NUM:
         raise ValueError(
-            f"Need at least {num} candidate runs for baseline sampling, but found only {num_jobs}."
+            f"Need at least {AGG_NUM} runs for aggregation, but only found {len(dir_paths)} in {experiment_dir}"
         )
 
-    random.seed(random_seed)
-    baseline_indices = random.sample(list(range(num_jobs)), num)
+    jobs = []
+    for folder in dir_paths:
+        jobs.append(get_job(folder))
+
+    random.seed(RANDOM_SEED)
+    baseline_indices = random.sample(list(range(len(jobs))), NUM)
     agg_index_list = []
     for baseline_index in baseline_indices:
         agg_indices = random.sample(
-            [i for i in range(num_jobs) if i != baseline_index], agg_num - 1
+            [i for i in range(len(jobs)) if i != baseline_index], AGG_NUM - 1
         )
         agg_indices.append(baseline_index)
         agg_index_list.append(agg_indices)
-    return agg_index_list
 
-
-def run(args):
     rows = []
-    models = parse_name_list(args.models)
-    datasets = parse_name_list(args.datasets)
-
-    for model in models:
-        for dataset in datasets:
-            print(f"Evaluating {model}-{dataset}")
-            dir_paths = resolve_run_folders(args.experiments_root, model, dataset)
-            jobs = [get_job(folder) for folder in dir_paths]
-            agg_index_list = sample_aggregation_indices(
-                len(jobs), args.num, args.agg_num, args.seed
-            )
-
-            for baseline_name, agg_func in [
-                ("without", None),
-                ("major", majority_scoring),
-                ("borda", borda_scoring),
-                ("range", range_scoring),
-            ]:
-                mean_hits, epsilon, ambiguity, discrepancy = evaluation(
-                    jobs, agg_index_list, args.k, agg_func=agg_func
-                )
-                rows.append(
-                    {
-                        "Model": model,
-                        "Dataset": dataset,
-                        "Baselines": baseline_name,
-                        "Hits": mean_hits,
-                        "Epsilon": epsilon,
-                        "Alpha": ambiguity,
-                        "Delta": discrepancy,
-                    }
-                )
+    for baseline_name, agg_func in [
+        ("without", None),
+        ("major", majority_scoring),
+        ("borda", borda_scoring),
+        ("range", range_scoring),
+    ]:
+        mean_hits, epsilon, ambiguity, discrepancy = evaluation(
+            jobs, agg_index_list, K, agg_func=agg_func
+        )
+        rows.append(
+            {
+                "Model": MODEL,
+                "Dataset": DATASET,
+                "Baselines": baseline_name,
+                "Hits": mean_hits,
+                "Epsilon": epsilon,
+                "Alpha": ambiguity,
+                "Delta": discrepancy,
+            }
+        )
 
     df = pd.DataFrame(rows)
-    output_path = Path(args.output)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(output_path, index=False)
-    print(f"Saved results to {output_path}")
-
-
-def build_arg_parser():
-    parser = argparse.ArgumentParser(
-        description="Evaluate predictive multiplicity from trained LibKGE runs."
-    )
-    parser.add_argument(
-        "--experiments-root",
-        type=Path,
-        required=True,
-        help="Root directory containing <Model>/<Model>_<Dataset>/<run>/config.yaml.",
-    )
-    parser.add_argument(
-        "--models",
-        nargs="+",
-        default=DEFAULT_MODELS,
-        help="Model names to evaluate. Accepts repeated args or comma-separated lists.",
-    )
-    parser.add_argument(
-        "--datasets",
-        nargs="+",
-        default=DEFAULT_DATASETS,
-        help="Dataset names to evaluate. Accepts repeated args or comma-separated lists.",
-    )
-    parser.add_argument("--num", type=int, default=10, help="Number of baseline runs.")
-    parser.add_argument(
-        "--agg-num", type=int, default=8, help="Number of runs aggregated together."
-    )
-    parser.add_argument("--k", type=int, default=10, help="Rank threshold for Hits@k.")
-    parser.add_argument("--seed", type=int, default=0, help="Random seed for sampling.")
-    parser.add_argument(
-        "--output",
-        type=Path,
-        default=Path("results") / "results_num10_agg8_k10.csv",
-        help="CSV file to write.",
-    )
-    return parser
+    output_dir = os.path.dirname(OUTPUT_CSV)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+    df.to_csv(OUTPUT_CSV, index=False)
+    print(f"Saved results to: {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
-    run(build_arg_parser().parse_args())
+    run_experiment()
