@@ -459,51 +459,15 @@ ComplEx 的作用不是必须性，而是提高结论可信度：
 
 ## 16. To-Do List
 
-### A. 立刻做
+### 计算量缩减部分
+1. 测定最终评估所需的data池的样本数量（10， 20， 30？）（agg model数量暂定为6）
+2. alpha, delta参数变小的controlled ablation（固定aggregation model数量），调整group大小（2，4，6，8）（subset size 达到一定规模后，继续增加模型数带来的边际收益有限，因此轻量化 aggregation 在成本和效果之间具有更优折中。）
+3. 重复抽样 seed 次数(至少 5 次，最好 10 次) 记录mean ± std
 
-1. 把 3.0 定为当前唯一主文档。
-2. 明确主问题：relation pattern vs predictive multiplicity。
-3. 明确副问题：small committee 只是扩展。
-4. 明确第一阶段只做 `RotatE + FB15k-237`。
-
-### B. 先跑通实验链路
-
-1. 整理 RotatE repeated runs。
-2. 确认 multiplicity evaluation 脚本能稳定输出。
-3. 确认 relation-level 聚合结果能导出。
-
-### C. 写 relation statistics 脚本
-
-1. mapping type
-2. answer cardinality
-3. symmetry score
-4. inverse strength
-5. optional: relation frequency
-
-### D. 先做第一版分析
-
-1. 只分析 RotatE
-2. 输出 relation-level 表格
-3. 画不同 pattern 下 multiplicity severity 的图
-4. 看有没有明显趋势
-
-### E. 第二版增强
-
-1. 加入 TransE
-2. 做同样的 relation-level 分析
-3. 对比两模型的 multiplicity profile
-
-### F. 如果顺利再做
-
-1. 补 ComplEx
-2. 做 small committee vs full voting
-3. 固定最终输出数，重复多 seed，报 mean ± std
-
-### G. 暂时不要做
-
-1. query-level selector
-2. dynamic committee size
-3. composition / additivity
-4. hierarchy
-5. commutative / non-commutative
-6. 一上来就多数据集多模型全开
+### predictive multiplicity与relation structure的关系（RotatE- KB15k237）
+1. cardinality: 1-1 / 1-N / N-1 / N-N(参考LibKGE论文中的分类方法)(不是将同类query混合在一起分析 应该以relation为单位分析后merge 防止极端数量query主导结果)
+2. symmetry（定义方式？若不作为二维标签而使用得分，得分的定义方式与获得方法？
+3. inverse
+4. 基于frequency的分层（控制变量 对于频率低-中-高的relation分别进行下述的pattern的分析 上述的pattern导致的multiplicity变化在控制frequency的情况下仍然成立）
+5. 最低支持度阈值（仅对满足最低支持度阈值的 relation 进行 relation-level 分析）（基于relation在train或test中的query数量判断）（避免特别极端的 relation 在统计图中形成噪声）
+5. 补充模型TransE（同样进行上述三组）（在论文撰写阶段 TransE的结果与RotatE的结果的排版方式/书写形式？）

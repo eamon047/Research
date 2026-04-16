@@ -19,6 +19,10 @@ The paper PDF is included here:
 - `main.py`
   Reproduces the link-prediction multiplicity table by loading multiple trained
   LibKGE runs and evaluating Hits@k, epsilon, ambiguity, and discrepancy.
+- `relation_mapping_analysis.py`
+  Exports a relation-level CSV for mapping-type analysis. It keeps the local
+  evaluation setup from `main.py`, but writes one row per relation with support,
+  mapping type, and multiplicity metrics.
 - `epsilon_evaluation.py`
   Research script for the epsilon-sensitivity analysis described in the paper.
   It is still specialized to the original setup and has not been fully cleaned up.
