@@ -8,7 +8,7 @@ GPU 设置、LibKGE 运行细节时，再去读 `LibKGE/README_Eamon.md`。
 
 当前项目的主要目标是复现 EMNLP 2024 论文：
 
-- `Multiplicity/Zhu 等 - 2024 - Predictive Multiplicity of Knowledge Graph Embeddings in Link Prediction.pdf`
+- `Multiplicity/paper.pdf`
 
 重点是复现 `Multiplicity` 论文实验，不是单独研究 LibKGE。
 
@@ -408,6 +408,129 @@ python -c "import kge; print(kge.__file__)"
 - 这两处调整只影响显存占用与运行时间
 - 不改变 multiplicity 评估的定义
 
+## 当前 rewrite 版到底在算什么
+
+这一点非常重要，因为当前 `Multiplicity_rewrite/main.py` 的可运行版本，
+虽然保留了原始 `main.py` 的主计算逻辑，但它并不等于论文里的严格实验流程。
+
+### 1. 它没有实现“先选 best baseline，再按 epsilon 构造 competing set”
+
+当前代码不会自动执行下面这条严格论文流程：
+
+1. 先选出 performance 最好的 baseline model
+2. 再按 `epsilon` 过滤出 competing models
+3. 最后只在这个 `epsilon`-level set 上评估 multiplicity
+
+当前代码实际做的是：
+
+- 先读取一个已有 run 池
+- 再从 run 池中随机抽样
+- 然后直接在这些抽样结果上计算 `Hits / Epsilon / Alpha / Delta`
+
+因此当前应当明确区分：
+
+- 论文原意：best baseline + epsilon-filtered competing set
+- 当前 released-code / rewrite 口径：randomly sampled run groups
+
+### 2. `NUM` 和 `AGG_NUM` 的真实含义
+
+当前代码中：
+
+- `NUM`
+  表示要生成多少个待比较输出
+- `AGG_NUM`
+  表示每个输出对应的 committee 大小
+
+它们都不是：
+
+- “总模型数”
+- “baseline 数量”
+
+例如当前实际目录里有 `8` 个 run，而参数设为：
+
+- `NUM = 7`
+- `AGG_NUM = 7`
+
+这表示的是：
+
+- 从 `8` 个 run 中随机选出 `7` 个 baseline index
+- 对每个 baseline index，再构造一个大小为 `7` 的 committee
+- 最终得到 `7` 个 outputs 用于比较
+
+### 3. `without` 不是“和最优模型比较”
+
+当前代码在 `without` 情况下，并不是“拿一个最优模型去和 aggregated model 比”。
+
+它实际做的是：
+
+- 对每个 sampled group，只取该 group 最后一个模型的输出
+- 这个“最后一个模型”其实就是构造 group 时 append 进去的那个 baseline index
+
+因此：
+
+- `without` 模式下，比较的是多个单模型输出之间的 multiplicity
+- 不是“一个固定最优模型 vs 若干 competing models”
+
+### 4. `major / borda / range` 也不是论文里的两层 voting
+
+论文原意更接近：
+
+- 对 `S'ε(M*)` 里的每一个模型
+- 再额外训练一组模型做 aggregation
+- 最后比较这些 aggregated models
+
+这意味着论文里的 voting 是更严格的两层过程。
+
+但当前代码并没有额外训练第二层模型。
+
+当前 `major / borda / range` 做的是：
+
+- 直接对现有 run 池里的 committee 做投票聚合
+
+因此当前 voting 结果应理解为：
+
+- 现有 run 池上的直接 committee voting
+
+而不是：
+
+- 论文里严格 two-level voting protocol 的完整复现
+
+### 5. Alpha / Delta 到底是对谁算的
+
+当前代码会先生成一组 outputs，然后：
+
+- `Alpha` 在这组 outputs 之间计算
+- `Delta` 也是在这组 outputs 之间计算
+
+需要特别注意：
+
+- 当前代码里的 `Delta` 基准不是“best model”
+- 而是 `ranks[0]`，也就是当前输出列表中的第一个结果
+
+因此：
+
+- 当前 `Delta` 的基准是“当前 sampled outputs 中的第一个输出”
+- 不是论文语义下经过选择的最优 baseline
+
+### 6. 当前结果应该怎么表述
+
+因此当前 `Multiplicity_rewrite/main.py` 跑出来的结果，应当表述为：
+
+- 在当前 run 池和当前 sampling / committee 设定下的 multiplicity 结果
+
+而不应直接表述为：
+
+- 严格复现论文中“best baseline + epsilon-level set + two-level voting”的最终结果
+
+更准确地说，当前结果是：
+
+- released-code 口径下
+- 本地可运行版本
+- 单模型单数据集
+- 小规模 committee 设置
+
+的 multiplicity 结果
+
 ## 当前已验证的一次成功运行
 
 当前已经在本地服务器环境中成功跑通一次：
@@ -426,6 +549,31 @@ python -c "import kge; print(kge.__file__)"
 - 约 15 到 20 分钟
 
 视为当前这一组合的一次主实验运行时间量级参考。
+
+## 当前结果与论文 Table 5 的关系
+
+当前已对下面两份结果做过一次直接对照：
+
+- 本地结果：`results/RotatE_FB15k237_num7_agg7_k10.csv`
+- 论文结果：`Multiplicity/paper.pdf` 中 `Table 5` 的 `RotatE + FB15k237`
+
+当前判断是：
+
+- `Borda` 与 `range` 的数值非常接近论文
+- `without` 的 `Hits` 接近，但 `Alpha / Delta` 偏高
+- `major` 偏差最大，尤其 `Hits` 明显低于论文
+
+因此当前更合理的总结是：
+
+- 当前本地结果与论文在趋势上吻合
+- 其中 `Borda` 和 `range` 可视为高度接近
+- 但整体还不应表述为严格数值复现
+
+这与下列因素有关：
+
+- 当前仍使用小规模 run 池
+- 当前 voting 只是对现有 runs 直接聚合
+- 当前 `RotatE_FB15k237` 仍是旧的 `MRR` 口径 runs
 
 ## 当前已知但暂不优先处理的 warning
 
@@ -592,8 +740,8 @@ valid:
 
 如果下一步继续推进 `RotatE + FB15k-237`，当前最合理的表述是：
 
-- 先基于现有 6 个独立 run，做一个缩小版的 multiplicity 评估。
-- baseline 可以先从这 6 个 run 里按验证 `Hits@10` 最高者选出。
+- 先基于现有 8 个独立 run，做一个缩小版的 multiplicity 评估。
+- baseline 可以先从这些 run 里按验证 `Hits@10` 最高者选出。
 - 剩余满足 `epsilon <= 0.01` 的 run 可先作为 competing models。
 
 同时要记住一个重要细节：
@@ -622,6 +770,6 @@ valid:
 请先读 Multiplicity/README_Eamon.md。
 只有在需要训练或 GPU 细节时，再读 LibKGE/README_Eamon.md。
 我们当前在复现 Multiplicity，第一目标是 RotatE + FB15k-237。
-LibKGE/local/multiplicity/RotatE_FB15k237 里已有 seed_0 到 seed_5 六个独立 run。
+LibKGE/local/multiplicity/RotatE_FB15k237 里已有 seed_0 到 seed_7 八个独立 run。
 epsilon 已确认是按 Hits@10 的绝对差值 0.01 来判定，不是按 MRR。
 ```

@@ -69,6 +69,7 @@ train:
   subbatch_auto_tune: true
   type: negative_sampling
 valid:
+  metric: hits_at_10_filtered_with_test
   early_stopping:
     patience: 10
     threshold:

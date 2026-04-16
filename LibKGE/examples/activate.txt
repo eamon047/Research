@@ -11,6 +11,49 @@ CUDA_VISIBLE_DEVICES=1 kge start examples/RotatE_FB15k237.yaml \
 --folder local/multiplicity/RotatE_FB15k237/seed_7
 
 
+RotatE FB15k-237 rerun commands using `Hits@10` as the validation metric.
+
+Recommended order:
+1. First run a single test job with seed 0 and confirm it starts normally.
+2. If that looks fine, start the two overnight tmux loops.
+
+Important:
+- Run these commands inside /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
+- The seed is overridden on the command line, so you do not need to edit the YAML each time.
+- CUDA_VISIBLE_DEVICES selects the physical GPU.
+- --job.device cuda:0 is still correct because each process only sees one GPU.
+- Write the new runs to `RotatE_FB15k237_N` so they stay separate from the old MRR-based runs.
+
+Single test run on GPU 0:
+
+cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
+CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --random_seed.default 0 --folder local/multiplicity/RotatE_FB15k237_N/seed_0
+
+tmux window A: GPU 0 runs seed 0, 1, 2, 3 sequentially:
+
+cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
+for s in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml \
+    --job.device cuda:0 \
+    --random_seed.default $s \
+    --folder local/multiplicity/RotatE_FB15k237_N/seed_$s
+done
+
+tmux window B: GPU 1 runs seed 4, 5, 6, 7 sequentially:
+
+cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
+for s in 4 5 6 7; do
+  CUDA_VISIBLE_DEVICES=1 kge start examples/RotatE_FB15k237.yaml \
+    --job.device cuda:0 \
+    --random_seed.default $s \
+    --folder local/multiplicity/RotatE_FB15k237_N/seed_$s
+done
+
+After each run finishes, verify:
+- local/multiplicity/RotatE_FB15k237_N/seed_<n>/config.yaml exists
+- random_seed.default in that config matches <n>
+
+
 TransE FB15k-237 commands for direct copy/paste.
 
 Recommended order:
