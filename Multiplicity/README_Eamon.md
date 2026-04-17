@@ -773,3 +773,102 @@ valid:
 LibKGE/local/multiplicity/RotatE_FB15k237 里已有 seed_0 到 seed_7 八个独立 run。
 epsilon 已确认是按 Hits@10 的绝对差值 0.01 来判定，不是按 MRR。
 ```
+
+## 当前 mapping type 分析代码与结果位置
+
+当前 thesis 主线里已经单独拉出了一组 mapping type 分析脚本，均位于：
+
+- `Multiplicity_rewrite/`
+
+当前相关脚本包括：
+
+- `relation_mapping_analysis.py`
+  导出 relation-level CSV
+- `support_distribution_analysis.py`
+  做 support 分布与阈值分析
+- `mapping_type_analysis.py`
+  分析 head+tail 合并版 relation-level CSV
+- `mapping_type_plot.py`
+  为合并版生成图
+- `mapping_type_side_analysis.py`
+  分析按 `head / tail` 拆分后的 relation-level CSV
+- `mapping_type_side_plot.py`
+  为按侧拆分版生成图
+- `multiplicity_utils.py`
+  供上述新分析脚本复用的共享函数
+
+这里需要明确：
+
+- `Multiplicity_rewrite/main.py`
+  仍然保留为原有整体 multiplicity 主实验入口
+- mapping type 分析不再直接依赖修改后的 `main.py` 输出格式
+- thesis 分析更依赖上面这些独立脚本
+
+## 当前 mapping type 结果目录结构
+
+当前已经将相关结果统一整理到：
+
+- `results/RotatE_FB15k237/`
+
+目录结构如下：
+
+```text
+results/RotatE_FB15k237/
+  link_prediction/
+    multiplicity_num7_agg7_k10.csv
+  mapping_type/
+    combined/
+      relation_metrics_num7_agg7_k10.csv
+      support_summary.txt
+      support_thresholds.csv
+      grouped_stats.csv
+      summary.txt
+      boxplots.svg
+    by_side/
+      relation_metrics_num7_agg7_k10.csv
+      grouped_stats.csv
+      summary.txt
+      boxplots.svg
+```
+
+这里的含义是：
+
+- `link_prediction/`
+  原始整体 multiplicity 主实验输出
+- `mapping_type/combined/`
+  head 和 tail 合并后的 relation-level mapping type 分析
+- `mapping_type/by_side/`
+  按 `head / tail` 拆分后的 mapping type 分析
+
+## 当前关于 mapping type 实验口径的结论
+
+当前阶段最重要的经验结论是：
+
+- 如果将 head 和 tail 合并，mapping type 的分离度不够强
+- 一旦按 `head / tail` 拆开，`1-N` 和 `M-1` 的方向性差异会明显增强
+
+更具体地说：
+
+- `1-N` 在 `tail` 侧更难，且 multiplicity 更高
+- `M-1` 在 `head` 侧更难，且 multiplicity 更高
+
+因此当前 thesis 主线中，关于 mapping type 的更强结论应优先来自：
+
+- `results/RotatE_FB15k237/mapping_type/by_side/`
+
+而不是：
+
+- `combined/`
+
+## 当前文档分工建议
+
+为了避免理论、实验记录、代码说明混在一起，目前建议这样分工：
+
+- `Research/thesis_theory.md`
+  只保留理论定义与指标口径
+- `Research/thesis_mapping_type_experiment.md`
+  记录 mapping type 实验设置、过程与阶段性结果
+- `Multiplicity/README_Eamon.md`
+  记录代码入口、目录结构、运行口径与工程注意事项
+
+这样后续补 `TransE` 或新增数据集时，不需要反复改理论定义文件，只需更新实验记录与代码说明。

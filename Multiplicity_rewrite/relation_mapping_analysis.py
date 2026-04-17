@@ -5,8 +5,7 @@ import torch
 
 from multiplicity_utils import (
     LocalExperimentConfig,
-    build_eligible_mask,
-    compute_rank_outputs,
+    compute_rank_data,
     default_local_experiment_config,
     evaluate_rank_outputs,
     load_jobs_from_experiment,
@@ -15,24 +14,29 @@ from multiplicity_utils import (
 )
 
 
-def create_relation_level_rows(rank_outputs, query_relations, jobs, k):
+def create_side_rows(
+    rank_outputs,
+    query_relations,
+    jobs,
+    config,
+    side,
+    baseline_name="without",
+):
     dataset = jobs[0].dataset
     relation_names = dataset.relation_ids()
     relation_types = dataset.index("relation_types")
     test_support_per_relation = torch.bincount(
-        query_relations[: query_relations.shape[0] // 2].cpu(),
+        query_relations.cpu(),
         minlength=dataset.num_relations(),
     )
 
-    stacked_ranks = torch.stack(rank_outputs).cpu()
     query_relations = query_relations.cpu()
-    eligible_mask = build_eligible_mask(rank_outputs, k).cpu()
+    stacked_ranks = [rank.cpu() for rank in rank_outputs]
 
     rows = []
     for relation_id in range(dataset.num_relations()):
-        head_support = int(test_support_per_relation[relation_id].item())
-        tail_support = head_support
-        test_support = head_support
+        test_support = int(test_support_per_relation[relation_id].item())
+        side_support = test_support
         relation_mask = query_relations == relation_id
         relation_query_count = int(torch.sum(relation_mask).item())
 
@@ -43,20 +47,23 @@ def create_relation_level_rows(rank_outputs, query_relations, jobs, k):
             eligible_support = 0
         else:
             relation_rank_outputs = [rank[relation_mask] for rank in stacked_ranks]
-            relation_metrics = evaluate_rank_outputs(relation_rank_outputs, k)
+            relation_metrics = evaluate_rank_outputs(relation_rank_outputs, config.k)
             hits_r = relation_metrics["mean_hits"]
             alpha_r = relation_metrics["ambiguity"]
             delta_r = relation_metrics["discrepancy"]
-            eligible_support = int(torch.sum(eligible_mask[relation_mask]).item())
+            eligible_support = relation_metrics["eligible_support"]
 
         rows.append(
             {
+                "model": config.model,
+                "dataset": config.dataset,
+                "baseline": baseline_name,
                 "relation_id": relation_id,
                 "relation_name": relation_names[relation_id],
                 "mapping_type": relation_types[relation_id],
+                "side": side,
                 "test_support": test_support,
-                "head_support": head_support,
-                "tail_support": tail_support,
+                "side_support": side_support,
                 "eligible_support": eligible_support,
                 "hits_r": hits_r,
                 "alpha_r": alpha_r,
@@ -84,15 +91,36 @@ def run_relation_mapping_analysis(config):
         random_seed=config.random_seed,
     )
 
-    rank_outputs, query_relations = compute_rank_outputs(
-        jobs,
-        agg_index_list,
-        agg_func=None,
-        include_relations=True,
-    )
-    rank_outputs = [rank.cpu() for rank in rank_outputs]
+    head_rank_outputs = []
+    tail_rank_outputs = []
+    query_relations = None
+    for agg_indices in agg_index_list:
+        agg_jobs = [jobs[i] for i in agg_indices]
+        rank_data = compute_rank_data(agg_jobs, agg_func=None, include_relations=True)
+        head_rank_outputs.append(rank_data["s_ranks"])
+        tail_rank_outputs.append(rank_data["o_ranks"])
+        if query_relations is None:
+            query_relations = rank_data["relations"]
 
-    rows = create_relation_level_rows(rank_outputs, query_relations, jobs, config.k)
+    rows = []
+    rows.extend(
+        create_side_rows(
+            head_rank_outputs,
+            query_relations,
+            jobs,
+            config,
+            side="head",
+        )
+    )
+    rows.extend(
+        create_side_rows(
+            tail_rank_outputs,
+            query_relations,
+            jobs,
+            config,
+            side="tail",
+        )
+    )
     df = pd.DataFrame(rows)
 
     output_dir = os.path.dirname(config.output_csv)
@@ -104,7 +132,10 @@ def run_relation_mapping_analysis(config):
 
 def main():
     defaults = default_local_experiment_config(
-        output_csv="results/RotatE_FB15k237_relation_mapping_num7_agg7_k10.csv"
+        output_csv=(
+            "results/RotatE_FB15k237/mapping_type/by_side/"
+            "relation_metrics_num7_agg7_k10.csv"
+        )
     )
     args = parse_local_experiment_args(
         description="Export relation-level mapping-type multiplicity analysis.",

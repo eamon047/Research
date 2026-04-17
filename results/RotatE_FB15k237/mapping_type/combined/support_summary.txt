@@ -1,0 +1,26 @@
+Relation-level support analysis
+
+Input rows: 237
+Mapping type counts:
+- 1-1: 17
+- 1-N: 26
+- M-1: 86
+- M-N: 108
+
+test_support: min=0, p25=10.00, median=23.00, p75=77.00, p90=224.20, max=1447, mean=86.35
+eligible_support: min=0, p25=12.00, median=30.00, p75=82.00, p90=233.60, max=2151, mean=101.35
+eligible_support == 0: 15
+
+Note: eligible_support counts relation-specific head/tail queries that satisfy 'at least one output hits@k'. It is computed on combined query instances, so its natural upper bound is head_support + tail_support.
+
+Threshold sensitivity (minimum test_support):
+- >= 1: keep 224 / 237 relations, drop 13, kept_1-1=13, kept_1-N=26, kept_M-1=80, kept_M-N=105
+- >= 2: keep 219 / 237 relations, drop 18, kept_1-1=13, kept_1-N=26, kept_M-1=78, kept_M-N=102
+- >= 3: keep 214 / 237 relations, drop 23, kept_1-1=10, kept_1-N=26, kept_M-1=78, kept_M-N=100
+- >= 5: keep 201 / 237 relations, drop 36, kept_1-1=9, kept_1-N=26, kept_M-1=72, kept_M-N=94
+- >= 10: keep 182 / 237 relations, drop 55, kept_1-1=7, kept_1-N=22, kept_M-1=63, kept_M-N=90
+- >= 15: keep 150 / 237 relations, drop 87, kept_1-1=3, kept_1-N=18, kept_M-1=51, kept_M-N=78
+- >= 20: keep 133 / 237 relations, drop 104, kept_1-1=2, kept_1-N=14, kept_M-1=46, kept_M-N=71
+- >= 30: keep 103 / 237 relations, drop 134, kept_1-1=2, kept_1-N=9, kept_M-1=33, kept_M-N=59
+- >= 40: keep 86 / 237 relations, drop 151, kept_1-1=2, kept_1-N=8, kept_M-1=26, kept_M-N=50
+- >= 50: keep 75 / 237 relations, drop 162, kept_1-1=1, kept_1-N=7, kept_M-1=23, kept_M-N=44
