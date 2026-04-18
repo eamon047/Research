@@ -1,0 +1,21 @@
+Inverse V2 Relation Stats Summary
+
+Relations: 237
+Directional zero count: 97
+Mutual zero count: 97
+Clarity zero count: 97
+
+directional_inverse_strength:
+- min: 0.0000
+- median: 0.0116
+- max: 0.8794
+
+mutual_inverse_strength:
+- min: 0.0000
+- median: 0.0047
+- max: 0.8026
+
+inverse_clarity:
+- min: 0.0000
+- median: 0.0012
+- max: 0.7770
