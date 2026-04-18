@@ -1,0 +1,55 @@
+Symmetry V2 Analysis Summary
+
+Main symmetry metric: symmetry_score_excluding_self_loops
+
+Merged relations: 237
+Relations with symmetry_score = 0: 207
+Relations with high_symmetry (> 0.5): 24
+Relations with self_loop_count > 0: 17
+
+Threshold: test_support >= 0
+Relations kept: 237 / 237
+- Spearman(symmetry_score, hits_r) = -0.0140 (n=224)
+- Spearman(symmetry_score, alpha_r) = 0.0072 (n=219)
+- Spearman(symmetry_score, delta_r) = -0.0017 (n=219)
+
+Bucket means:
+- zero: n=207, symmetry_mean=0.0000, hits_mean=0.5546, alpha_mean=0.3219, delta_mean=0.1882
+- weak_nonzero: n=6, symmetry_mean=0.0753, hits_mean=0.4725, alpha_mean=0.4436, delta_mean=0.2736
+- high_symmetry: n=24, symmetry_mean=0.8146, hits_mean=0.5157, alpha_mean=0.3143, delta_mean=0.1821
+
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+- Spearman(symmetry_score, hits_r) = -0.0071 (n=201)
+- Spearman(symmetry_score, alpha_r) = 0.0572 (n=200)
+- Spearman(symmetry_score, delta_r) = 0.0507 (n=200)
+
+Bucket means:
+- zero: n=182, symmetry_mean=0.0000, hits_mean=0.5514, alpha_mean=0.3379, delta_mean=0.1961
+- weak_nonzero: n=6, symmetry_mean=0.0753, hits_mean=0.4725, alpha_mean=0.4436, delta_mean=0.2736
+- high_symmetry: n=13, symmetry_mean=0.8169, hits_mean=0.5489, alpha_mean=0.3775, delta_mean=0.2220
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+- Spearman(symmetry_score, hits_r) = 0.0117 (n=182)
+- Spearman(symmetry_score, alpha_r) = 0.0425 (n=181)
+- Spearman(symmetry_score, delta_r) = 0.0520 (n=181)
+
+Bucket means:
+- zero: n=164, symmetry_mean=0.0000, hits_mean=0.5605, alpha_mean=0.3307, delta_mean=0.1838
+- weak_nonzero: n=6, symmetry_mean=0.0753, hits_mean=0.4725, alpha_mean=0.4436, delta_mean=0.2736
+- high_symmetry: n=12, symmetry_mean=0.8163, hits_mean=0.5742, alpha_mean=0.3512, delta_mean=0.2119
+
+High-symmetry relations (test_support >= 10):
+- /military/military_combatant/military_conflicts./military/military_combatant_group/combatants: symmetry=0.8300, raw=0.8300, mapping_type=M-N, hits=0.8151, alpha=0.2667, delta=0.1333, self_loop_count=0
+- /award/award_nominated_work/award_nominations./award/award_nomination/nominated_for: symmetry=0.8257, raw=0.8257, mapping_type=M-N, hits=0.8839, alpha=0.1290, delta=0.1290, self_loop_count=0
+- /award/award_winning_work/awards_won./award/award_honor/honored_for: symmetry=0.8253, raw=0.8253, mapping_type=M-N, hits=0.9000, alpha=0.0000, delta=0.0000, self_loop_count=0
+- /education/field_of_study/students_majoring./education/education/major_field_of_study: symmetry=0.8222, raw=0.8222, mapping_type=M-N, hits=0.5260, alpha=0.6875, delta=0.4375, self_loop_count=0
+- /government/legislative_session/members./government/government_position_held/legislative_sessions: symmetry=0.8206, raw=0.8206, mapping_type=M-N, hits=1.0000, alpha=0.0000, delta=0.0000, self_loop_count=0
+- /music/performance_role/regular_performances./music/group_membership/role: symmetry=0.8173, raw=0.8173, mapping_type=M-N, hits=0.2464, alpha=0.7143, delta=0.3143, self_loop_count=0
+- /award/award_winner/awards_won./award/award_honor/award_winner: symmetry=0.8144, raw=0.8144, mapping_type=M-N, hits=0.5976, alpha=0.2364, delta=0.1273, self_loop_count=0
+- /award/award_nominee/award_nominations./award/award_nomination/award_nominee: symmetry=0.8099, raw=0.8099, mapping_type=M-N, hits=0.7603, alpha=0.1950, delta=0.0891, self_loop_count=0
+- /location/location/adjoin_s./location/adjoining_relationship/adjoins: symmetry=0.8094, raw=0.8094, mapping_type=M-N, hits=0.7247, alpha=0.3118, delta=0.2151, self_loop_count=0
+- /music/performance_role/track_performances./music/track_contribution/role: symmetry=0.8084, raw=0.8084, mapping_type=M-N, hits=0.3315, alpha=0.6078, delta=0.3137, self_loop_count=0
+- /base/popstra/celebrity/dated./base/popstra/dated/participant: symmetry=0.8077, raw=0.8077, mapping_type=M-N, hits=0.0000, alpha=nan, delta=nan, self_loop_count=0
+- /base/popstra/celebrity/friendship./base/popstra/friendship/participant: symmetry=0.8048, raw=0.8048, mapping_type=M-N, hits=0.1049, alpha=0.7143, delta=0.5714, self_loop_count=0

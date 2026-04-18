@@ -6,7 +6,7 @@ This note records the planned setup, implementation path, output structure, and 
 
 Unlike `thesis_theory.md`, this file is not meant to freeze abstract definitions forever. It is a working experiment note for thesis writing and iteration.
 
-At the current stage, this document should be treated as a prepared experiment record rather than a completed result note.
+At the current stage, this document should be treated as an experiment record that already includes both the `RotatE` baseline and the first `TransE` comparison run.
 
 ## Current Scope
 
@@ -96,6 +96,19 @@ Optional follow-up, only if the first round shows a usable signal:
 - `Multiplicity_rewrite/symmetry_plot.py`
   generates plots for thesis writing
 
+## Code Status
+
+The first-round symmetry code has now been implemented in `Multiplicity_rewrite/`.
+
+Current scripts:
+
+- `Multiplicity_rewrite/symmetry_relation_stats.py`
+  computes relation-level symmetry statistics from training triples
+- `Multiplicity_rewrite/symmetry_analysis.py`
+  merges symmetry statistics with relation-level multiplicity results and computes grouped summaries
+- `Multiplicity_rewrite/symmetry_utils.py`
+  provides shared helpers for CSV I/O and basic summary statistics
+
 ## Planned Outputs
 
 The intended output directory is:
@@ -116,6 +129,21 @@ If plotting is later added, additional files may include:
 - `scatter_delta.svg`
 - `scatter_hits.svg`
 - `bucket_means.svg`
+
+## Current Outputs
+
+The first-round outputs have now been generated under:
+
+- `results/RotatE_FB15k237/symmetry/`
+
+Current files are:
+
+- `relation_symmetry_stats.csv`
+- `symmetry_summary.txt`
+- `relation_symmetry_multiplicity_merged.csv`
+- `correlation_stats.csv`
+- `bucket_stats.csv`
+- `analysis_summary.txt`
 
 ## Relation-Level Symmetry Table
 
@@ -273,18 +301,519 @@ These would only be justified if the first round yields an ambiguous but nontriv
 Current status:
 
 - symmetry definitions and thesis positioning have been discussed
-- the main conceptual risk around fake antisymmetry labeling has been identified
-- the self-loop issue has been identified as a required sanity check
-- the first-round experiment has not yet been implemented
-- no symmetry-specific CSVs or plots have yet been generated
+- the first-round symmetry scripts have been implemented
+- the first raw symmetry table has been generated
+- the first merge analysis against relation-level multiplicity results has been completed
+- the self-loop issue has moved from a theoretical concern to an empirical caveat
 
-Therefore, this section is currently at the “pre-registration / implementation planning” stage.
+Therefore, this section is currently at the “first raw symmetry analysis completed” stage.
+
+## First-Round Distribution Summary
+
+The first sanity check shows that the raw symmetry score is mathematically usable, but highly sparse.
+
+Current summary:
+
+- total relations: `237`
+- `symmetry_score = 0`: `193`
+- `symmetry_score > 0.5`: `27`
+- relations with `self_loop_count > 0`: `17`
+- total self loops: `1625`
+
+Distribution summary for raw `symmetry_score`:
+
+- min: `0.0000`
+- 25th percentile: `0.0000`
+- median: `0.0000`
+- 75th percentile: `0.0000`
+- 90th percentile: `0.7903`
+- max: `1.0000`
+
+This means the first-round distribution is extremely zero-heavy, with a relatively small but nonempty high-symmetry tail.
+
+## First-Round Self-Loop Finding
+
+The self-loop concern turned out to be real and nontrivial.
+
+The most important observation is:
+
+- several top raw-symmetry relations are almost entirely driven by self-loops
+
+Examples include:
+
+- `/education/educational_institution/campuses`
+- `/education/educational_institution_campus/educational_institution`
+- `/location/hud_county_place/place`
+
+For these relations:
+
+- raw `symmetry_score = 1.0`
+- but `symmetry_score_excluding_self_loops = 0.0`
+
+This is the most important methodological caveat from the first run.
+
+Therefore, the current raw symmetry metric should not be interpreted naively at the top end without checking whether the score is mainly created by self-loops.
+
+## First-Round Multiplicity Association
+
+Using the raw `symmetry_score`, the first-round global correlations are weak.
+
+For `test_support >= 10`:
+
+- `symmetry_score` vs `hits_r`: `0.0800`
+- `symmetry_score` vs `alpha_r`: `0.0389`
+- `symmetry_score` vs `delta_r`: `0.0161`
+
+So the raw score does not currently support a strong first-order claim of the form:
+
+> higher symmetry strongly predicts lower multiplicity.
+
+## Excluding-Self Auxiliary Check
+
+Although the primary first-round analysis still uses raw `symmetry_score`, the implementation also exported an auxiliary version:
+
+- `symmetry_score_excluding_self_loops`
+
+This was added only for diagnosis, not as the officially frozen main metric.
+
+The auxiliary Spearman check suggests:
+
+- `symmetry_score_excluding_self_loops` has near-zero association with `hits_r`
+- but a weak positive association with `alpha_r` and `delta_r`
+
+For `test_support >= 10`:
+
+- excluding-self vs `hits_r`: `0.0122`
+- excluding-self vs `alpha_r`: `0.1310`
+- excluding-self vs `delta_r`: `0.1292`
+
+This is not yet a strong result, but it already indicates that:
+
+- once the self-loop inflation is removed, the symmetry story does not become a simple “more symmetry means more stability” pattern
+
+## First-Round Interpretation
+
+At the current stage, the safest reading is:
+
+- the symmetry score is usable as a relation-level structural variable
+- but the raw definition is clearly sensitive to self-loops
+- the global relation between symmetry and multiplicity is weak in the first run
+- therefore the section is not yet ready for a strong thesis claim
+
+This does not mean the symmetry direction has failed.
+
+What it means is:
+
+- the first run behaved primarily like a metric audit and sanity-check round
+- the self-loop issue now needs to be resolved explicitly before symmetry can be interpreted with confidence
+
+## Decision After the Raw Run
+
+After the first raw run, the symmetry line should not continue with the raw metric as the main definition.
+
+The current decision is:
+
+- keep raw `symmetry_score` only as a diagnostic sanity-check quantity
+- switch the main analysis metric to `symmetry_score_excluding_self_loops`
+
+Reason:
+
+- the raw metric can assign extremely high symmetry to relations whose apparent support is created almost entirely by self-loops
+- this is too misleading for a thesis-level main result
+
+## V2 Rerun With Excluding-Self Symmetry
+
+The second-round symmetry analysis has now been implemented and executed.
+
+### New Code Path
+
+The new second-round script is:
+
+- `Multiplicity_rewrite/symmetry_analysis_v2.py`
+
+The first-round scripts remain unchanged:
+
+- `symmetry_relation_stats.py`
+- `symmetry_analysis.py`
+
+This split preserves:
+
+- the raw metric audit as a reproducible first round
+- the excluding-self metric as the stricter second round
+
+### New Output Directory
+
+The v2 outputs are stored under:
+
+- `results/RotatE_FB15k237/symmetry_v2/`
+
+Current files are:
+
+- `relation_symmetry_multiplicity_merged_v2.csv`
+- `correlation_stats_v2.csv`
+- `bucket_stats_v2.csv`
+- `analysis_summary_v2.txt`
+
+### V2 Metric and Bucket Design
+
+The main v2 metric is:
+
+- `symmetry_score_excluding_self_loops`
+
+The bucket design was deliberately simplified because the empirical distribution is too sparse for inverse-style fine-grained bucketing.
+
+Current buckets are:
+
+- `zero`
+- `weak_nonzero`
+- `high_symmetry`
+
+where:
+
+- `weak_nonzero` means `(0, 0.5]`
+- `high_symmetry` means `(0.5, 1.0]`
+
+### Distribution After Excluding Self-Loops
+
+After switching to the excluding-self metric:
+
+- `symmetry_score = 0`: `207`
+- `high_symmetry (> 0.5)`: `24`
+
+For `test_support >= 10`:
+
+- `zero`: `164`
+- `weak_nonzero`: `6`
+- `high_symmetry`: `12`
+
+This confirms that the symmetry variable is not smoothly continuous in practice.
+
+Instead, it behaves more like:
+
+- a very large zero group
+- a tiny weak-nonzero residue
+- a compact high-symmetry subgroup
+
+### Main V2 Result
+
+The excluding-self rerun does not support the original hoped-for direction.
+
+For `test_support >= 10`:
+
+- `symmetry_score` vs `hits_r`: `0.0122`
+- `symmetry_score` vs `alpha_r`: `0.1310`
+- `symmetry_score` vs `delta_r`: `0.1292`
+
+Therefore, even after fixing the self-loop problem, the symmetry section still does not support a clean claim that:
+
+> stronger symmetry implies lower multiplicity.
+
+### Bucket-Level Result
+
+The bucket means are also not encouraging for a positive symmetry story.
+
+For `test_support >= 10`:
+
+- `zero`:
+  - `hits_mean = 0.5815`
+  - `alpha_mean = 0.2294`
+  - `delta_mean = 0.1331`
+- `weak_nonzero`:
+  - `hits_mean = 0.5047`
+  - `alpha_mean = 0.3610`
+  - `delta_mean = 0.2236`
+- `high_symmetry`:
+  - `hits_mean = 0.5924`
+  - `alpha_mean = 0.3735`
+  - `delta_mean = 0.2341`
+
+This means:
+
+- the high-symmetry subgroup is not more stable than the zero-symmetry group
+- if anything, the high-symmetry subgroup currently looks more multiplicity-prone on average
+
+### High-Symmetry Case Reading
+
+The high-symmetry subgroup is also quite heterogeneous.
+
+There are some stable high-symmetry relations, for example:
+
+- `/award/award_winning_work/awards_won./award/award_honor/honored_for`
+- `/government/legislative_session/members./government/government_position_held/legislative_sessions`
+
+But there are also very unstable high-symmetry relations, for example:
+
+- `/music/performance_role/regular_performances./music/group_membership/role`
+- `/music/performance_role/track_performances./music/track_contribution/role`
+- `/base/popstra/celebrity/dated./base/popstra/dated/participant`
+- `/base/popstra/celebrity/friendship./base/popstra/friendship/participant`
+
+So the current high-symmetry subgroup is not a clean “good” subgroup in the way the strongest inverse-v2 subgroup was.
+
+### Mapping-Type Concentration
+
+The high-symmetry subgroup is also heavily concentrated in one structural regime.
+
+For `test_support >= 10`:
+
+- `high_symmetry` relations: `12`
+- all `12` are `M-N`
+
+This is an important warning sign.
+
+It means the current symmetry pattern is likely entangled with:
+
+- relation semantics
+- `M-N` structure
+- and possibly relation density
+
+rather than acting as an independent structural explanation.
+
+### Current Interpretation After V2
+
+At the current stage, the safest interpretation is:
+
+- symmetry is not currently giving a useful standalone explanatory pattern for multiplicity
+- once self-loops are handled properly, the remaining signal is sparse and structurally concentrated
+- the excluding-self metric does not reveal a clean low-multiplicity subgroup
+- therefore symmetry should not be promoted as a main positive result under the current setup
+
+### Current Decision After V2
+
+The recommended status is now:
+
+- keep `mapping type` as the stable main structural result
+- keep inverse as the more promising exploratory secondary line
+- treat symmetry as a weak or negative result unless later cross-model evidence changes the picture
+
+At this stage, the best next use of symmetry is not deeper analysis on `RotatE` alone, but:
+
+- later cross-model comparison, especially against `TransE`
+
+because model-class expressiveness may matter more here than within-model relation-level variation alone.
 
 ## Immediate Next Step
 
-The immediate next step should be:
+The immediate next step for symmetry is no longer another within-`RotatE` refinement.
 
-1. implement `symmetry_relation_stats.py`
-2. compute the first raw symmetry table from the training graph
-3. inspect the score distribution and self-loop prevalence
-4. only then decide the final bucket design for the first-round analysis
+Instead, the most informative follow-up would likely be:
+
+1. keep the current `RotatE` symmetry result as a completed baseline
+2. later run the same excluding-self symmetry analysis on `TransE`
+3. then compare whether model-class differences are more informative than relation-level variation within `RotatE`
+
+## TransE Follow-Up Has Now Been Run
+
+The planned `TransE` comparison has now been executed.
+
+This means the symmetry section is no longer only a `RotatE`-internal note. It now includes a first cross-model comparison under the same dataset and repeated-run multiplicity setup.
+
+## TransE Setup
+
+The `TransE` comparison uses:
+
+- model: `TransE`
+- dataset: `FB15k-237`
+- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- repeated runs: `seed_0` to `seed_7`
+
+The comparison deliberately reused existing repeated runs rather than retraining from scratch.
+
+Therefore, this follow-up did **not** require running `main.py` again.
+
+Instead, the workflow was:
+
+1. export the combined relation-level multiplicity table directly from the existing repeated runs
+2. reuse the same symmetry statistics table generation
+3. run both the raw symmetry analysis and the excluding-self v2 analysis
+
+## Additional Code Used For TransE
+
+The `TransE` follow-up required one more export step:
+
+- `Multiplicity_rewrite/relation_multiplicity_combined_export.py`
+
+This script exports the combined relation-level multiplicity table in the same format used by the symmetry merge analysis.
+
+There was also a small infrastructure adjustment:
+
+- `Multiplicity_rewrite/multiplicity_utils.py`
+
+The helper that restores stored runs now falls back to CPU when the original checkpoint config points to CUDA but no visible GPU is available in the current environment.
+
+This is an implementation detail rather than a thesis result, but it matters for reproducibility of the `TransE` comparison.
+
+## TransE Output Directories
+
+The `TransE` outputs are stored under:
+
+- `results/TransE_FB15k237_N/symmetry/`
+- `results/TransE_FB15k237_N/symmetry_v2/`
+
+The exported combined multiplicity table is:
+
+- `results/TransE_FB15k237_N/mapping_type/combined/relation_metrics_num7_agg7_k10.csv`
+
+## Raw TransE Symmetry Result
+
+The raw symmetry analysis for `TransE` largely reproduces the same metric caveat already seen in `RotatE`.
+
+Raw summary:
+
+- merged relations: `237`
+- `symmetry_score = 0`: `193`
+- `symmetry_score > 0.5`: `27`
+- relations with `self_loop_count > 0`: `17`
+
+So the raw symmetry distribution is a property of the training graph, not of the model, and the same self-loop warning still applies.
+
+For `test_support >= 10`, the raw `TransE` correlations are still weak:
+
+- raw `symmetry_score` vs `hits_r`: `0.0919`
+- raw `symmetry_score` vs `alpha_r`: `-0.0307`
+- raw `symmetry_score` vs `delta_r`: `-0.0331`
+
+This means the raw metric remains unsuitable as a thesis-level main definition even in the `TransE` comparison.
+
+## TransE V2 Result With Excluding-Self Symmetry
+
+The more meaningful comparison is the v2 analysis using:
+
+- `symmetry_score_excluding_self_loops`
+
+The distribution after excluding self-loops remains identical to the graph-side `RotatE` baseline:
+
+- `symmetry_score = 0`: `207`
+- `high_symmetry (> 0.5)`: `24`
+
+For `test_support >= 10`:
+
+- `zero`: `164`
+- `weak_nonzero`: `6`
+- `high_symmetry`: `12`
+
+So the structural symmetry variable is still extremely sparse and close to a zero-vs-high subgroup pattern.
+
+## TransE V2 Correlation Summary
+
+For `test_support >= 10`, the excluding-self `TransE` correlations are:
+
+- `symmetry_score` vs `hits_r`: `0.0117`
+- `symmetry_score` vs `alpha_r`: `0.0425`
+- `symmetry_score` vs `delta_r`: `0.0520`
+
+These values are still weak.
+
+Therefore, even under `TransE`, symmetry does not become a strong global explanatory variable for multiplicity.
+
+## TransE V2 Bucket Summary
+
+For `test_support >= 10`, the `TransE` v2 bucket means are:
+
+- `zero`:
+  - `hits_mean = 0.5605`
+  - `alpha_mean = 0.3307`
+  - `delta_mean = 0.1838`
+- `weak_nonzero`:
+  - `hits_mean = 0.4725`
+  - `alpha_mean = 0.4436`
+  - `delta_mean = 0.2736`
+- `high_symmetry`:
+  - `hits_mean = 0.5742`
+  - `alpha_mean = 0.3512`
+  - `delta_mean = 0.2119`
+
+This is slightly less negative than the `RotatE` v2 picture, because the `high_symmetry` subgroup in `TransE` does not look as severely multiplicity-prone as it did in `RotatE`.
+
+However, it is still not a genuinely positive symmetry result:
+
+- `high_symmetry` is not cleaner than `zero`
+- `alpha_mean` and `delta_mean` remain higher than the `zero` group
+
+So the cross-model comparison does **not** rescue the original hypothesis.
+
+## Direct RotatE vs TransE Comparison
+
+Using the same excluding-self definition and `test_support >= 10` threshold:
+
+- `RotatE`
+  - `zero`: `hits=0.5815`, `alpha=0.2294`, `delta=0.1331`
+  - `high_symmetry`: `hits=0.5924`, `alpha=0.3735`, `delta=0.2341`
+- `TransE`
+  - `zero`: `hits=0.5605`, `alpha=0.3307`, `delta=0.1838`
+  - `high_symmetry`: `hits=0.5742`, `alpha=0.3512`, `delta=0.2119`
+
+This suggests three points.
+
+First:
+
+- the symmetry variable itself is not model-dependent; the sparse zero-heavy distribution comes from the graph
+
+Second:
+
+- neither model shows a clean “more symmetry implies lower multiplicity” pattern
+
+Third:
+
+- the penalty of the `high_symmetry` subgroup relative to the `zero` group appears somewhat milder in `TransE` than in `RotatE`
+- but the direction is still not strong enough to support a positive thesis claim
+
+## High-Symmetry Subgroup Under TransE
+
+The `TransE` high-symmetry subgroup remains heterogeneous.
+
+Stable or relatively favorable examples include:
+
+- `/award/award_winning_work/awards_won./award/award_honor/honored_for`
+- `/government/legislative_session/members./government/government_position_held/legislative_sessions`
+- `/award/award_nominated_work/award_nominations./award/award_nomination/nominated_for`
+
+Unstable examples still remain:
+
+- `/music/performance_role/regular_performances./music/group_membership/role`
+- `/music/performance_role/track_performances./music/track_contribution/role`
+- `/base/popstra/celebrity/friendship./base/popstra/friendship/participant`
+
+So even after moving to a different model class, the high-symmetry subgroup is still not a uniformly low-multiplicity group.
+
+## Mapping-Type Concentration Still Holds
+
+The concentration pattern also remains.
+
+For `test_support >= 10`:
+
+- `high_symmetry` relations in `TransE`: `12`
+- all `12` are `M-N`
+
+So the current symmetry signal is still strongly entangled with the `M-N` regime rather than behaving like an independent structural axis.
+
+## Current Cross-Model Interpretation
+
+After adding the `TransE` comparison, the safest overall interpretation is:
+
+- the raw symmetry metric is mainly useful for exposing the self-loop caveat
+- the excluding-self metric is conceptually cleaner and should remain the main definition
+- but under both `RotatE` and `TransE`, symmetry remains a weak global predictor of multiplicity
+- the high-symmetry subgroup is sparse, heterogeneous, and concentrated in `M-N`
+- therefore symmetry should be recorded mainly as a weak or negative result in the current thesis
+
+This is still useful.
+
+The section now contributes:
+
+- a clearly defined symmetry metric
+- an explicit methodological caveat about self-loops
+- a negative cross-model result showing that the problem is not merely an artifact of one model family
+
+## Current Decision After The TransE Comparison
+
+The recommended thesis positioning is now:
+
+- `mapping type` remains the main structural result
+- `inverse` remains the stronger exploratory secondary line
+- `symmetry` should be kept as a documented weak/negative result, supported by both `RotatE` and `TransE`
+
+At this point, deeper analysis on symmetry is unlikely to be worth the time unless a later writing need specifically requires:
+
+- a short appendix-style visualization
+- or a brief model-comparison paragraph in the thesis text

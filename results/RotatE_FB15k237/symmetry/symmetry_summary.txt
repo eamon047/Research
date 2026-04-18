@@ -1,0 +1,48 @@
+Symmetry Relation Stats Summary
+
+Relations: 237
+symmetry_score = 0: 193
+symmetry_score > 0.5: 27
+Relations with self_loops > 0: 17
+Total self loops: 1625
+Relations with |raw - excluding_self| > 0.05: 7
+
+symmetry_score:
+- min: 0.0000
+- p25: 0.0000
+- median: 0.0000
+- p75: 0.0000
+- p90: 0.7903
+- max: 1.0000
+
+symmetry_score_excluding_self_loops:
+- min: 0.0000
+- p25: 0.0000
+- median: 0.0000
+- p75: 0.0000
+- p90: 0.5222
+- max: 0.8800
+
+Top symmetry_score relations:
+- /education/educational_institution/campuses: symmetry=1.0000, train_support=533, symmetric_supported_edge_count=533, self_loop_count=533
+- /education/educational_institution_campus/educational_institution: symmetry=1.0000, train_support=526, symmetric_supported_edge_count=526, self_loop_count=526
+- /location/hud_county_place/place: symmetry=1.0000, train_support=459, symmetric_supported_edge_count=459, self_loop_count=459
+- /base/saturdaynightlive/snl_cast_member/seasons./base/saturdaynightlive/snl_season_tenure/cast_members: symmetry=0.8800, train_support=100, symmetric_supported_edge_count=88, self_loop_count=0
+- /sports/sports_position/players./sports/sports_team_roster/position: symmetry=0.8480, train_support=125, symmetric_supported_edge_count=106, self_loop_count=0
+- /base/localfood/seasonal_month/produce_available./base/localfood/produce_availability/seasonal_months: symmetry=0.8333, train_support=108, symmetric_supported_edge_count=90, self_loop_count=0
+- /military/military_combatant/military_conflicts./military/military_combatant_group/combatants: symmetry=0.8300, train_support=747, symmetric_supported_edge_count=620, self_loop_count=0
+- /award/award_nominated_work/award_nominations./award/award_nomination/nominated_for: symmetry=0.8257, train_support=717, symmetric_supported_edge_count=592, self_loop_count=0
+- /award/award_winning_work/awards_won./award/award_honor/honored_for: symmetry=0.8253, train_support=475, symmetric_supported_edge_count=392, self_loop_count=0
+- /people/person/sibling_s./people/sibling_relationship/sibling: symmetry=0.8244, train_support=131, symmetric_supported_edge_count=108, self_loop_count=0
+
+Largest self-loop sensitivity:
+- /location/hud_county_place/place: diff=1.0000, raw=1.0000, excluding_self=0.0000, self_loop_count=459, train_support=459
+- /education/educational_institution_campus/educational_institution: diff=1.0000, raw=1.0000, excluding_self=0.0000, self_loop_count=526, train_support=526
+- /education/educational_institution/campuses: diff=1.0000, raw=1.0000, excluding_self=0.0000, self_loop_count=533, train_support=533
+- /dataworld/gardening_hint/split_to: diff=0.3521, raw=0.3838, excluding_self=0.0317, self_loop_count=36, train_support=99
+- /award/award_category/category_of: diff=0.1149, raw=0.1149, excluding_self=0.0000, self_loop_count=17, train_support=148
+- /location/us_county/county_seat: diff=0.1105, raw=0.1105, excluding_self=0.0000, self_loop_count=20, train_support=181
+- /location/hud_county_place/county: diff=0.0590, raw=0.0590, excluding_self=0.0000, self_loop_count=18, train_support=305
+- /location/country/capital: diff=0.0211, raw=0.0211, excluding_self=0.0000, self_loop_count=3, train_support=142
+- /location/administrative_division/country: diff=0.0104, raw=0.0104, excluding_self=0.0000, self_loop_count=4, train_support=386
+- /music/instrument/family: diff=0.0100, raw=0.0100, excluding_self=0.0000, self_loop_count=1, train_support=100

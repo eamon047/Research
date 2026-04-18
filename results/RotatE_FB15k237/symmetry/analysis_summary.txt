@@ -1,0 +1,54 @@
+Symmetry Analysis Summary
+
+Merged relations: 237
+Relations with symmetry_score = 0: 193
+Relations with symmetry_score > 0.5: 27
+Relations with self_loop_count > 0: 17
+
+Threshold: test_support >= 0
+Relations kept: 237 / 237
+- Spearman(symmetry_score, hits_r) = 0.0145 (n=224)
+- Spearman(symmetry_score, alpha_r) = 0.0557 (n=222)
+- Spearman(symmetry_score, delta_r) = 0.0335 (n=222)
+
+Bucket means:
+- zero: n=193, symmetry_mean=0.0000, hits_mean=0.5698, alpha_mean=0.2291, delta_mean=0.1381
+- (0,0.1]: n=13, symmetry_mean=0.0137, hits_mean=0.4703, alpha_mean=0.3548, delta_mean=0.2034
+- (0.1,0.3]: n=2, symmetry_mean=0.1127, hits_mean=0.9964, alpha_mean=0.0125, delta_mean=0.0125
+- (0.3,1.0]: n=29, symmetry_mean=0.8033, hits_mean=0.5677, alpha_mean=0.3692, delta_mean=0.2636
+
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+- Spearman(symmetry_score, hits_r) = 0.0446 (n=201)
+- Spearman(symmetry_score, alpha_r) = 0.0795 (n=201)
+- Spearman(symmetry_score, delta_r) = 0.0544 (n=201)
+
+Bucket means:
+- zero: n=171, symmetry_mean=0.0000, hits_mean=0.5686, alpha_mean=0.2412, delta_mean=0.1432
+- (0,0.1]: n=11, symmetry_mean=0.0146, hits_mean=0.4676, alpha_mean=0.3870, delta_mean=0.2219
+- (0.1,0.3]: n=1, symmetry_mean=0.1149, hits_mean=0.9929, alpha_mean=0.0250, delta_mean=0.0250
+- (0.3,1.0]: n=18, symmetry_mean=0.7980, hits_mean=0.6357, alpha_mean=0.3256, delta_mean=0.2125
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+- Spearman(symmetry_score, hits_r) = 0.0800 (n=182)
+- Spearman(symmetry_score, alpha_r) = 0.0389 (n=182)
+- Spearman(symmetry_score, delta_r) = 0.0161 (n=182)
+
+Bucket means:
+- zero: n=155, symmetry_mean=0.0000, hits_mean=0.5748, alpha_mean=0.2324, delta_mean=0.1358
+- (0,0.1]: n=9, symmetry_mean=0.0102, hits_mean=0.4919, alpha_mean=0.3249, delta_mean=0.1693
+- (0.1,0.3]: n=1, symmetry_mean=0.1149, hits_mean=0.9929, alpha_mean=0.0250, delta_mean=0.0250
+- (0.3,1.0]: n=17, symmetry_mean=0.7965, hits_mean=0.6460, alpha_mean=0.3121, delta_mean=0.1989
+
+Top symmetry relations after merge:
+- /education/educational_institution/campuses: symmetry=1.0000, mapping_type=1-1, hits=1.0000, alpha=0.0000, delta=0.0000
+- /education/educational_institution_campus/educational_institution: symmetry=1.0000, mapping_type=1-1, hits=1.0000, alpha=0.0000, delta=0.0000
+- /location/hud_county_place/place: symmetry=1.0000, mapping_type=1-1, hits=0.9211, alpha=0.0549, delta=0.0330
+- /base/saturdaynightlive/snl_cast_member/seasons./base/saturdaynightlive/snl_season_tenure/cast_members: symmetry=0.8800, mapping_type=M-N, hits=1.0000, alpha=0.0000, delta=0.0000
+- /sports/sports_position/players./sports/sports_team_roster/position: symmetry=0.8480, mapping_type=M-N, hits=nan, alpha=nan, delta=nan
+- /base/localfood/seasonal_month/produce_available./base/localfood/produce_availability/seasonal_months: symmetry=0.8333, mapping_type=M-N, hits=1.0000, alpha=0.0000, delta=0.0000
+- /military/military_combatant/military_conflicts./military/military_combatant_group/combatants: symmetry=0.8300, mapping_type=M-N, hits=0.6513, alpha=0.4444, delta=0.2222
+- /award/award_nominated_work/award_nominations./award/award_nomination/nominated_for: symmetry=0.8257, mapping_type=M-N, hits=0.8661, alpha=0.1379, delta=0.1379
+- /award/award_winning_work/awards_won./award/award_honor/honored_for: symmetry=0.8253, mapping_type=M-N, hits=0.9000, alpha=0.0000, delta=0.0000
+- /people/person/sibling_s./people/sibling_relationship/sibling: symmetry=0.8244, mapping_type=1-1, hits=0.4592, alpha=0.5556, delta=0.4444

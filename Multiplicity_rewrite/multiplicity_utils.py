@@ -191,6 +191,12 @@ def get_job(folder):
                 "{} is not a valid config file for resuming".format(args.config)
             )
 
+    # Analysis scripts often run on login nodes without visible GPUs. In that
+    # case, force CPU instead of trying to restore checkpoints onto cuda.
+    job_device = config.get("job.device")
+    if isinstance(job_device, str) and job_device.startswith("cuda") and not torch.cuda.is_available():
+        config.set("job.device", "cpu")
+
     # Reduce GPU memory pressure during multiplicity evaluation.
     config.set("eval.batch_size", 16)
 

@@ -1,68 +1,102 @@
-# Symmetry Family：数理定义与实验设计整理
+# Relation Frequency：理论定位、数理定义与实验设计整理
 
-## 1. 背景与定位
+## 1. 这一节在 thesis 里的定位
 
-本文当前主线问题是：
+这一节的核心不是把 `relation frequency` 硬写成一个新的 `relation pattern`，而是把它放在一个更准确的位置：
 
-> 不同 relation pattern 下，KGE 的 predictive multiplicity 是否存在系统性差异？
+> `relation frequency` 是一个 **relation-level support / sparsity factor**，而不是一个典型的 structural pattern。
 
-在这个框架下，`symmetry` 与 `mapping type` 一样，都是**单个 relation 的结构属性**。  
-这与 `inverse family` 不同：inverse 天然涉及两个 relation 的配对关系，而 symmetry 只涉及同一个 relation 内部的双向支持。
+因此，在整篇 thesis 中，更推荐将 relation-level 因素分成两类：
 
-因此，symmetry 这一节非常适合继续沿用当前 thesis 的主分析单位：
+### A. Pattern-like structural factors
+这类因素描述的是 relation 的结构形式或逻辑形式：
+
+- `mapping type`
+- `inverse-like support`
+- `symmetry`
+
+### B. Support / sparsity factors
+这类因素描述的是 relation 在训练图中的支持度、数据丰富程度或稀疏性：
+
+- `relation frequency`
+
+因此，`relation frequency` 不建议与 `mapping type / inverse / symmetry` 并列写成“四个 relation pattern”，而更适合写成：
+
+> 本文分析 relation patterns，并引入 relation frequency 作为一个基线的 support / sparsity control variable。
+
+---
+
+## 2. 为什么 frequency 值得做？
+
+这部分并不是凭空补出来的。
+
+在 Zhu et al. (2024) 中，作者在 Section 6.2.3 明确分析了 `entity/relation frequency` 与 predictive multiplicity 之间的关系。他们将 entity/relation frequency 定义为包含该 entity/relation 的三元组数量，然后用 Spearman 相关检验其与 empirical ambiguity 和 discrepancy 的关系，得到显著负相关的结果。
+
+其中，relation frequency 的相关性比 entity frequency 更强，因此对于当前 thesis 这种 **relation-level analysis** 来说，relation frequency 是一个非常自然、而且有文献支撑的基线变量。
+
+但是，在你的 thesis 中，这一节的目标不是“重复原文结论”，而是：
+
+1. 在你自己的固定 thesis 设定下重新验证 relation frequency
+2. 用 relation frequency 作为解释 mapping type 结果的参照轴
+3. 检查 mapping type 的效应是否只是 frequency 的影子
+4. 为 inverse / symmetry 这些 mixed 或 weak 结果提供一个 support-level 的解释框架
+
+因此，这一节最好的定位是：
+
+> 验证性复现 + 控制变量分析 + 结果解释框架
+
+而不是：
+
+> 一个全新的 pattern 发现
+
+---
+
+## 3. 和原文相比，你这一节的“自己的内容”在哪里？
+
+原文的 frequency 分析是一个更宽的全局统计：
+
+- 同时分析 entity frequency 与 relation frequency
+- 跨多个模型
+- 跨多个数据集
+- 主要给出全局 Spearman 结果
+
+而你的 thesis 已经明确收缩到了：
 
 - 数据集：`FB15k-237`
-- 模型设定：同一 KGE 模型 repeated runs
-- 分析层级：`relation-level`
+- 模型：固定 repeated runs 的 thesis setting
+- 分析单位：`relation-level`
+- 主目标：解释 relation-level multiplicity 的结构差异
 
-也就是说，这一节最终仍然保持：
+所以，你这一节的“自己的内容”不在于重新发明 frequency，而在于：
 
-> 每个 relation 一行，再分析其 symmetry 特征与 relation-level multiplicity 指标之间的关系。
+### 你的重定位
+你把原文中的 frequency，从一个全局 supplementary factor，重新放进了你自己的 relation-level thesis framework 中，并且主要用来回答下面这些问题：
 
----
+1. 在当前 thesis 固定设定下，relation frequency 是否仍然和 multiplicity 有关？
+2. mapping type 的主结果是否在考虑 frequency 后仍然存在？
+3. inverse / symmetry 为什么没有形成主结果，是否和 relation sparsity 有关？
 
-## 2. 研究目标
-
-symmetry family 这一部分最稳妥的研究目标不是证明“哪些 relation 是对称关系”，而是研究：
-
-> 一个 relation 的对称性强弱，是否与该 relation 上的 predictive multiplicity severity 有关？
-
-更具体地说，可以拆成三个问题：
-
-1. 某 relation 的 symmetry score 是否与 `alpha_r` 有关？
-2. 某 relation 的 symmetry score 是否与 `delta_r` 有关？
-3. 某 relation 的 symmetry score 是否与 `hits_r` 有关？
-
-其中：
-
-- `alpha_r` 和 `delta_r` 是主分析目标
-- `hits_r` 是辅助结果，不应喧宾夺主
+这就不是“照抄”，而是**在你自己的分析框架中重新使用一个已有但必要的变量**。
 
 ---
 
-## 3. 为什么 symmetry 比 inverse 更直观？
+## 4. 这一节最推荐的 thesis 叙事
 
-因为 symmetry 是 relation 自己的属性。
+最稳的叙事不是：
 
-如果 relation `r` 具有较强对称性，那么在训练图中：
+> 本文研究了四个 relation pattern：mapping type、inverse、symmetry 和 frequency
 
-- `(h, r, t)` 出现时
-- `(t, r, h)` 也往往出现
+而是：
 
-它不需要：
+> 本文主要研究 relation-level 的结构模式（mapping type、inverse-like support、symmetry）与 predictive multiplicity 的关系；同时引入 relation frequency 作为一个 support-level 基线变量，用于验证低支持关系是否更易出现 multiplicity，并用于检验 mapping type 的作用是否独立于简单的稀疏性效应。
 
-- 第二个 relation
-- best partner
-- mutual score
-- clarity score
-
-因此 symmetry family 可以直接在 relation-level 上定义，不需要像 inverse 那样先 pair-level 再压缩成 relation-level proxy。
+这个写法更准确，也更不容易被追问概念问题。
 
 ---
 
-## 4. 数理定义
+## 5. 数理定义
 
-### 4.1 训练图与关系边集
+### 5.1 训练图定义
 
 记训练图为：
 
@@ -72,322 +106,344 @@ symmetry family 这一部分最稳妥的研究目标不是证明“哪些 relati
 
 其中：
 
-- `\mathcal{E}` 是实体集合
-- `\mathcal{R}` 是关系集合
+- `\mathcal{E}` 为实体集合
+- `\mathcal{R}` 为关系集合
 
-对任意 relation `r \in \mathcal{R}`，定义其边集合为：
+### 5.2 Relation Frequency
 
-```math
-E_r = \{(h,t) \mid (h,r,t) \in \mathcal{G}_{train}\}
-```
-
-它表示：
-
-> relation `r` 在训练图中连接的所有有向实体对。
-
----
-
-### 4.2 Symmetric-Pair Set
-
-对于 relation `r`，定义其对称支持子集为：
+对任意 relation `r \in \mathcal{R}`，定义其 relation frequency 为：
 
 ```math
-E_r^{sym} = \{(h,t) \in E_r \mid (t,h) \in E_r\}
+\operatorname{Freq}(r) = |\{(h,r,t) \in \mathcal{G}_{train}\}|
 ```
 
 其含义是：
 
-> 在 relation `r` 的所有事实中，那些能够在同一 relation 下找到反向事实支持的边。
+> 训练图中，relation `r` 出现的三元组数量。
 
-换句话说，如果：
+### 5.3 为什么优先使用训练集中的 frequency？
 
-- `(h,r,t)` 在训练图中存在
-- 且 `(t,r,h)` 也在训练图中存在
+和其他 pattern 特征一样，这里建议只用训练图统计 frequency，而不要把验证集或测试集也加进去。
 
-那么 `(h,t)` 会被计入 `E_r^{sym}`。
+原因：
+
+- 这样和 mapping type / symmetry / inverse 的定义口径一致
+- 避免“用测试信息定义结构变量”的嫌疑
+- 更符合 thesis 里“所有 pattern / factor 均来自 training graph”的统一逻辑
 
 ---
 
-### 4.3 Relation-Level Symmetry Score
+## 6. relation frequency 的解释边界
 
-对每个 relation `r`，定义其 symmetry score 为：
+这一点很重要。
+
+`relation frequency` 本身不是 relation 的逻辑性质，也不是几何 pattern。它描述的是：
+
+- 这个 relation 在训练图中被观察到多少次
+- 因而在训练中受到多少事实约束
+- embedding 学习时有多少支持数据
+
+因此，它更像：
+
+- support
+- sparsity
+- data richness
+- constraint strength
+
+而不是：
+
+- symmetry
+- inversion
+- composition
+- mapping form
+
+所以这一节的语言要刻意避免：
+
+- “frequency pattern”
+- “frequency family”
+
+更好的叫法是：
+
+- relation frequency factor
+- support variable
+- sparsity-related factor
+- baseline structural control
+
+---
+
+## 7. 核心假设怎么写？
+
+### H1：基线支持度假设
+**relation frequency 越低的 relation，可能越容易出现更高的 predictive multiplicity。**
+
+直觉是：
+
+- 低频 relation 在训练中受约束更少
+- embedding 存在更大的不确定性空间
+- repeated runs 更可能学到不完全一致的 decision boundary / ranking behavior
+- 因而 `alpha_r`、`delta_r` 可能更高
+
+这个直觉与 Zhu et al. 的解释是一致的。
+
+### H2：mapping type 独立性问题
+**mapping type 的效应是否独立于 relation frequency？**
+
+也就是说，我们进一步要问：
+
+> 当前 mapping type 的主结果，是不是只是某些 mapping type 恰好更高频 / 更低频造成的？
+
+这一问非常关键，因为它能把 frequency 和 mapping type 联系起来，而不是让 frequency 变成一节孤立的小分析。
+
+### H3：解释 mixed / weak 结果
+**inverse / symmetry 之所以没有形成 clean 主结果，是否部分源于它们与 relation support / sparsity 纠缠在一起？**
+
+这个假设不需要强行做成大规模多变量模型，但非常适合在 discussion 里作为解释框架使用。
+
+---
+
+## 8. 实验设计：建议分三层做
+
+---
+
+### 第一层：验证性 relation-level frequency analysis
+
+这是最基础的一层。
+
+#### 输入
+- 训练集 triples
+- 现有 relation-level multiplicity 表
+
+#### 计算
+对每个 relation `r` 统计：
+
+- `relation_frequency`
+- `hits_r`
+- `alpha_r`
+- `delta_r`
+- `test_support`
+
+#### 分析
+优先计算 Spearman correlation：
+
+- `log_freq_r` vs `hits_r`
+- `log_freq_r` vs `alpha_r`
+- `log_freq_r` vs `delta_r`
+
+这里建议直接使用：
 
 ```math
-\operatorname{Sym}(r) = \frac{|E_r^{sym}|}{|E_r|}
+\log(\operatorname{Freq}(r)+1)
 ```
 
-也可写为：
+而不是裸频率。
+
+原因：
+
+- 频率分布通常高度长尾
+- 对数变换后更容易看趋势
+- 作图也更稳定
+
+#### 预期
+- `log_freq_r` 和 `alpha_r` 负相关
+- `log_freq_r` 和 `delta_r` 负相关
+- `log_freq_r` 和 `hits_r` 可能正相关，但这不是主角
+
+#### 输出文件建议
+- `relation_frequency_stats.csv`
+- `relation_frequency_multiplicity_merged.csv`
+- `correlation_stats.csv`
+- `bucket_stats.csv`
+- `analysis_summary.txt`
+
+---
+
+### 第二层：把 frequency 与 mapping type 放在一起看
+
+这层才最有 thesis 味。
+
+因为你当前最强的结果是 mapping type，所以 frequency 的真正价值在于：
+
+> 检查 mapping type 的效应是否只是 frequency 的影子。
+
+#### 做法 A：mapping type 内部分层分析
+在每个 `mapping_type` 内，再计算：
+
+- `log_freq_r` vs `alpha_r`
+- `log_freq_r` vs `delta_r`
+- `log_freq_r` vs `hits_r`
+
+这样可以回答：
+
+- 频率效应是否在所有 mapping type 中都存在？
+- 某些 mapping type 是否特别依赖 support？
+- 某些 mapping type 的 multiplicity 是否即使在高频下也仍然偏高？
+
+#### 做法 B：简单控制分析
+最简单的控制形式可以是一个小回归：
 
 ```math
-\operatorname{Sym}(r) =
-\frac{|\{(h,t)\in E_r \mid (t,h)\in E_r\}|}{|E_r|}
+\alpha_r \sim \log(\operatorname{Freq}(r)+1) + \operatorname{MappingType}(r)
 ```
-
-其含义是：
-
-> relation `r` 的所有训练事实中，有多大比例具有同关系下的反向支持。
-
-这个量天然取值于 `[0,1]`：
-
-- `0`：完全没有观察到对称支持
-- `1`：所有边都能找到反向对应，表现为完全对称
-- 中间值：部分对称
-
----
-
-## 5. 直观例子
-
-### 5.1 高 symmetry 的典型关系
-
-例如关系 `sibling_of`：
-
-- `(Alice, sibling_of, Bob)`
-- `(Bob, sibling_of, Alice)`
-
-通常会成对出现，因此 symmetry score 会较高。
-
-### 5.2 低 symmetry 的典型关系
-
-例如关系 `parent_of`：
-
-- `(Alice, parent_of, Bob)`
-
-通常不会伴随：
-
-- `(Bob, parent_of, Alice)`
-
-因此 symmetry score 会很低。
-
----
-
-## 6. 是否需要单独定义 antisymmetry？
-
-当前阶段，不建议一开始就为 antisymmetry 再单独构造一整套复杂定义。
-
-原因有三点：
-
-1. 在真实 KG 中，很多 relation 不是严格数学意义上的反对称，只是“低对称”
-2. thesis 当前主线更适合先用连续分数做 relation-level 统计
-3. 低 `symmetry_score` 本身已经能覆盖大多数“非对称 / 近似反对称”关系
-
-因此，第一版建议：
-
-- 主分析变量：`symmetry_score`
-- 不急着额外定义严格的 `antisymmetry_score`
-
-如果后面结果很有信号，再考虑补一个辅助定义，例如：
 
 ```math
-\operatorname{AntiSymProxy}(r)=1-\operatorname{Sym}(r)
+\delta_r \sim \log(\operatorname{Freq}(r)+1) + \operatorname{MappingType}(r)
 ```
 
-但这更适合作为解释性辅助量，而不是当前主分析核心。
+如果不想走回归，也可以做更轻量的版本：
+
+- 先把 relation frequency 分桶
+- 再在每个 frequency bucket 里比较不同 mapping type 的 `alpha_r / delta_r`
+
+#### 这一层的目标
+不是证明 frequency 比 mapping type 更重要，而是：
+
+> 证明 mapping type 的主结果不是一个纯粹的频率假象。
+
+这点对 thesis 非常重要。
 
 ---
 
-## 7. 核心假设
+### 第三层：把 frequency 作为解释 inverse / symmetry 的参照轴
 
-### H1：结构性关联假设
+这一层不是必须做大量统计，但建议至少做最简单的辅助检查。
 
-**relation 的 symmetry score 与 predictive multiplicity severity 存在关联。**
+#### 对 inverse
+你已经发现 inverse 的信号是 mixed / non-monotonic 的。  
+这时 frequency 可以帮你问：
 
-更具体地说，可以提出一个较温和的直觉：
+- inverse 高置信 subgroup 是否集中在高频 relation？
+- middle ambiguous bucket 是否恰好也是中低频 relation 的聚集区？
 
-> 对称性更强的 relation 可能在训练图中具有更强的内部双向结构支持，因此 repeated runs 之间更容易得到一致预测，从而 relation-level multiplicity 可能更低。
+#### 对 symmetry
+你已经发现高 symmetry relation 几乎全在 `M-N`，而且结果并不好。  
+这时 frequency 也可以帮你问：
 
-这里的表述应保持为：
+- high-symmetry subgroup 是否也在 relation support 上高度偏置？
+- symmetry 的弱结果是否部分源于 support + structure entanglement？
 
-- 结构关联
-- 不宜过早写成强因果律
+这一步不需要把 inverse / symmetry 全都再重做一轮，只要补一些 summary table 或 case-level 对比，就已经很有解释力。
 
-### H2：模型交互假设（可选扩展）
+---
 
-如果后面补多个模型，可以进一步研究：
+## 9. 具体实施步骤
 
-> symmetry 的影响是否依赖于模型家族？
+### Step 1：从训练图提取 relation frequency
+
+输入：`train.txt`
+
+输出：`relation_frequency_stats.csv`
+
+字段建议至少包含：
+
+- `relation_id`
+- `relation_name`
+- `train_frequency`
+- `log_train_frequency`
+
+---
+
+### Step 2：与 relation-level multiplicity 表 merge
+
+把 `relation_frequency_stats.csv` 和你现在的主表 merge，形成：
+
+`relation_frequency_multiplicity_merged.csv`
+
+字段建议至少包含：
+
+- `relation_id`
+- `relation_name`
+- `train_frequency`
+- `log_train_frequency`
+- `mapping_type`
+- `test_support`
+- `hits_r`
+- `alpha_r`
+- `delta_r`
+
+如果你愿意，后面还能继续接：
+
+- `inverse_strength`
+- `mutual_inverse_strength`
+- `inverse_clarity`
+- `symmetry_score_excluding_self_loops`
+
+但第一轮 frequency 不必强行全加。
+
+---
+
+### Step 3：做相关分析
+
+优先做 Spearman：
+
+- `log_train_frequency` vs `hits_r`
+- `log_train_frequency` vs `alpha_r`
+- `log_train_frequency` vs `delta_r`
+
+最好至少分两版 support filter：
+
+- all relations
+- `test_support >= 5`
+- `test_support >= 10`
+
+这样和你 inverse / symmetry 的分析口径也比较一致。
+
+---
+
+### Step 4：做分桶分析
+
+建议按 `log_train_frequency` 的分位数分桶，而不是硬编码阈值。
 
 例如：
 
-- 某些模型对高 symmetry relation 更稳定
-- 某些模型对低 symmetry relation 更脆弱
+- low frequency
+- medium frequency
+- high frequency
 
-但如果当前仍以 `RotatE` 为主，H2 可以先不展开。
+或 quartiles / tertiles。
 
----
-
-## 8. 与 multiplicity 指标的对接方式
-
-symmetry family 不需要重新定义 multiplicity 指标。  
-应直接沿用 thesis 当前 relation-level multiplicity 表中的结果变量。
-
-推荐至少保留：
-
-- `hits_r`
-- `alpha_r`
-- `delta_r`
-- `test_support`
-
-如果已经有更细的支持变量，也可以一并保留：
-
-- `eligible_support`
-- `head_support`
-- `tail_support`
-
-但对于 symmetry 第一轮分析，不是必须。
-
----
-
-## 9. 最终 relation-level 表结构
-
-完成 symmetry 统计并与 multiplicity 表 merge 之后，推荐的 relation-level 主分析表至少包含：
-
-- `relation_id`
-- `relation_name`
-- `train_support`
-- `symmetry_score`
-- `test_support`
-- `hits_r`
-- `alpha_r`
-- `delta_r`
-
-如果要和其他 pattern 联动，也可以保留：
-
-- `mapping_type`
-- `answer_cardinality`
-- `frequency`
-
-但 symmetry 第一轮不必强求一开始就全部并入。
-
----
-
-## 10. 实验实施方式
-
-### Step 1：仅使用训练集计算 symmetry score
-
-这一点很重要：
-
-> symmetry 作为 relation pattern，只能使用训练图来定义。
-
-不要用验证集或测试集的三元组来定义 relation 的 symmetry 特征，以避免特征定义时使用测试信息。
-
-因此：
-
-- `E_r`
-- `E_r^{sym}`
-- `Sym(r)`
-
-全部只从训练图构建。
-
----
-
-### Step 2：为每个 relation 计算 symmetry score
-
-实现流程建议为：
-
-1. 读入训练集三元组
-2. 为每个 relation 构建 `E_r`
-3. 对每个 relation：
-   - 遍历其边 `(h,t)`
-   - 检查 `(t,h)` 是否也在 `E_r`
-4. 统计：
-   - `train_support = |E_r|`
-   - `symmetric_pair_count = |E_r^{sym}|`
-   - `symmetry_score = |E_r^{sym}| / |E_r|`
-
-### 输出文件建议
-
-例如输出为：
-
-`relation_symmetry_stats.csv`
-
-包含字段：
-
-- `relation_id`
-- `relation_name`
-- `train_support`
-- `symmetric_pair_count`
-- `symmetry_score`
-
----
-
-### Step 3：与 relation-level multiplicity 表做 merge
-
-将 `relation_symmetry_stats.csv` 与你当前已有的 relation-level multiplicity 结果表按 relation 连接。
-
-例如 merge 后得到：
-
-`relation_symmetry_multiplicity_merged.csv`
-
-包含：
-
-- `relation_id`
-- `relation_name`
-- `symmetry_score`
-- `hits_r`
-- `alpha_r`
-- `delta_r`
-- `test_support`
-
----
-
-### Step 4：进行基础统计分析
-
-symmetry 第一轮分析建议保持简单、可解释。
-
-#### 4.1 相关性分析
-
-优先计算 Spearman correlation：
-
-- `symmetry_score` vs `alpha_r`
-- `symmetry_score` vs `delta_r`
-- `symmetry_score` vs `hits_r`
-
-推荐原因：
-
-- symmetry score 很可能分布偏斜
-- relation-level 指标通常也不一定满足线性关系
-- Spearman 更稳妥
-
----
-
-#### 4.2 分桶分析
-
-将 `symmetry_score` 分桶，例如：
-
-- `0`
-- `(0, 0.2]`
-- `(0.2, 0.5]`
-- `(0.5, 1.0]`
-
-或者按分位数分桶：
-
-- low
-- medium
-- high
-
-然后比较每个桶的平均：
+然后比较每个桶的：
 
 - `mean hits_r`
 - `mean alpha_r`
 - `mean delta_r`
 
-这一步通常比单纯的散点图更适合 thesis 叙事。
+这是 thesis 里最好讲故事的一种图。
 
 ---
 
-## 11. 推荐图表
+### Step 5：做 mapping type × frequency 联合分析
+
+两种最稳做法：
+
+#### 方案 A：每个 mapping type 内看 frequency 相关性
+输出文件例如：
+
+- `correlation_by_mapping_type.csv`
+- `bucket_stats_by_mapping_type.csv`
+
+#### 方案 B：frequency bucket 内看 mapping type 差异
+例如：
+
+- 在 low-frequency subgroup 内，不同 mapping type 的 `alpha_r / delta_r` 是否仍有明显差异？
+- 在 high-frequency subgroup 内，mapping type 的差异是否缩小或仍然存在？
+
+如果 mapping type 在不同 frequency strata 下仍然稳，那你就有一个很强的 thesis 句子：
+
+> mapping type is not merely a proxy for relation frequency.
+
+---
+
+## 10. 推荐图表
 
 ### 必做图
 
-#### 图 1：Symmetry Score vs Alpha
-
-- 横坐标：`symmetry_score`
+#### 图 1：log frequency vs alpha
+- 横坐标：`log_train_frequency`
 - 纵坐标：`alpha_r`
 - 图形：散点图 + 趋势线
 
-#### 图 2：Symmetry Score vs Delta
-
-- 横坐标：`symmetry_score`
+#### 图 2：log frequency vs delta
+- 横坐标：`log_train_frequency`
 - 纵坐标：`delta_r`
 - 图形：散点图 + 趋势线
 
@@ -395,124 +451,68 @@ symmetry 第一轮分析建议保持简单、可解释。
 
 ### 推荐图
 
-#### 图 3：Symmetry Score vs Hits@10
-
-- 横坐标：`symmetry_score`
-- 纵坐标：`hits_r`
-- 图形：散点图 + 趋势线
-
-#### 图 4：Bucket-based Mean Plot
-
-- 横坐标：symmetry-score 分桶
-- 纵坐标：平均指标值
-- 可分别画：
+#### 图 3：frequency bucket 的均值图
+- 横坐标：frequency buckets
+- 纵坐标：
   - `mean alpha_r`
   - `mean delta_r`
-  - `mean hits_r`
+  - optional `mean hits_r`
 
----
-
-## 12. 推荐的 sanity check
-
-在正式做 multiplicity 分析之前，建议先检查 symmetry-score 的分布是否“可用”。
-
-需要至少确认：
-
-1. 是否大量 relation 的 symmetry score 都为 0
-2. 是否存在一个非空的高 symmetry subgroup
-3. 分布是否有足够 spread，支持后续分桶分析
-4. 高 symmetry relations 在语义上是否看起来合理
-
-这一步很重要，因为即使定义在数学上成立，如果分布几乎退化为全零，也很难支撑 thesis 分析。
-
----
-
-## 13. 推荐的控制变量分析
-
-如果 symmetry 第一轮结果看起来有信号，第二轮建议优先控制 `mapping_type`。
-
-原因：
-
-- `mapping_type` 已经是你 thesis 主结果
-- symmetry 很可能并不独立于 mapping structure
-- 某些 mapping type 本身就更可能出现高 / 低 symmetry
-
-因此，最自然的 follow-up 是：
-
-### 分层分析
-在每个 `mapping_type` 内，再分析：
-
-- `symmetry_score` vs `alpha_r`
-- `symmetry_score` vs `delta_r`
-
-### 或回归分析
+#### 图 4：mapping type × frequency bucket 联合图
 例如：
 
-```math
-\text{severity}(r) \sim \operatorname{Sym}(r) + \text{MappingType}(r)
-```
+- 每个 frequency bucket 内，不同 mapping type 的 `mean alpha_r / delta_r`
 
-如果要更简单一点，也可以先只做 bucket comparison within mapping type。
+这个图非常适合 thesis，因为它能把你最强的主结果（mapping type）和最稳的 control variable（frequency）放在一起。
 
 ---
 
-## 14. Case Study 建议
+## 11. 这一节的最佳论文写法
 
-建议在正式写作时补一小段 case study。
+### 不推荐写法
+- frequency 是第四个 relation pattern
+- 我们又发现了一个新的 pattern
 
-### 高 symmetry relation
-挑若干 symmetry score 很高的 relation，检查：
+### 推荐写法
+- relation frequency is included as a baseline support variable
+- it serves as a control and reference axis for relation-level pattern analysis
+- it helps distinguish pattern effects from simple sparsity effects
 
-- 它们是否语义上确实接近对称
-- 它们是否更稳定
-- 它们是否更容易预测
+中文可以写成：
 
-### 低 symmetry relation
-挑若干 symmetry score 很低的 relation，检查：
-
-- 它们是否语义上本就不应对称
-- 它们是否更容易出现 multiplicity
-- 如果没有，也能说明 symmetry 不是唯一因素
-
-这类案例有助于防止结果只剩“统计相关但没有解释”。
+> 除 relation patterns 外，本文进一步引入 relation frequency 作为一个 relation-level 的支持度变量。其作用并非作为新的逻辑模式，而是作为基线控制因素，用于检验低支持关系是否更易出现 predictive multiplicity，并进一步考察 mapping type 的效应是否独立于简单的稀疏性差异。
 
 ---
 
-## 15. 论文里可直接使用的表述
+## 12. 可以直接用于论文的方法段落
 
 ### 中文版
 
-本文将 symmetry family 视为 relation 自身的单关系结构属性。具体而言，我们在训练图上定义每个 relation 的 symmetry score，用于衡量该 relation 的事实中有多大比例能够在同一 relation 下找到反向事实支持。该 symmetry score 被作为 relation-level 的结构特征，与 predictive multiplicity 的关系层级指标（如 `alpha_r`、`delta_r` 和 `hits_r`）进行关联分析。
+本文在 relation-level pattern analysis 之外，引入 relation frequency 作为一个基线支持度变量。对于每个 relation `r`，其 frequency 定义为训练图中包含该 relation 的三元组数量。考虑到该变量在知识图谱中通常呈长尾分布，本文使用 `log(freq(r)+1)` 作为主要分析形式。该变量不被视为 relation pattern 本身，而被视为 support / sparsity factor，用于检验低支持关系是否更易出现 predictive multiplicity，并用于分析 mapping type 的作用是否独立于简单的稀疏性效应。
 
 ### 英文版
 
-We treat the symmetry family as a single-relation structural property. Specifically, for each relation, we define a symmetry score on the training graph, measuring the proportion of facts whose reversed counterparts also appear under the same relation. This relation-level symmetry score is then analyzed against relation-level predictive multiplicity metrics, such as `alpha_r`, `delta_r`, and `hits_r`.
+In addition to relation patterns, we include relation frequency as a baseline support variable in our relation-level analysis. For each relation `r`, its frequency is defined as the number of training triples containing `r`. Since this variable typically exhibits a heavy-tailed distribution in knowledge graphs, we use `log(freq(r)+1)` as the main analytical form. We do not treat relation frequency as a relation pattern itself, but rather as a support / sparsity factor, which allows us to examine whether low-support relations are more multiplicity-prone and whether the effect of mapping type remains after accounting for simple sparsity differences.
 
 ---
 
-## 16. 当前最小可运行版本（推荐优先实现）
+## 13. 最小可运行版本（推荐优先实现）
 
-如果当前目标是尽快得到第一轮结果，建议先只做下面三步：
+如果当前希望尽快把这一节补进 thesis，而不把工程量做大，建议先只做下面四步：
 
-1. 计算每个 relation 的 `symmetry_score`
-2. 与现有 relation-level multiplicity 表 merge
-3. 输出两张图：
-   - `symmetry_score vs alpha_r`
-   - `symmetry_score vs delta_r`
+1. 计算每个 relation 的 `train_frequency` 和 `log_train_frequency`
+2. merge 到 relation-level multiplicity 表
+3. 输出：
+   - `log_train_frequency vs alpha_r`
+   - `log_train_frequency vs delta_r`
+4. 再做一个最基础的 `mapping_type × frequency` 联合 summary
 
-只要这三步跑通，symmetry section 就已经具备雏形。
-
-之后再视结果决定是否补：
-
-- `hits_r`
-- 分桶分析
-- mapping-type interaction
-- case study
+只要这四步做完，这一节就已经足够支撑 thesis 里的一个完整 subsection。
 
 ---
 
-## 17. 一句话总结
+## 14. 一句话总结
 
-Symmetry family 这一节的核心不是研究“哪些关系在语义上是 textbook symmetric relation”，而是研究：
+`relation frequency` 最适合在本文中被定位为：
 
-> **一个 relation 在训练图中表现出的内部双向支持强度，是否与其在 repeated runs 下的 predictive multiplicity severity 有关。**
+> **一个 relation-level 的 support / sparsity factor，用于作为基线控制变量和解释参照轴，而不是作为一个新的 relation pattern。**

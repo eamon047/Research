@@ -278,16 +278,44 @@ E_r^{sym} = \{(h,t) \in E_r \mid (t,h) \in E_r\}
 
 对于 self-loop 事实 `(h, r, h)`，其反向仍然是自己，因此会天然满足对称支持条件。
 
-这一点在理论上需要显式记录，但当前阶段不预先做强假设，而是：
+这一点在理论上需要显式记录。
 
-* 先在实验中统计 self-loop 是否显著存在
-* 再决定是否需要在 symmetry score 的实现中排除 `h=t`
+在本项目的第一轮 symmetry sanity check 中，self-loop 被证明确实会显著污染部分 relation 的 raw symmetry score。
 
-也就是说，当前 theory 中先保留原始定义：
+因此，当前推荐的口径是：
 
-* 不主动排除 self-loop
+* raw `\operatorname{Sym}(r)` 保留为诊断性定义
+* 主分析使用排除 self-loop 的版本
 
-但在实验记录中必须保留这一 sanity-check 项。
+即定义：
+
+```math
+E_r^{sym,\neg loop} =
+\{(h,t) \in E_r \mid h \neq t,\ (t,h) \in E_r\}
+```
+
+以及：
+
+```math
+E_r^{\neg loop} = \{(h,t) \in E_r \mid h \neq t\}
+```
+
+再定义主分析变量：
+
+```math
+\operatorname{Sym}^{\neg loop}(r) =
+\frac{|E_r^{sym,\neg loop}|}{|E_r^{\neg loop}|}
+```
+
+当 `|E_r^{\neg loop}| = 0` 时，当前实现约定：
+
+* `\operatorname{Sym}^{\neg loop}(r) = 0`
+
+因此，在后续 symmetry section 中，更推荐把：
+
+* `symmetry_score_excluding_self_loops`
+
+作为主分析指标。
 
 ### 为什么当前不单独定义 Antisymmetry
 
@@ -342,7 +370,9 @@ symmetry family 的温和主假设可以写为：
 * `relation_id`
 * `relation_name`
 * `train_support`
+* `self_loop_count`
 * `symmetric_supported_edge_count`
+* `symmetry_score_raw`
 * `symmetry_score`
 
 在与 multiplicity 表 merge 之后，主分析表至少包含：
@@ -360,7 +390,7 @@ symmetry family 的温和主假设可以写为：
 
 在 symmetry family 的第一轮实验中，最小可运行版本应当只包含：
 
-1. 基于训练图计算每个 relation 的 `symmetry_score`
+1. 基于训练图计算每个 relation 的 raw symmetry score 与 excluding-self symmetry score
 2. 与当前 relation-level multiplicity 表做 join
 3. 做分布 sanity check
 4. 做相关性和分桶分析
