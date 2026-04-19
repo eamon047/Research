@@ -2,17 +2,22 @@
 
 ## Purpose of This Note
 
-This note records the planned setup, implementation path, output structure, and interpretation rules for the symmetry-family analysis under the thesis main line.
+This note records the implemented setup, code path, output structure, and interpretation rules for the symmetry-family analysis under the thesis main line.
 
 Unlike `thesis_theory.md`, this file is not meant to freeze abstract definitions forever. It is a working experiment note for thesis writing and iteration.
 
-At the current stage, this document should be treated as an experiment record that already includes both the `RotatE` baseline and the first `TransE` comparison run.
+At the current stage, this document should be treated as a maintained experiment record that already includes:
+
+- the `RotatE` baseline
+- the excluding-self refinement
+- the `TransE` comparison
+- the current weak / negative-result interpretation
 
 ## Current Scope
 
-The intended first-round symmetry study follows the same narrow thesis setup already used for the mapping-type and inverse sections:
+The current symmetry study follows the same fixed thesis setting already used for the other main-line sections:
 
-- model: `RotatE`
+- models: `RotatE`, `TransE`
 - dataset: `FB15k-237`
 - evaluation setting: `without`
 - analysis unit: `relation-level`
@@ -22,14 +27,14 @@ The current goal is not to prove that certain relations are textbook symmetric r
 
 ## Current Positioning
 
-At the planning stage, symmetry is currently a stronger candidate than inverse for the next pattern analysis, because:
+At the current stage, symmetry should be retained mainly as a documented weak / negative result, but its section is still methodologically worth keeping because:
 
 - it is a single-relation structural property
 - it does not require pair-level partner selection
 - its definition aligns naturally with the current relation-level thesis framework
-- even if the signal later turns out to be weak, the metric itself is conceptually cleaner than the first-round inverse proxy
+- even though the final signal is weak, the metric itself is conceptually cleaner than the first-round inverse proxy
 
-However, symmetry is still a secondary pattern after `mapping type`, not a replacement for the current main thesis result.
+However, symmetry is not a main positive result and should remain clearly below `mapping type` and `inverse` in thesis emphasis.
 
 ## Main Working Hypothesis
 
@@ -47,9 +52,11 @@ The first two are the primary focus. `hits_r` is an auxiliary outcome, not the m
 
 ## Structural Variable
 
-The current primary structural variable is:
+The current primary structural variable for formal analysis is:
 
-- `symmetry_score`
+- `symmetry_score_excluding_self_loops`
+
+The raw `symmetry_score` is retained only as a diagnostic quantity for documenting the self-loop issue.
 
 This note deliberately does **not** introduce:
 

@@ -6,17 +6,23 @@ This note records the experimental setup, code path, output files, and current f
 
 Unlike `thesis_theory.md`, this file is not meant to freeze abstract definitions forever. It is a working experiment note for thesis writing and iteration.
 
+At the current stage, this document should be treated as a maintained experiment record that already includes:
+
+- the original `RotatE` analysis
+- the `TransE` replication
+- the current thesis-safe interpretation of the result
+
 ## Current Scope
 
-At the current stage, the scope is intentionally narrow:
+The current mapping-type study is now centered on a fixed thesis setting:
 
-- model: `RotatE`
+- models: `RotatE`, `TransE`
 - dataset: `FB15k-237`
 - evaluation setting: `without`
 - analysis unit: `relation-level`
 - structural factor: `mapping type`
 
-The current goal is not to study voting mitigation. The goal is to understand whether predictive multiplicity is associated with relation mapping structure.
+The current goal is not to study voting mitigation. The goal is to understand whether predictive multiplicity is associated with relation mapping structure, and whether this relation is stable across models.
 
 ## Why the `without` Setting Is Used
 
@@ -76,6 +82,12 @@ results/RotatE_FB15k237/
       grouped_stats.csv
       summary.txt
       boxplots.svg
+```
+
+The corresponding `TransE` replication outputs are organized in the same way under:
+
+```text
+results/TransE_FB15k237_N/mapping_type/
 ```
 
 This layout is intended to keep link-prediction reproduction results separate from thesis-specific mapping-type analysis.
@@ -251,3 +263,182 @@ The next reasonable steps are:
 1. write the current findings into thesis-style result paragraphs
 2. decide whether to replicate the same workflow on `TransE`
 3. later compare whether the same directional mapping-type pattern also appears across models
+
+## TransE Follow-Up Has Now Been Completed
+
+The planned `TransE` replication has now been run.
+
+This means the mapping-type section is no longer supported only by:
+
+- `RotatE + FB15k-237`
+
+It now also has a first cross-model check under:
+
+- `TransE + FB15k-237`
+
+using the existing repeated-run setting and the same relation-level analysis logic.
+
+## TransE Setup
+
+The `TransE` follow-up uses:
+
+- model: `TransE`
+- dataset: `FB15k-237`
+- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- repeated runs: `seed_0` to `seed_7`
+
+The `_N` run family is used because it is the cleaner `TransE` repeated-run set aligned with the current `Hits@10`-based evaluation convention.
+
+The workflow reuses existing stored runs rather than retraining from scratch.
+
+## TransE Code Path
+
+The `TransE` follow-up uses the same mapping-type code chain plus one helper export path:
+
+- `Multiplicity_rewrite/relation_mapping_analysis.py`
+  exports the by-side relation-level table
+- `Multiplicity_rewrite/relation_multiplicity_combined_export.py`
+  exports the combined relation-level table
+- `Multiplicity_rewrite/mapping_type_side_analysis.py`
+  summarizes the by-side grouped results
+- `Multiplicity_rewrite/mapping_type_analysis.py`
+  summarizes the combined grouped results
+
+The analysis was run in the local `LibKGE` conda environment.
+
+## TransE Outputs
+
+The main `TransE` outputs are now stored under:
+
+- `results/TransE_FB15k237_N/mapping_type/combined/`
+- `results/TransE_FB15k237_N/mapping_type/by_side/`
+
+Key files include:
+
+- `combined/relation_metrics_num7_agg7_k10.csv`
+- `combined/mapping_type_summary.txt`
+- `by_side/relation_metrics_num7_agg7_k10.csv`
+- `by_side/mapping_type_side_summary.txt`
+
+## TransE Combined Result
+
+The combined relation-level result remains much less informative than the by-side result.
+
+For `test_support >= 10`, the combined `TransE` ranking is:
+
+- `hits_r`: `1-1 > M-N > M-1 > 1-N`
+- `alpha_r`: `M-N > 1-N > M-1 > 1-1`
+- `delta_r`: `M-N > 1-N > M-1 > 1-1`
+
+This again shows that:
+
+- combined relation-level aggregation is not the right main view for mapping type
+- the directional structure is still partly obscured when head and tail are merged
+
+So the original methodological lesson remains valid:
+
+> the mapping-type result should be presented primarily in the by-side form, not in the combined form.
+
+## TransE By-Side Result
+
+The by-side `TransE` result reproduces the same main directional pattern already seen in `RotatE`.
+
+### Head Side
+
+For `test_support >= 10`, on the `head` side:
+
+- `1-N` has the highest `hits_r` (`0.7455`)
+- `M-1` has the lowest `hits_r` (`0.2439`)
+- `M-1` has the highest `alpha_r` (`0.7523`)
+- `1-N` has the lowest `alpha_r` (`0.2261`)
+- `M-1` has the highest `delta_r` (`0.4893`)
+- `1-N` and `1-1` are the lowest on `delta_r`
+
+This is structurally coherent with the main thesis interpretation:
+
+- `1-N` makes head prediction easier
+- `M-1` makes head prediction harder
+
+### Tail Side
+
+For `test_support >= 10`, on the `tail` side:
+
+- `M-1` has the highest `hits_r` (`0.8180`)
+- `1-N` has the lowest `hits_r` (`0.1741`)
+- `1-N` has the highest `alpha_r` (`0.7147`)
+- `M-1` has the lowest `alpha_r` (`0.1809`)
+- `1-N` has the highest `delta_r` (`0.4596`)
+- `M-1` has the lowest `delta_r` (`0.1117`)
+
+This is again structurally coherent:
+
+- `M-1` makes tail prediction easier
+- `1-N` makes tail prediction harder
+
+## Direct Comparison With RotatE
+
+The most important result is that the main by-side directional pattern survives the model change.
+
+For `test_support >= 10`:
+
+- `RotatE`, head side:
+  - easiest: `1-N`
+  - hardest: `M-1`
+- `TransE`, head side:
+  - easiest: `1-N`
+  - hardest: `M-1`
+
+- `RotatE`, tail side:
+  - easiest: `M-1`
+  - hardest: `1-N`
+- `TransE`, tail side:
+  - easiest: `M-1`
+  - hardest: `1-N`
+
+And this agreement holds for both:
+
+- accuracy (`hits_r`)
+- multiplicity severity (`alpha_r`, `delta_r`)
+
+This is the strongest takeaway from the `TransE` replication.
+
+The exact means differ between models, but the directional ordering is substantially preserved.
+
+## What The Cross-Model Result Strengthens
+
+After the `TransE` follow-up, the mapping-type section can now be stated more confidently.
+
+The results now support:
+
+- the directional mapping-type effect is not unique to one model family
+- the by-side reading is methodologically necessary, not just convenient
+- the harder side under each mapping regime tends to be both less accurate and more multiplicity-prone across at least two models
+
+This makes the mapping-type line clearly stronger than both:
+
+- inverse
+- symmetry
+
+in current thesis priority.
+
+## What Still Should Not Be Overclaimed
+
+Even after the `TransE` replication, the section still does **not** justify claims such as:
+
+- mapping type fully explains predictive multiplicity
+- every metric ranking is identical across all models
+- the same exact ordering must hold on every dataset
+
+The safe claim is narrower:
+
+- the side-dependent mapping-type pattern is robust across `RotatE` and `TransE` on `FB15k-237`
+
+## Updated Current Status
+
+The mapping-type section should now be treated as:
+
+- the most stable structural result in the thesis
+- already supported by both `RotatE` and `TransE`
+- methodologically anchored in the by-side analysis rather than the combined analysis
+
+This means the main experimental job for mapping type is now largely complete.

@@ -1,0 +1,138 @@
+Relation Frequency x Mapping-Type Summary
+
+Threshold: test_support >= 5
+Rows kept: 402 / 474
+Side: head (n=201)
+  Frequency bucket bounds on log_train_frequency: low<=5.5568, mid<=6.6446, high>mid
+  Within mapping type:
+  - 1-1:
+    Spearman(log_train_frequency, hits_r) = 0.5774 (n=9)
+    Spearman(log_train_frequency, alpha_r) = -0.3221 (n=9)
+    Spearman(log_train_frequency, delta_r) = -0.4068 (n=9)
+  - 1-N:
+    Spearman(log_train_frequency, hits_r) = -0.4331 (n=26)
+    Spearman(log_train_frequency, alpha_r) = 0.4761 (n=26)
+    Spearman(log_train_frequency, delta_r) = 0.4574 (n=26)
+  - M-1:
+    Spearman(log_train_frequency, hits_r) = -0.3515 (n=72)
+    Spearman(log_train_frequency, alpha_r) = 0.2522 (n=69)
+    Spearman(log_train_frequency, delta_r) = 0.1016 (n=69)
+  - M-N:
+    Spearman(log_train_frequency, hits_r) = -0.3269 (n=94)
+    Spearman(log_train_frequency, alpha_r) = 0.1891 (n=92)
+    Spearman(log_train_frequency, delta_r) = 0.0628 (n=92)
+  Within frequency bucket:
+  - low_frequency:
+    hits_r: 1-N=0.8240, M-N=0.7133, 1-1=0.4948, M-1=0.3517
+    alpha_r: 1-N=0.1251, M-N=0.2800, M-1=0.4854, 1-1=0.5300
+    delta_r: 1-N=0.0941, M-N=0.2002, M-1=0.3624, 1-1=0.4000
+  - mid_frequency:
+    hits_r: 1-N=0.7864, 1-1=0.7638, M-N=0.6652, M-1=0.2611
+    alpha_r: 1-N=0.2304, 1-1=0.2503, M-N=0.3202, M-1=0.6323
+    delta_r: 1-N=0.1212, 1-1=0.1253, M-N=0.2021, M-1=0.4328
+  - high_frequency:
+    hits_r: M-N=0.5008, 1-N=0.4775, M-1=0.1453
+    alpha_r: 1-N=0.3462, M-N=0.3758, M-1=0.7260
+    delta_r: M-N=0.2035, 1-N=0.2132, M-1=0.4104
+
+Side: tail (n=201)
+  Frequency bucket bounds on log_train_frequency: low<=5.5568, mid<=6.6446, high>mid
+  Within mapping type:
+  - 1-1:
+    Spearman(log_train_frequency, hits_r) = 0.5941 (n=9)
+    Spearman(log_train_frequency, alpha_r) = -0.3390 (n=9)
+    Spearman(log_train_frequency, delta_r) = -0.3847 (n=9)
+  - 1-N:
+    Spearman(log_train_frequency, hits_r) = -0.4093 (n=26)
+    Spearman(log_train_frequency, alpha_r) = 0.2606 (n=25)
+    Spearman(log_train_frequency, delta_r) = -0.0162 (n=25)
+  - M-1:
+    Spearman(log_train_frequency, hits_r) = -0.0402 (n=72)
+    Spearman(log_train_frequency, alpha_r) = 0.1067 (n=72)
+    Spearman(log_train_frequency, delta_r) = 0.0536 (n=72)
+  - M-N:
+    Spearman(log_train_frequency, hits_r) = -0.2576 (n=94)
+    Spearman(log_train_frequency, alpha_r) = 0.1999 (n=94)
+    Spearman(log_train_frequency, delta_r) = 0.1414 (n=94)
+  Within frequency bucket:
+  - low_frequency:
+    hits_r: M-1=0.8147, M-N=0.7671, 1-1=0.5137, 1-N=0.3163
+    alpha_r: M-1=0.1241, M-N=0.1660, 1-1=0.3500, 1-N=0.3931
+    delta_r: M-1=0.1046, M-N=0.1185, 1-1=0.2850, 1-N=0.3267
+  - mid_frequency:
+    hits_r: M-1=0.8282, 1-1=0.7231, M-N=0.6380, 1-N=0.0967
+    alpha_r: M-1=0.1342, 1-1=0.2614, M-N=0.3053, 1-N=0.7573
+    delta_r: M-1=0.0878, 1-1=0.1364, M-N=0.1930, 1-N=0.4875
+  - high_frequency:
+    hits_r: M-1=0.7907, M-N=0.5647, 1-N=0.1504
+    alpha_r: M-1=0.1264, M-N=0.2803, 1-N=0.4864
+    delta_r: M-1=0.0762, M-N=0.1642, 1-N=0.2925
+
+
+Threshold: test_support >= 10
+Rows kept: 364 / 474
+Side: head (n=182)
+  Frequency bucket bounds on log_train_frequency: low<=5.6708, mid<=6.7519, high>mid
+  Within mapping type:
+  - 1-1:
+    Spearman(log_train_frequency, hits_r) = 0.7388 (n=7)
+    Spearman(log_train_frequency, alpha_r) = -0.4077 (n=7)
+    Spearman(log_train_frequency, delta_r) = -0.4077 (n=7)
+  - 1-N:
+    Spearman(log_train_frequency, hits_r) = -0.5094 (n=22)
+    Spearman(log_train_frequency, alpha_r) = 0.5147 (n=22)
+    Spearman(log_train_frequency, delta_r) = 0.4894 (n=22)
+  - M-1:
+    Spearman(log_train_frequency, hits_r) = -0.4431 (n=63)
+    Spearman(log_train_frequency, alpha_r) = 0.3592 (n=63)
+    Spearman(log_train_frequency, delta_r) = 0.1748 (n=63)
+  - M-N:
+    Spearman(log_train_frequency, hits_r) = -0.3491 (n=90)
+    Spearman(log_train_frequency, alpha_r) = 0.2123 (n=88)
+    Spearman(log_train_frequency, delta_r) = 0.1148 (n=88)
+  Within frequency bucket:
+  - low_frequency:
+    hits_r: 1-N=0.8234, M-N=0.7277, 1-1=0.5366, M-1=0.3915
+    alpha_r: 1-N=0.1420, M-N=0.2787, 1-1=0.4167, M-1=0.4548
+    delta_r: 1-N=0.0961, M-N=0.1868, 1-1=0.3333, M-1=0.3366
+  - mid_frequency:
+    hits_r: 1-N=0.7947, 1-1=0.7638, M-N=0.6824, M-1=0.2454
+    alpha_r: 1-N=0.1961, 1-1=0.2503, M-N=0.2976, M-1=0.6576
+    delta_r: 1-N=0.0937, 1-1=0.1253, M-N=0.1908, M-1=0.4215
+  - high_frequency:
+    hits_r: M-N=0.4839, 1-N=0.4775, M-1=0.1357
+    alpha_r: 1-N=0.3462, M-N=0.3899, M-1=0.7241
+    delta_r: M-N=0.2112, 1-N=0.2132, M-1=0.4142
+
+Side: tail (n=182)
+  Frequency bucket bounds on log_train_frequency: low<=5.6708, mid<=6.7519, high>mid
+  Within mapping type:
+  - 1-1:
+    Spearman(log_train_frequency, hits_r) = 0.7388 (n=7)
+    Spearman(log_train_frequency, alpha_r) = -0.3336 (n=7)
+    Spearman(log_train_frequency, delta_r) = -0.3336 (n=7)
+  - 1-N:
+    Spearman(log_train_frequency, hits_r) = -0.5133 (n=22)
+    Spearman(log_train_frequency, alpha_r) = 0.3854 (n=22)
+    Spearman(log_train_frequency, delta_r) = 0.0631 (n=22)
+  - M-1:
+    Spearman(log_train_frequency, hits_r) = -0.1219 (n=63)
+    Spearman(log_train_frequency, alpha_r) = 0.2024 (n=63)
+    Spearman(log_train_frequency, delta_r) = 0.1504 (n=63)
+  - M-N:
+    Spearman(log_train_frequency, hits_r) = -0.2730 (n=90)
+    Spearman(log_train_frequency, alpha_r) = 0.1747 (n=90)
+    Spearman(log_train_frequency, delta_r) = 0.1154 (n=90)
+  Within frequency bucket:
+  - low_frequency:
+    hits_r: M-1=0.8582, M-N=0.7259, 1-1=0.6157, 1-N=0.2852
+    alpha_r: M-1=0.0801, M-N=0.2090, 1-1=0.2167, 1-N=0.4592
+    delta_r: M-1=0.0638, M-N=0.1409, 1-1=0.1750, 1-N=0.3594
+  - mid_frequency:
+    hits_r: M-1=0.7888, 1-1=0.7231, M-N=0.7004, 1-N=0.1008
+    alpha_r: M-1=0.1435, M-N=0.2582, 1-1=0.2614, 1-N=0.6764
+    delta_r: M-1=0.0952, 1-1=0.1364, M-N=0.1520, 1-N=0.4278
+  - high_frequency:
+    hits_r: M-1=0.8181, M-N=0.5445, 1-N=0.1504
+    alpha_r: M-1=0.1042, M-N=0.2933, 1-N=0.4864
+    delta_r: M-1=0.0566, M-N=0.1719, 1-N=0.2925

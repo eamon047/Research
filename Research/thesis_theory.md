@@ -11,8 +11,8 @@
 * 数据集：`FB15k-237`
 * 模型设定：对同一KGE模型进行多次重复训练
 * 分析层级：`relation-level（关系层级）`
-* 当前已推进模式：`mapping type（映射类型）`
-* 下一步模式：`inverse strength（逆关系支持强度）`
+* 当前已推进结构因素：`mapping type（映射类型）`、`inverse-like support`、`symmetry`
+* 当前已确认的支持度因素：`relation frequency`
 
 本说明旨在在代码修改之前，确保实验术语的稳定性。
 
@@ -710,6 +710,186 @@ inverse family 的第一轮朴素假设可以表述为：
 * inverse 不是全局单调解释变量
 * 但 stricter inverse-like metrics 可能识别出更稳定的小规模 subgroup
 
+## Relation Frequency Factor
+
+### 基本定位
+
+`relation frequency` 不应被当作第四个 relation pattern。
+
+更准确地说，它是一个：
+
+* relation-level support factor
+* sparsity-related variable
+* baseline control variable
+
+它描述的不是 relation 的逻辑形式，而是：
+
+* 训练图中该 relation 被观察到多少次
+* 该 relation 在训练中受到多少事实约束
+* 该 relation 的表示学习有多强的数据支持
+
+因此，在当前 thesis 叙事中，更推荐将 relation-level 因素分成两类：
+
+* pattern-like structural factors：
+  * `mapping type`
+  * `inverse-like support`
+  * `symmetry`
+* support / sparsity factors：
+  * `relation frequency`
+
+### 训练图定义
+
+记训练图为：
+
+```math
+\mathcal{G}_{train} \subseteq \mathcal{E} \times \mathcal{R} \times \mathcal{E}
+```
+
+其中：
+
+* `\mathcal{E}` 为实体集合
+* `\mathcal{R}` 为关系集合
+
+### Relation Frequency
+
+对任意 relation `r \in \mathcal{R}`，定义其 relation frequency 为：
+
+```math
+\operatorname{Freq}(r)=|\{(h,r,t)\in\mathcal{G}_{train}\}|
+```
+
+其含义是：
+
+> 训练图中 relation `r` 出现的三元组数量。
+
+在当前 thesis 代码与中间表语境下，这个量与 relation-level 的 `train_support` 在数值上是一致的。
+
+但在写作与分析层面，将其显式命名为 `relation frequency` 有两个好处：
+
+* 它与原论文中的 frequency analysis 可以直接对齐
+* 它更容易被解释为一个 support / sparsity control variable
+
+### Log-Transformed Frequency
+
+由于 relation frequency 在知识图谱中通常呈长尾分布，当前推荐的主分析形式为：
+
+```math
+\operatorname{LogFreq}(r)=\log(\operatorname{Freq}(r)+1)
+```
+
+这里使用 `+1` 是为了：
+
+* 保持零值可定义
+* 在低频区域保留分辨率
+* 降低长尾分布对相关分析和可视化的影响
+
+在实验实现中，建议同时保留：
+
+* `train_frequency`
+* `log_train_frequency`
+
+但主分析默认优先使用：
+
+* `log_train_frequency`
+
+### 为什么只使用训练图中的 Frequency
+
+和 `mapping type`、`inverse-like support`、`symmetry` 一样，`relation frequency` 也应只从训练图中计算。
+
+原因：
+
+* 保持所有 structure / support variables 的定义口径一致
+* 避免将验证集或测试集信息混入 relation-level factor 的定义
+* 更符合 thesis 中“所有解释变量都来自 training graph”的统一设定
+
+### 解释边界
+
+`relation frequency` 本身不是：
+
+* symmetry
+* inverse
+* composition
+* mapping form
+
+因此，当前写作中应避免将其称为：
+
+* “第四个 relation pattern”
+* “frequency pattern”
+* “frequency family”
+
+更准确的叫法是：
+
+* relation frequency factor
+* support variable
+* sparsity-related factor
+* baseline control variable
+
+### 核心作用
+
+在当前 thesis 中，`relation frequency` 的主要作用不是制造一个新的主结果，而是回答两个更基础的问题：
+
+#### H1：支持度假设
+
+低频 relation 是否更容易表现出更高的 predictive multiplicity？
+
+也就是说，是否存在如下倾向：
+
+* `log_train_frequency` 越低
+* `alpha_r` 与 `delta_r` 越高
+
+#### H2：主结果独立性问题
+
+当前 `mapping type` 的主结果是否只是 relation frequency 的影子？
+
+也就是说，我们需要进一步问：
+
+> 当 relation support / sparsity 被显式纳入分析后，mapping type 的方向性效应是否仍然存在？
+
+这个问题比单纯验证 “frequency 是否和 multiplicity 相关” 更重要，因为它决定了：
+
+* `mapping type` 是否是独立于简单稀疏性差异的结构因素
+
+### 推荐的分析顺序
+
+当前最稳妥的 relation frequency 实施顺序为：
+
+1. 先做 combined relation-level 的基础 frequency analysis
+2. 再做 `mapping type × frequency` 联合分析
+3. 在联合分析中，以 by-side 为主，而不是 combined 为主
+
+这里第三点尤其重要。
+
+因为当前 thesis 中最强的 `mapping type` 结果本来就来自：
+
+* `head` / `tail` 分开之后的方向性分析
+
+因此，如果之后要检验：
+
+* mapping type 是否只是 frequency proxy
+
+那么主分析也应保持在 by-side 框架下，而不是退回到 combined 框架。
+
+### 当前不推荐的扩展
+
+在 relation frequency 的第一轮 thesis 实施中，当前不推荐优先引入：
+
+* 回归作为主分析入口
+* 与 inverse / symmetry 的大规模联合重跑
+
+原因：
+
+* 当前 relation-level 样本规模有限
+* thesis 当前最需要的是清晰、可解释、易写作的 control-variable analysis
+* 频率这一节的首要任务是服务 `mapping type` 主结果，而不是扩展出新的多变量建模分支
+
+因此，回归可以无限期搁置；inverse / symmetry 与 frequency 的关系，也暂不作为第一轮必做内容。
+
+### 当前推荐的 thesis 立场
+
+当前最稳妥的表述方式是：
+
+> In addition to relation patterns, we include relation frequency as a relation-level support variable. It is not treated as a pattern itself, but as a baseline control factor that helps us examine whether low-support relations are more multiplicity-prone and whether the effect of mapping type remains after accounting for simple sparsity differences.
+
 ## 下一步工作
 
 下一步的重点不是重新设计理论，而是让代码能够导出上述定义的关系层级表。
@@ -725,6 +905,14 @@ inverse family 的第一轮朴素假设可以表述为：
 与当前 inverse 分析相关的实验设置、运行流程、中间结果与阶段性结论，单独记录在：
 
 - `Research/thesis_inverse_experiment.md`
+
+与当前 symmetry 分析相关的实验设置、运行流程、中间结果与阶段性结论，单独记录在：
+
+- `Research/thesis_symmetry_experiment.md`
+
+与当前 relation frequency 分析相关的实验设置、运行流程、中间结果与阶段性结论，单独记录在：
+
+- `Research/thesis_relation_frequency_experiment.md`
 
 这样做的原因是：
 

@@ -1,0 +1,7 @@
+model,threshold,view,metric_or_group,n,hits_value,alpha_value,delta_value,reading
+RotatE,10,global_spearman,mutual_inverse_strength,182,-0.2741,0.2292,0.2212,no_global_monotonic_law
+RotatE,10,selected_bucket,mutual_inverse_strength>0.5,10,0.6838,0.0971,0.0627,high_confidence_subgroup_positive
+RotatE,10,selected_bucket,inverse_clarity>0.5,5,0.8000,0.0000,0.0000,very_clean_subgroup
+TransE,10,global_spearman,mutual_inverse_strength,182,-0.2761,0.2137,0.2290,no_global_monotonic_law
+TransE,10,selected_bucket,mutual_inverse_strength>0.5,10,0.6866,0.1361,0.0813,high_confidence_subgroup_positive
+TransE,10,selected_bucket,inverse_clarity>0.5,5,0.8000,0.0000,0.0000,very_clean_subgroup

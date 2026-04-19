@@ -224,7 +224,7 @@ def draw_panel(
         svg_parts.append(
             f'<text x="{center_x}" y="{count_y}" text-anchor="middle" font-size="9" '
             'font-family="Arial" fill="#777777">'
-            f'{xml_escape(f"n={stats["n"]}")}</text>'
+            f'n={stats["n"]}</text>'
         )
 
 

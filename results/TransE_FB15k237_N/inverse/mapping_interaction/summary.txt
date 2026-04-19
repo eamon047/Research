@@ -1,0 +1,90 @@
+Inverse x Mapping-Type Interaction Summary
+
+Threshold: test_support >= 5
+Rows kept: 201 / 237
+Mapping type: 1-1 (n=9)
+- Spearman(inverse_strength, hits_r) = 0.4577 (n=9)
+- Spearman(inverse_strength, alpha_r) = -0.3046 (n=9)
+- Spearman(inverse_strength, delta_r) = -0.2176 (n=9)
+  Bucket means:
+  - (0,0.1]: n=3, hits_mean=0.4377, alpha_mean=0.5231, delta_mean=0.2963
+  - (0.1,0.3]: n=3, hits_mean=0.5888, alpha_mean=0.3131, delta_mean=0.1818
+  - (0.3,0.5]: n=1, hits_mean=0.2922, alpha_mean=0.7778, delta_mean=0.5556
+  - (0.5,1.0]: n=2, hits_mean=1.0000, alpha_mean=0.0000, delta_mean=0.0000
+
+Mapping type: 1-N (n=26)
+- Spearman(inverse_strength, hits_r) = -0.4695 (n=26)
+- Spearman(inverse_strength, alpha_r) = 0.4951 (n=26)
+- Spearman(inverse_strength, delta_r) = 0.6283 (n=26)
+  Bucket means:
+  - zero: n=13, hits_mean=0.5478, alpha_mean=0.2304, delta_mean=0.1357
+  - (0,0.1]: n=6, hits_mean=0.3470, alpha_mean=0.5005, delta_mean=0.2824
+  - (0.1,0.3]: n=5, hits_mean=0.4783, alpha_mean=0.3687, delta_mean=0.2503
+  - (0.3,0.5]: n=2, hits_mean=0.2738, alpha_mean=0.5478, delta_mean=0.3292
+
+Mapping type: M-1 (n=72)
+- Spearman(inverse_strength, hits_r) = -0.3778 (n=72)
+- Spearman(inverse_strength, alpha_r) = 0.4417 (n=72)
+- Spearman(inverse_strength, delta_r) = 0.5411 (n=72)
+  Bucket means:
+  - zero: n=31, hits_mean=0.5926, alpha_mean=0.2067, delta_mean=0.1205
+  - (0,0.1]: n=19, hits_mean=0.4860, alpha_mean=0.3717, delta_mean=0.2231
+  - (0.1,0.3]: n=4, hits_mean=0.4020, alpha_mean=0.4412, delta_mean=0.2512
+  - (0.3,0.5]: n=12, hits_mean=0.4016, alpha_mean=0.4852, delta_mean=0.3232
+  - (0.5,1.0]: n=6, hits_mean=0.5449, alpha_mean=0.2859, delta_mean=0.1906
+
+Mapping type: M-N (n=94)
+- Spearman(inverse_strength, hits_r) = -0.2949 (n=94)
+- Spearman(inverse_strength, alpha_r) = 0.0567 (n=93)
+- Spearman(inverse_strength, delta_r) = 0.0145 (n=93)
+  Bucket means:
+  - zero: n=41, hits_mean=0.6921, alpha_mean=0.3223, delta_mean=0.1908
+  - (0,0.1]: n=21, hits_mean=0.5105, alpha_mean=0.4370, delta_mean=0.2171
+  - (0.1,0.3]: n=11, hits_mean=0.4131, alpha_mean=0.4733, delta_mean=0.2803
+  - (0.3,0.5]: n=13, hits_mean=0.5746, alpha_mean=0.3565, delta_mean=0.1787
+  - (0.5,1.0]: n=8, hits_mean=0.5501, alpha_mean=0.2372, delta_mean=0.1330
+
+
+Threshold: test_support >= 10
+Rows kept: 182 / 237
+Mapping type: 1-1 (n=7)
+- Spearman(inverse_strength, hits_r) = 0.5189 (n=7)
+- Spearman(inverse_strength, alpha_r) = -0.3941 (n=7)
+- Spearman(inverse_strength, delta_r) = -0.2364 (n=7)
+  Bucket means:
+  - (0,0.1]: n=2, hits_mean=0.5216, alpha_mean=0.4722, delta_mean=0.1944
+  - (0.1,0.3]: n=2, hits_mean=0.7607, alpha_mean=0.1364, delta_mean=0.1061
+  - (0.3,0.5]: n=1, hits_mean=0.2922, alpha_mean=0.7778, delta_mean=0.5556
+  - (0.5,1.0]: n=2, hits_mean=1.0000, alpha_mean=0.0000, delta_mean=0.0000
+
+Mapping type: 1-N (n=22)
+- Spearman(inverse_strength, hits_r) = -0.4387 (n=22)
+- Spearman(inverse_strength, alpha_r) = 0.4833 (n=22)
+- Spearman(inverse_strength, delta_r) = 0.6462 (n=22)
+  Bucket means:
+  - zero: n=11, hits_mean=0.5427, alpha_mean=0.2079, delta_mean=0.1174
+  - (0,0.1]: n=5, hits_mean=0.3164, alpha_mean=0.5506, delta_mean=0.2889
+  - (0.1,0.3]: n=4, hits_mean=0.5041, alpha_mean=0.2859, delta_mean=0.1879
+  - (0.3,0.5]: n=2, hits_mean=0.2738, alpha_mean=0.5478, delta_mean=0.3292
+
+Mapping type: M-1 (n=63)
+- Spearman(inverse_strength, hits_r) = -0.3969 (n=63)
+- Spearman(inverse_strength, alpha_r) = 0.4650 (n=63)
+- Spearman(inverse_strength, delta_r) = 0.5676 (n=63)
+  Bucket means:
+  - zero: n=28, hits_mean=0.6070, alpha_mean=0.2040, delta_mean=0.1176
+  - (0,0.1]: n=18, hits_mean=0.4919, alpha_mean=0.3715, delta_mean=0.2146
+  - (0.1,0.3]: n=4, hits_mean=0.4020, alpha_mean=0.4412, delta_mean=0.2512
+  - (0.3,0.5]: n=10, hits_mean=0.4140, alpha_mean=0.4823, delta_mean=0.3079
+  - (0.5,1.0]: n=3, hits_mean=0.6170, alpha_mean=0.2384, delta_mean=0.1478
+
+Mapping type: M-N (n=90)
+- Spearman(inverse_strength, hits_r) = -0.3391 (n=90)
+- Spearman(inverse_strength, alpha_r) = 0.0914 (n=89)
+- Spearman(inverse_strength, delta_r) = 0.0633 (n=89)
+  Bucket means:
+  - zero: n=39, hits_mean=0.7071, alpha_mean=0.3078, delta_mean=0.1728
+  - (0,0.1]: n=20, hits_mean=0.5048, alpha_mean=0.4337, delta_mean=0.2135
+  - (0.1,0.3]: n=11, hits_mean=0.4131, alpha_mean=0.4733, delta_mean=0.2803
+  - (0.3,0.5]: n=13, hits_mean=0.5746, alpha_mean=0.3565, delta_mean=0.1787
+  - (0.5,1.0]: n=7, hits_mean=0.5063, alpha_mean=0.2426, delta_mean=0.1329

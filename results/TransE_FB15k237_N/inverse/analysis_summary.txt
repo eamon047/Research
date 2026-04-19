@@ -1,0 +1,43 @@
+Inverse Analysis Summary
+
+Merged relations: 237
+Relations with inverse_strength = 0: 97
+
+Threshold: test_support >= 0
+Relations kept: 237 / 237
+- Spearman(inverse_strength, hits_r) = -0.2263 (n=224)
+- Spearman(inverse_strength, alpha_r) = 0.1592 (n=219)
+- Spearman(inverse_strength, delta_r) = 0.1858 (n=219)
+
+Bucket means:
+- zero: n=97, inverse_mean=0.0000, hits_mean=0.6324, alpha_mean=0.2485, delta_mean=0.1475
+- (0,0.1]: n=50, inverse_mean=0.0215, hits_mean=0.4870, alpha_mean=0.4158, delta_mean=0.2278
+- (0.1,0.3]: n=26, inverse_mean=0.1902, hits_mean=0.3965, alpha_mean=0.4241, delta_mean=0.2559
+- (0.3,0.5]: n=30, inverse_mean=0.3880, hits_mean=0.4644, alpha_mean=0.4377, delta_mean=0.2672
+- (0.5,1.0]: n=34, inverse_mean=0.7267, hits_mean=0.6229, alpha_mean=0.1992, delta_mean=0.1196
+
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+- Spearman(inverse_strength, hits_r) = -0.2759 (n=201)
+- Spearman(inverse_strength, alpha_r) = 0.2159 (n=200)
+- Spearman(inverse_strength, delta_r) = 0.2516 (n=200)
+
+Bucket means:
+- zero: n=85, inverse_mean=0.0000, hits_mean=0.6337, alpha_mean=0.2661, delta_mean=0.1568
+- (0,0.1]: n=49, inverse_mean=0.0216, hits_mean=0.4765, alpha_mean=0.4245, delta_mean=0.2326
+- (0.1,0.3]: n=23, inverse_mean=0.1865, hits_mean=0.4483, alpha_mean=0.4241, delta_mean=0.2559
+- (0.3,0.5]: n=28, inverse_mean=0.3903, hits_mean=0.4689, alpha_mean=0.4404, delta_mean=0.2649
+- (0.5,1.0]: n=16, inverse_mean=0.7097, hits_mean=0.6044, alpha_mean=0.2258, delta_mean=0.1379
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+- Spearman(inverse_strength, hits_r) = -0.2870 (n=182)
+- Spearman(inverse_strength, alpha_r) = 0.2221 (n=181)
+- Spearman(inverse_strength, delta_r) = 0.2595 (n=181)
+
+Bucket means:
+- zero: n=78, inverse_mean=0.0000, hits_mean=0.6480, alpha_mean=0.2565, delta_mean=0.1452
+- (0,0.1]: n=45, inverse_mean=0.0206, hits_mean=0.4794, alpha_mean=0.4233, delta_mean=0.2217
+- (0.1,0.3]: n=21, inverse_mean=0.1848, hits_mean=0.4614, alpha_mean=0.3994, delta_mean=0.2406
+- (0.3,0.5]: n=26, inverse_mean=0.3879, hits_mean=0.4789, alpha_mean=0.4358, delta_mean=0.2545
+- (0.5,1.0]: n=12, inverse_mean=0.7147, hits_mean=0.6162, alpha_mean=0.2011, delta_mean=0.1145

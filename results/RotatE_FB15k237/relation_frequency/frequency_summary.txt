@@ -1,0 +1,44 @@
+Relation Frequency Summary
+
+Relations: 237
+train_frequency = 0: 0
+
+train_frequency:
+- min: 37
+- p25: 179.0000
+- median: 373.0000
+- p75: 859.0000
+- p90: 2693.4000
+- max: 15989
+
+log_train_frequency:
+- min: 3.6376
+- p25: 5.1930
+- median: 5.9243
+- p75: 6.7569
+- p90: 7.8989
+- max: 9.6797
+
+Highest-frequency relations:
+- /award/award_nominee/award_nominations./award/award_nomination/award_nominee: train_frequency=15989, log_train_frequency=9.6797
+- /film/film/release_date_s./film/film_regional_release_date/film_release_region: train_frequency=12893, log_train_frequency=9.4645
+- /award/award_nominee/award_nominations./award/award_nomination/award: train_frequency=12157, log_train_frequency=9.4057
+- /people/person/profession: train_frequency=10945, log_train_frequency=9.3007
+- /film/actor/film./film/performance/film: train_frequency=9494, log_train_frequency=9.1585
+- /award/award_category/nominees./award/award_nomination/nominated_for: train_frequency=9465, log_train_frequency=9.1555
+- /award/award_winner/awards_won./award/award_honor/award_winner: train_frequency=8423, log_train_frequency=9.0388
+- /film/film/genre: train_frequency=7268, log_train_frequency=8.8914
+- /award/award_nominee/award_nominations./award/award_nomination/nominated_for: train_frequency=6277, log_train_frequency=8.7448
+- /music/genre/artists: train_frequency=5880, log_train_frequency=8.6795
+
+Lowest-frequency relations:
+- /film/person_or_entity_appearing_in_film/films./film/personal_film_appearance/type_of_appearance: train_frequency=37, log_train_frequency=3.6376
+- /tv/non_character_role/tv_regular_personal_appearances./tv/tv_regular_personal_appearance/person: train_frequency=90, log_train_frequency=4.5109
+- /film/special_film_performance_type/film_performance_type./film/performance/film: train_frequency=93, log_train_frequency=4.5433
+- /dataworld/gardening_hint/split_to: train_frequency=99, log_train_frequency=4.6052
+- /user/alexander/philosophy/philosopher/interests: train_frequency=100, log_train_frequency=4.6151
+- /base/saturdaynightlive/snl_cast_member/seasons./base/saturdaynightlive/snl_season_tenure/cast_members: train_frequency=100, log_train_frequency=4.6151
+- /music/instrument/family: train_frequency=100, log_train_frequency=4.6151
+- /olympics/olympic_games/medals_awarded./olympics/olympic_medal_honor/medal: train_frequency=101, log_train_frequency=4.6250
+- /government/governmental_body/members./government/government_position_held/legislative_sessions: train_frequency=101, log_train_frequency=4.6250
+- /film/film/film_art_direction_by: train_frequency=101, log_train_frequency=4.6250

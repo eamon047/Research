@@ -1,0 +1,17 @@
+model,threshold,side,mapping_type,hits_mean,alpha_mean,delta_mean,reading
+RotatE,10,head,1-1,0.6664,0.3216,0.2145,auxiliary
+RotatE,10,head,1-N,0.7527,0.1939,0.1168,best_on_head_side
+RotatE,10,head,M-1,0.2836,0.5855,0.3835,worst_on_head_side
+RotatE,10,head,M-N,0.5971,0.3366,0.1994,middle
+RotatE,10,tail,1-1,0.6771,0.2422,0.1529,auxiliary
+RotatE,10,tail,1-N,0.2104,0.5234,0.3659,worst_on_tail_side
+RotatE,10,tail,M-1,0.8251,0.1076,0.0731,best_on_tail_side
+RotatE,10,tail,M-N,0.6313,0.2646,0.1591,middle
+TransE,10,head,1-1,0.6861,0.3015,0.1332,auxiliary
+TransE,10,head,1-N,0.7455,0.2261,0.1339,best_on_head_side
+TransE,10,head,M-1,0.2439,0.7523,0.4893,worst_on_head_side
+TransE,10,head,M-N,0.5764,0.4355,0.2474,middle
+TransE,10,tail,1-1,0.7016,0.2790,0.2218,auxiliary
+TransE,10,tail,1-N,0.1741,0.7147,0.4596,worst_on_tail_side
+TransE,10,tail,M-1,0.8180,0.1809,0.1117,best_on_tail_side
+TransE,10,tail,M-N,0.6065,0.3877,0.2200,middle

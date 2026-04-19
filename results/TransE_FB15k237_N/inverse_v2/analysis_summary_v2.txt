@@ -1,0 +1,119 @@
+Inverse V2 Analysis Summary
+
+Merged relations: 237
+
+directional_inverse_strength:
+- zero count: 97
+
+mutual_inverse_strength:
+- zero count: 97
+
+inverse_clarity:
+- zero count: 97
+
+Threshold: test_support >= 0
+Relations kept: 237 / 237
+directional_inverse_strength:
+- Spearman(directional_inverse_strength, hits_r) = -0.2263 (n=224)
+- Spearman(directional_inverse_strength, alpha_r) = 0.1592 (n=219)
+- Spearman(directional_inverse_strength, delta_r) = 0.1858 (n=219)
+  Bucket means:
+  - zero: n=97, metric_mean=0.0000, hits_mean=0.6324, alpha_mean=0.2485, delta_mean=0.1475
+  - (0,0.1]: n=50, metric_mean=0.0215, hits_mean=0.4870, alpha_mean=0.4158, delta_mean=0.2278
+  - (0.1,0.3]: n=26, metric_mean=0.1902, hits_mean=0.3965, alpha_mean=0.4241, delta_mean=0.2559
+  - (0.3,0.5]: n=30, metric_mean=0.3880, hits_mean=0.4644, alpha_mean=0.4377, delta_mean=0.2672
+  - (0.5,1.0]: n=34, metric_mean=0.7267, hits_mean=0.6229, alpha_mean=0.1992, delta_mean=0.1196
+
+mutual_inverse_strength:
+- Spearman(mutual_inverse_strength, hits_r) = -0.2415 (n=224)
+- Spearman(mutual_inverse_strength, alpha_r) = 0.1877 (n=219)
+- Spearman(mutual_inverse_strength, delta_r) = 0.1896 (n=219)
+  Bucket means:
+  - zero: n=97, metric_mean=0.0000, hits_mean=0.6324, alpha_mean=0.2485, delta_mean=0.1475
+  - (0,0.1]: n=76, metric_mean=0.0249, hits_mean=0.4826, alpha_mean=0.3991, delta_mean=0.2348
+  - (0.1,0.3]: n=30, metric_mean=0.1911, hits_mean=0.4339, alpha_mean=0.3827, delta_mean=0.2188
+  - (0.3,0.5]: n=18, metric_mean=0.3873, hits_mean=0.4555, alpha_mean=0.4598, delta_mean=0.2553
+  - (0.5,1.0]: n=16, metric_mean=0.6000, hits_mean=0.7024, alpha_mean=0.1663, delta_mean=0.1036
+
+inverse_clarity:
+- Spearman(inverse_clarity, hits_r) = -0.2582 (n=224)
+- Spearman(inverse_clarity, alpha_r) = 0.2161 (n=219)
+- Spearman(inverse_clarity, delta_r) = 0.2123 (n=219)
+  Bucket means:
+  - zero: n=97, metric_mean=0.0000, hits_mean=0.6324, alpha_mean=0.2485, delta_mean=0.1475
+  - (0,0.1]: n=98, metric_mean=0.0219, hits_mean=0.4816, alpha_mean=0.3866, delta_mean=0.2285
+  - (0.1,0.3]: n=21, metric_mean=0.2209, hits_mean=0.4406, alpha_mean=0.4296, delta_mean=0.2510
+  - (0.3,0.5]: n=14, metric_mean=0.4114, hits_mean=0.5103, alpha_mean=0.4079, delta_mean=0.2122
+  - (0.5,1.0]: n=7, metric_mean=0.6913, hits_mean=0.8000, alpha_mean=0.0000, delta_mean=0.0000
+
+
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+directional_inverse_strength:
+- Spearman(directional_inverse_strength, hits_r) = -0.2759 (n=201)
+- Spearman(directional_inverse_strength, alpha_r) = 0.2159 (n=200)
+- Spearman(directional_inverse_strength, delta_r) = 0.2516 (n=200)
+  Bucket means:
+  - zero: n=85, metric_mean=0.0000, hits_mean=0.6337, alpha_mean=0.2661, delta_mean=0.1568
+  - (0,0.1]: n=49, metric_mean=0.0216, hits_mean=0.4765, alpha_mean=0.4245, delta_mean=0.2326
+  - (0.1,0.3]: n=23, metric_mean=0.1865, hits_mean=0.4483, alpha_mean=0.4241, delta_mean=0.2559
+  - (0.3,0.5]: n=28, metric_mean=0.3903, hits_mean=0.4689, alpha_mean=0.4404, delta_mean=0.2649
+  - (0.5,1.0]: n=16, metric_mean=0.7097, hits_mean=0.6044, alpha_mean=0.2258, delta_mean=0.1379
+
+mutual_inverse_strength:
+- Spearman(mutual_inverse_strength, hits_r) = -0.2597 (n=201)
+- Spearman(mutual_inverse_strength, alpha_r) = 0.2107 (n=200)
+- Spearman(mutual_inverse_strength, delta_r) = 0.2164 (n=200)
+  Bucket means:
+  - zero: n=85, metric_mean=0.0000, hits_mean=0.6337, alpha_mean=0.2661, delta_mean=0.1568
+  - (0,0.1]: n=68, metric_mean=0.0220, hits_mean=0.4663, alpha_mean=0.4246, delta_mean=0.2506
+  - (0.1,0.3]: n=21, metric_mean=0.1995, hits_mean=0.4372, alpha_mean=0.4242, delta_mean=0.2401
+  - (0.3,0.5]: n=15, metric_mean=0.3848, hits_mean=0.4960, alpha_mean=0.4371, delta_mean=0.2323
+  - (0.5,1.0]: n=12, metric_mean=0.5884, hits_mean=0.6776, alpha_mean=0.1801, delta_mean=0.1122
+
+inverse_clarity:
+- Spearman(inverse_clarity, hits_r) = -0.2720 (n=201)
+- Spearman(inverse_clarity, alpha_r) = 0.2329 (n=200)
+- Spearman(inverse_clarity, delta_r) = 0.2308 (n=200)
+  Bucket means:
+  - zero: n=85, metric_mean=0.0000, hits_mean=0.6337, alpha_mean=0.2661, delta_mean=0.1568
+  - (0,0.1]: n=82, metric_mean=0.0210, hits_mean=0.4688, alpha_mean=0.4152, delta_mean=0.2467
+  - (0.1,0.3]: n=15, metric_mean=0.2172, hits_mean=0.4585, alpha_mean=0.4488, delta_mean=0.2479
+  - (0.3,0.5]: n=14, metric_mean=0.4114, hits_mean=0.5103, alpha_mean=0.4079, delta_mean=0.2122
+  - (0.5,1.0]: n=5, metric_mean=0.6647, hits_mean=0.8000, alpha_mean=0.0000, delta_mean=0.0000
+
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+directional_inverse_strength:
+- Spearman(directional_inverse_strength, hits_r) = -0.2870 (n=182)
+- Spearman(directional_inverse_strength, alpha_r) = 0.2221 (n=181)
+- Spearman(directional_inverse_strength, delta_r) = 0.2595 (n=181)
+  Bucket means:
+  - zero: n=78, metric_mean=0.0000, hits_mean=0.6480, alpha_mean=0.2565, delta_mean=0.1452
+  - (0,0.1]: n=45, metric_mean=0.0206, hits_mean=0.4794, alpha_mean=0.4233, delta_mean=0.2217
+  - (0.1,0.3]: n=21, metric_mean=0.1848, hits_mean=0.4614, alpha_mean=0.3994, delta_mean=0.2406
+  - (0.3,0.5]: n=26, metric_mean=0.3879, hits_mean=0.4789, alpha_mean=0.4358, delta_mean=0.2545
+  - (0.5,1.0]: n=12, metric_mean=0.7147, hits_mean=0.6162, alpha_mean=0.2011, delta_mean=0.1145
+
+mutual_inverse_strength:
+- Spearman(mutual_inverse_strength, hits_r) = -0.2761 (n=182)
+- Spearman(mutual_inverse_strength, alpha_r) = 0.2137 (n=181)
+- Spearman(mutual_inverse_strength, delta_r) = 0.2290 (n=181)
+  Bucket means:
+  - zero: n=78, metric_mean=0.0000, hits_mean=0.6480, alpha_mean=0.2565, delta_mean=0.1452
+  - (0,0.1]: n=60, metric_mean=0.0219, hits_mean=0.4764, alpha_mean=0.4226, delta_mean=0.2399
+  - (0.1,0.3]: n=19, metric_mean=0.1979, hits_mean=0.4325, alpha_mean=0.4158, delta_mean=0.2279
+  - (0.3,0.5]: n=15, metric_mean=0.3848, hits_mean=0.4960, alpha_mean=0.4371, delta_mean=0.2323
+  - (0.5,1.0]: n=10, metric_mean=0.6050, hits_mean=0.6866, alpha_mean=0.1361, delta_mean=0.0813
+
+inverse_clarity:
+- Spearman(inverse_clarity, hits_r) = -0.2819 (n=182)
+- Spearman(inverse_clarity, alpha_r) = 0.2371 (n=181)
+- Spearman(inverse_clarity, delta_r) = 0.2427 (n=181)
+  Bucket means:
+  - zero: n=78, metric_mean=0.0000, hits_mean=0.6480, alpha_mean=0.2565, delta_mean=0.1452
+  - (0,0.1]: n=72, metric_mean=0.0201, hits_mean=0.4705, alpha_mean=0.4157, delta_mean=0.2381
+  - (0.1,0.3]: n=14, metric_mean=0.2204, hits_mean=0.4641, alpha_mean=0.4380, delta_mean=0.2370
+  - (0.3,0.5]: n=13, metric_mean=0.4098, hits_mean=0.5181, alpha_mean=0.3931, delta_mean=0.1978
+  - (0.5,1.0]: n=5, metric_mean=0.6647, hits_mean=0.8000, alpha_mean=0.0000, delta_mean=0.0000

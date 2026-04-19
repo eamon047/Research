@@ -4,22 +4,30 @@
 
 This note records the experimental setup, code path, output files, and current findings for the inverse-family analysis under the thesis main line.
 
-At the current stage, this document has moved beyond pure planning. Both the first inverse-statistics extraction step and the first merge analysis against relation-level multiplicity results have been completed.
+At the current stage, this document has moved beyond pure planning. It now serves as a maintained record of:
+
+- the original directional inverse baseline
+- the stricter `v2` inverse-like metrics
+- the resulting subgroup-oriented interpretation
+- the `RotatE / TransE` comparison
 
 ## Current Scope
 
 The current inverse-family study follows the same narrow thesis setup used in the mapping-type study:
 
-- model: `RotatE`
+- models: `RotatE`, `TransE`
 - dataset: `FB15k-237`
 - evaluation setting: `without`
 - analysis unit: `relation-level`
 
-The key structural variable is:
+The key thesis-side structural variables are:
 
-- `inverse_strength`
+- `mutual_inverse_strength`
+- `inverse_clarity`
 
-The current goal is not to discover every inverse pair in the graph as an end in itself. The goal is to test whether inverse structural support is associated with predictive multiplicity.
+The current goal is not to discover every inverse pair in the graph as an end in itself. The goal is to test whether inverse-like structural support is associated with predictive multiplicity.
+
+The directional `v1` proxy is retained in this note as a baseline and audit trail, but it is no longer the preferred formal thesis definition.
 
 ## Main Working Hypothesis
 
@@ -1027,3 +1035,189 @@ If this section is retained in the thesis, the current best use is:
 4. then use the case inspection to argue that a limited high-confidence inverse-like subgroup does exist
 
 This is currently the most rigorous way to preserve the useful part of the inverse line without overstating its scope.
+
+## TransE Follow-Up Has Now Been Completed
+
+The planned `TransE` comparison has now been run.
+
+This means the inverse section is no longer only a `RotatE`-internal exploration. It now has a first cross-model comparison under the same dataset and repeated-run multiplicity setup.
+
+## TransE Setup
+
+The `TransE` follow-up uses:
+
+- model: `TransE`
+- dataset: `FB15k-237`
+- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- repeated runs: `seed_0` to `seed_7`
+
+The `_N` run family is used to stay aligned with the current `Hits@10`-based evaluation convention.
+
+The workflow reused existing repeated runs rather than retraining.
+
+## TransE Code Path
+
+The `TransE` inverse comparison keeps the same `v1` / `v2` split already used for `RotatE`.
+
+Current scripts:
+
+- `Multiplicity_rewrite/inverse_relation_stats.py`
+- `Multiplicity_rewrite/inverse_analysis.py`
+- `Multiplicity_rewrite/inverse_mapping_interaction_analysis.py`
+- `Multiplicity_rewrite/inverse_relation_stats_v2.py`
+- `Multiplicity_rewrite/inverse_analysis_v2.py`
+- `Multiplicity_rewrite/inverse_mapping_interaction_analysis_v2.py`
+
+The analysis was run in the local `LibKGE` conda environment.
+
+## TransE Output Directories
+
+The `TransE` outputs are now stored under:
+
+- `results/TransE_FB15k237_N/inverse/`
+- `results/TransE_FB15k237_N/inverse_v2/`
+
+with the corresponding mapping-type interaction outputs under:
+
+- `results/TransE_FB15k237_N/inverse/mapping_interaction/`
+- `results/TransE_FB15k237_N/inverse_v2/mapping_interaction/`
+
+## TransE V1 Result
+
+The first-round directional inverse result under `TransE` is extremely similar in shape to the original `RotatE` result.
+
+For `test_support >= 10`:
+
+- `Spearman(inverse_strength, hits_r) = -0.2870`
+- `Spearman(inverse_strength, alpha_r) = 0.2221`
+- `Spearman(inverse_strength, delta_r) = 0.2595`
+
+The bucket structure is also the same familiar pattern:
+
+- `zero`: strong average performance and relatively low multiplicity
+- low-to-mid nonzero buckets: clearly worse
+- `(0.5, 1.0]`: partial recovery in `hits` and lower `alpha/delta`, but not enough to overturn the global trend
+
+For `test_support >= 10`, the v1 bucket means are:
+
+- `zero`:
+  - `hits_mean = 0.6480`
+  - `alpha_mean = 0.2565`
+  - `delta_mean = 0.1452`
+- `(0.5, 1.0]`:
+  - `hits_mean = 0.6162`
+  - `alpha_mean = 0.2011`
+  - `delta_mean = 0.1145`
+
+This is important because it means:
+
+- `TransE` does not rescue the naive directional inverse hypothesis either
+- the apparent threshold-like shape was not unique to `RotatE`
+
+## TransE V2 Result
+
+The stricter `v2` rerun again improves subgroup quality without changing the global conclusion.
+
+For `test_support >= 10`:
+
+- `mutual_inverse_strength`:
+  - `Spearman(hits_r) = -0.2761`
+  - `Spearman(alpha_r) = 0.2137`
+  - `Spearman(delta_r) = 0.2290`
+- `inverse_clarity`:
+  - `Spearman(hits_r) = -0.2819`
+  - `Spearman(alpha_r) = 0.2371`
+  - `Spearman(delta_r) = 0.2427`
+
+So the stricter metrics still do **not** produce a clean global inverse story in `TransE`.
+
+But the subgroup view remains meaningful.
+
+For `test_support >= 10`:
+
+- `mutual_inverse_strength > 0.5`:
+  - `n = 10`
+  - `hits_mean = 0.6866`
+  - `alpha_mean = 0.1361`
+  - `delta_mean = 0.0813`
+- `inverse_clarity > 0.5`:
+  - `n = 5`
+  - `hits_mean = 0.8000`
+  - `alpha_mean = 0.0000`
+  - `delta_mean = 0.0000`
+
+This is very close in shape to the earlier `RotatE` reading.
+
+## Direct Comparison With RotatE
+
+The most important cross-model observation is not a difference, but a structural similarity.
+
+Under both `RotatE` and `TransE`:
+
+- the global correlation between inverse-like strength and multiplicity is still unfavorable
+- the zero-inverse group remains strong
+- the middle buckets remain noisy and often worse
+- the very-high-confidence subgroup still looks cleaner
+
+This means the inverse line should still be read as:
+
+- not a universal global law
+- but not a total failure either
+- rather, a threshold-like or subgroup-based phenomenon
+
+## Mapping-Type Interaction Under TransE
+
+The mapping-type interaction also remains important under `TransE`.
+
+For `test_support >= 10`:
+
+- `1-N` and `M-1` still show clearly unfavorable correlations
+- `M-N` still contains part of the cleaner high-confidence subgroup
+- `1-1` still looks favorable, but the sample size is small
+
+Examples from the `TransE` v2 interaction summary:
+
+- `1-N`, `mutual_inverse_strength`:
+  - `Spearman(hits_r) = -0.4302`
+  - `Spearman(alpha_r) = 0.4652`
+  - `Spearman(delta_r) = 0.6160`
+- `M-1`, `mutual_inverse_strength`:
+  - `Spearman(hits_r) = -0.4299`
+  - `Spearman(alpha_r) = 0.4681`
+  - `Spearman(delta_r) = 0.5550`
+- `M-N`, `mutual_inverse_strength`:
+  - `Spearman(hits_r) = -0.3251`
+  - `Spearman(alpha_r) = 0.0730`
+  - `Spearman(delta_r) = 0.0408`
+
+So the same methodological warning still applies:
+
+- inverse is interacting with mapping structure
+- it should not be presented as an independent global factor
+
+## Updated Interpretation After The TransE Comparison
+
+After adding the `TransE` comparison, the inverse line becomes easier to position.
+
+The cross-model result suggests:
+
+- the naive directional inverse proxy is broadly unstable across models
+- the stricter `v2` family improves subgroup purity in both models
+- but neither model supports a clean monotonic global inverse explanation
+- therefore the most defensible use of inverse is still as a limited subgroup observation
+
+This strengthens the writing strategy already adopted for the `RotatE` version.
+
+## Updated Current Status
+
+The recommended thesis positioning is now:
+
+- `mapping type` remains the main structural result
+- `inverse` remains an exploratory secondary result
+- the strongest use of `inverse` is the cross-model-consistent high-confidence subgroup story
+- `inverse` should still not be written as a universal explanatory pattern
+
+In other words:
+
+- `TransE` does not overturn the inverse conclusion
+- it mostly confirms the same constrained interpretation already reached with `RotatE`

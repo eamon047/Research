@@ -1,0 +1,48 @@
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+
+hits_r:
+- hits_r | 1-1: n=9, mean=0.5968, median=0.7000, p25=0.2698, p75=1.0000, min=0.0431, max=1.0000
+- hits_r | M-N: n=94, mean=0.5906, median=0.5757, p25=0.4288, p75=0.7841, min=0.0000, max=1.0000
+- hits_r | M-1: n=72, mean=0.5181, median=0.5109, p25=0.4054, p75=0.5739, min=0.1755, max=0.9893
+- hits_r | 1-N: n=26, mean=0.4670, median=0.4688, p25=0.3330, p75=0.5463, min=0.1635, max=0.7479
+  mean ranking: highest=1-1, lowest=1-N
+
+alpha_r:
+- alpha_r | 1-1: n=9, mean=0.3652, median=0.2727, p25=0.0000, p75=0.6667, min=0.0000, max=0.9444
+- alpha_r | M-N: n=93, mean=0.3623, median=0.3448, p25=0.2000, p75=0.5000, min=0.0000, max=0.8889
+- alpha_r | 1-N: n=26, mean=0.3438, median=0.3371, p25=0.1626, p75=0.5076, min=0.0517, max=0.7126
+- alpha_r | M-1: n=72, mean=0.3163, median=0.2762, p25=0.1510, p75=0.4386, min=0.0000, max=0.7619
+  mean ranking: highest=1-1, lowest=M-1
+
+delta_r:
+- delta_r | 1-1: n=9, mean=0.2211, median=0.2121, p25=0.0000, p75=0.3889, min=0.0000, max=0.5556
+- delta_r | 1-N: n=26, mean=0.2065, median=0.2183, p25=0.1011, p75=0.2694, min=0.0345, max=0.5000
+- delta_r | M-N: n=93, mean=0.2004, median=0.1875, p25=0.1186, p75=0.2659, min=0.0000, max=0.7500
+- delta_r | M-1: n=72, mean=0.1945, median=0.1718, p25=0.0998, p75=0.2827, min=0.0000, max=0.5238
+  mean ranking: highest=1-1, lowest=M-1
+
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+
+hits_r:
+- hits_r | 1-1: n=7, mean=0.6938, median=0.8214, p25=0.4961, p75=1.0000, min=0.0431, max=1.0000
+- hits_r | M-N: n=90, mean=0.5914, median=0.5611, p25=0.4288, p75=0.7841, min=0.0000, max=1.0000
+- hits_r | M-1: n=63, mean=0.5309, median=0.5208, p25=0.4286, p75=0.5983, min=0.1755, max=0.9893
+- hits_r | 1-N: n=22, mean=0.4598, median=0.4728, p25=0.3135, p75=0.5463, min=0.1635, max=0.7479
+  mean ranking: highest=1-1, lowest=1-N
+
+alpha_r:
+- alpha_r | M-N: n=89, mean=0.3571, median=0.3448, p25=0.1950, p75=0.4857, min=0.0000, max=0.8889
+- alpha_r | 1-N: n=22, mean=0.3309, median=0.3133, p25=0.1488, p75=0.5076, min=0.0517, max=0.7126
+- alpha_r | M-1: n=63, mean=0.3127, median=0.2667, p25=0.1536, p75=0.4336, min=0.0250, max=0.7619
+- alpha_r | 1-1: n=7, mean=0.2850, median=0.0000, p25=0.0000, p75=0.5253, min=0.0000, max=0.9444
+  mean ranking: highest=M-N, lowest=1-1
+
+delta_r:
+- delta_r | M-N: n=89, mean=0.1925, median=0.1872, p25=0.1175, p75=0.2449, min=0.0000, max=0.6667
+- delta_r | 1-N: n=22, mean=0.1885, median=0.2012, p25=0.0813, p75=0.2676, min=0.0345, max=0.3529
+- delta_r | M-1: n=63, mean=0.1854, median=0.1667, p25=0.0996, p75=0.2626, min=0.0168, max=0.5238
+- delta_r | 1-1: n=7, mean=0.1652, median=0.0000, p25=0.0000, p75=0.3005, min=0.0000, max=0.5556
+  mean ranking: highest=M-N, lowest=1-1

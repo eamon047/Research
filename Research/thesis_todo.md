@@ -2,19 +2,21 @@
 
 ## Current Overall Judgment
 
-The current relation-pattern block is close to a stable stopping point.
+The current thesis main-line experiment block is now close to a stable stopping point.
 
 At this stage, the most reasonable thesis structure is:
 
 - `mapping type` as the main structural result
 - `inverse` as an exploratory secondary result
 - `symmetry` as a documented weak/negative result
+- `relation frequency` as a support / sparsity control variable
 
-This means the immediate priority is no longer to invent new relation patterns, but to:
+This means the immediate priority is no longer to invent new experiments, but to:
 
-1. complete the most valuable cross-model replications
-2. freeze the current pattern-analysis block
-3. then move to the next thesis component in a controlled way
+1. freeze the current main-line experiment block
+2. convert stable findings into thesis-safe wording
+3. decide which lightweight figures are still worth adding
+4. then move to the next thesis component in a controlled way
 
 ## What Is Already Largely Completed
 
@@ -23,6 +25,7 @@ This means the immediate priority is no longer to invent new relation patterns, 
 Current status:
 
 - `RotatE + FB15k-237` result is stable
+- `TransE + FB15k-237` replication completed
 - by-side directional analysis is the real main result
 - combined-only reading is no longer the preferred thesis presentation
 
@@ -37,6 +40,7 @@ Current status:
 - first-round directional proxy has been recorded as too broad
 - stricter v2 metrics have been implemented
 - subgroup-oriented reading is now available
+- `TransE` comparison completed
 - global monotonic claim is not supported
 
 Current thesis role:
@@ -58,84 +62,84 @@ Current thesis role:
 
 - weak / negative result
 
+### Relation Frequency
+
+Current status:
+
+- `RotatE` base analysis completed
+- `mapping type × frequency` by-side analysis completed
+- `TransE` comparison completed
+- the original paper’s simple negative frequency trend is not reproduced under the current thesis setting
+- the control-variable conclusion is usable
+
+Current thesis role:
+
+- support / sparsity control variable
+- useful mainly for defending the independence of the mapping-type result
+
 ## Immediate Priorities
 
-### 1. Add `TransE` Support To The Two More Important Pattern Lines
+### 1. Freeze The Main-Line Experiment Block
 
-This is the most important remaining experiment block.
+This includes:
+
+- `mapping type`
+- `inverse`
+- `symmetry`
+- `relation frequency`
 
 The current recommendation is:
 
-- run `mapping type` on `TransE`
-- run `inverse` on `TransE`
+- do not open new relation patterns
+- do not rerun the existing lines unless a specific writing need appears
+- treat the experimental block as complete enough for thesis writing
 
-Reason:
+### 2. Shift To Writing-Oriented Consolidation
 
-- `mapping type` is the thesis main result and deserves at least one cross-model check
-- `inverse` is still plausible enough to justify a model-comparison extension
-- `symmetry` has already received its cross-model check and does not need further expansion now
+The next valuable work is:
 
-### 2. Freeze The Relation-Pattern Block After Those Runs
+- unify the thesis wording across experiment notes
+- decide which figures are worth keeping
+- convert the current results into compact result-section logic
 
-Once the `TransE` supplements for `mapping type` and `inverse` are completed, the relation-pattern part should be considered experimentally closed for now.
+### 3. Keep The Efficiency Branch Deferred
 
-That means:
+The computation-reduction branch remains real, but it should stay below the main thesis writing task for now.
 
-- no new relation pattern should be opened at this stage
-- no deeper symmetry digging should be added
-- inverse should not receive another broad rerun unless a very specific writing need appears
+## Recommended Near-Term Work
 
-### 3. Prepare The Transition To `relation frequency`
-
-After the pattern block is frozen, the next content block should be:
-
-- `relation frequency`
-
-But this should begin only after the remaining `TransE` supplements are completed.
-
-## Recommended Near-Term Experiment Plan
-
-### A. `mapping type` on `TransE`
+### A. Consolidate The Main Experimental Story
 
 Goal:
 
-- check whether the directional by-side mapping-type result also appears in `TransE`
+- turn the current experiment block into a stable thesis narrative
 
-Minimum required outputs:
+Key tasks:
 
-- relation-level by-side multiplicity table
-- `mapping_type` summary
-- direct comparison against current `RotatE` findings
+- align the wording across `mapping type`, `inverse`, `symmetry`, and `relation frequency`
+- keep the hierarchy clear:
+  - `mapping type` main result
+  - `inverse` exploratory secondary result
+  - `symmetry` weak / negative result
+  - `relation frequency` support-level control variable
 
-Main question:
-
-- does the harder side under each mapping regime still show lower `Hits@10` and higher `alpha/delta`?
-
-This is higher priority than all other remaining pattern experiments.
-
-### B. `inverse` on `TransE`
+### B. Decide Which Figures Are Necessary
 
 Goal:
 
-- check whether the current inverse story remains exploratory under another model
+- keep only the most thesis-useful visuals
 
-Recommended scope:
+Current likely priorities:
 
-- preserve the existing `v1` / `v2` distinction
-- at minimum, run the stricter `v2` analysis
-- if the implementation cost is low, keep the `v1` baseline as well for completeness
-
-Main question:
-
-- does `TransE` make the inverse-like subgroup cleaner, noisier, or essentially unchanged?
-
-This matters less than `mapping type`, but still enough to justify one model-comparison pass.
+- `mapping type` by-side figure
+- `TransE` by-side figure for mapping type
+- optionally one `relation frequency × mapping type` figure if it materially helps the control-variable argument
 
 ## Topics To Defer Until After The Pattern Block
 
 ### `relation frequency`
 
-This is the next serious content block after the relation-pattern experiments.
+This block is no longer pending; it has already been integrated into the main line.
 
 Current judgment:
 
@@ -144,9 +148,9 @@ Current judgment:
 
 Recommended policy:
 
-- do **not** start detailed integration yet
-- first finish the remaining `TransE` work for `mapping type` and `inverse`
-- then discuss how `relation frequency` should connect to the existing thesis story
+- keep it as a control-variable section
+- do not inflate it into a fourth pattern section
+- do not force reproduction of the original paper’s negative trend when the current thesis setting does not support it
 
 ### `entity frequency`
 
@@ -196,11 +200,10 @@ These are better handled after the remaining high-value experiments are finished
 
 ## Current Recommended Order
 
-1. run `mapping type` on `TransE`
-2. run `inverse` on `TransE`
-3. update experiment notes and freeze the relation-pattern block
-4. design how `relation frequency` should be integrated into the thesis
-5. later return to the efficiency branch and parameter consolidation
+1. freeze the main-line experiment block
+2. convert the stable findings into thesis-safe wording
+3. decide whether one or two additional figures are worth adding
+4. later return to the efficiency branch and parameter consolidation
 
 ## Current Non-Goals
 
@@ -209,8 +212,9 @@ At the current stage, the following should **not** be expanded further:
 - new relation patterns beyond the current three
 - more symmetry refinements
 - entity-frequency main-line analysis
-- broad multi-model expansion beyond the most valuable `TransE` checks
+- broad multi-model expansion beyond the current `RotatE / TransE` coverage
+- new frequency-modeling variants such as regression-heavy branches
 
 ## One-Sentence Working Summary
 
-The current thesis work should now move from “opening more pattern ideas” to “closing the relation-pattern block cleanly with the most valuable `TransE` supplements, then transitioning to `relation frequency`.”
+The current thesis work should now move from “running more main-line experiments” to “closing the main-line block cleanly and converting it into thesis-ready structure and wording.”

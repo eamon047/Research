@@ -1,0 +1,40 @@
+Relation Frequency Analysis Summary
+
+Merged relations: 237
+Relations with train_frequency = 0: 0
+
+Threshold: test_support >= 0
+Relations kept: 237 / 237
+Frequency bucket bounds on log_train_frequency: low<=5.3875, mid<=6.5357, high>mid
+- Spearman(log_train_frequency, hits_r) = -0.2082 (n=224)
+- Spearman(log_train_frequency, alpha_r) = 0.1514 (n=219)
+- Spearman(log_train_frequency, delta_r) = 0.0006 (n=219)
+
+Bucket means:
+- low_frequency: n=79, logfreq_mean=4.9321, hits_mean=0.6063, alpha_mean=0.2669, delta_mean=0.1867
+- mid_frequency: n=79, logfreq_mean=5.9386, hits_mean=0.5596, alpha_mean=0.3372, delta_mean=0.1962
+- high_frequency: n=79, logfreq_mean=7.5808, hits_mean=0.4886, alpha_mean=0.3624, delta_mean=0.1872
+
+Threshold: test_support >= 5
+Relations kept: 201 / 237
+Frequency bucket bounds on log_train_frequency: low<=5.5568, mid<=6.6446, high>mid
+- Spearman(log_train_frequency, hits_r) = -0.1938 (n=201)
+- Spearman(log_train_frequency, alpha_r) = 0.1023 (n=200)
+- Spearman(log_train_frequency, delta_r) = -0.0673 (n=200)
+
+Bucket means:
+- low_frequency: n=67, logfreq_mean=5.0134, hits_mean=0.5953, alpha_mean=0.3095, delta_mean=0.2100
+- mid_frequency: n=67, logfreq_mean=6.1186, hits_mean=0.5702, alpha_mean=0.3530, delta_mean=0.2007
+- high_frequency: n=67, logfreq_mean=7.7569, hits_mean=0.4813, alpha_mean=0.3682, delta_mean=0.1892
+
+Threshold: test_support >= 10
+Relations kept: 182 / 237
+Frequency bucket bounds on log_train_frequency: low<=5.6708, mid<=6.7519, high>mid
+- Spearman(log_train_frequency, hits_r) = -0.2734 (n=182)
+- Spearman(log_train_frequency, alpha_r) = 0.1583 (n=181)
+- Spearman(log_train_frequency, delta_r) = 0.0273 (n=181)
+
+Bucket means:
+- low_frequency: n=61, logfreq_mean=5.1200, hits_mean=0.6166, alpha_mean=0.3011, delta_mean=0.1899
+- mid_frequency: n=60, logfreq_mean=6.2578, hits_mean=0.5888, alpha_mean=0.3360, delta_mean=0.1868
+- high_frequency: n=61, logfreq_mean=7.8618, hits_mean=0.4707, alpha_mean=0.3705, delta_mean=0.1888
