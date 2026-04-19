@@ -87,7 +87,7 @@ results/RotatE_FB15k237/
 The corresponding `TransE` replication outputs are organized in the same way under:
 
 ```text
-results/TransE_FB15k237_N/mapping_type/
+results/TransE_FB15k237/mapping_type/
 ```
 
 This layout is intended to keep link-prediction reproduction results separate from thesis-specific mapping-type analysis.
@@ -284,7 +284,7 @@ The `TransE` follow-up uses:
 
 - model: `TransE`
 - dataset: `FB15k-237`
-- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- experiment folder: `LibKGE/local/TransE_FB15k237`
 - repeated runs: `seed_0` to `seed_7`
 
 The `_N` run family is used because it is the cleaner `TransE` repeated-run set aligned with the current `Hits@10`-based evaluation convention.
@@ -310,8 +310,8 @@ The analysis was run in the local `LibKGE` conda environment.
 
 The main `TransE` outputs are now stored under:
 
-- `results/TransE_FB15k237_N/mapping_type/combined/`
-- `results/TransE_FB15k237_N/mapping_type/by_side/`
+- `results/TransE_FB15k237/mapping_type/combined/`
+- `results/TransE_FB15k237/mapping_type/by_side/`
 
 Key files include:
 

@@ -371,8 +371,8 @@ def evaluation(jobs, agg_index_list, k, agg_func=None):
 
 def run_experiment():
     # Minimal local configuration.
-    # For TransE_N, set EXPERIMENT_NAME = "TransE_FB15k237_N".
-    EXPERIMENTS_ROOT = "LibKGE/local/multiplicity"
+    # For TransE, set EXPERIMENT_NAME = "TransE_FB15k237".
+    EXPERIMENTS_ROOT = "LibKGE/local"
     MODEL = "RotatE"
     DATASET = "FB15k237"
     EXPERIMENT_NAME = "RotatE_FB15k237"

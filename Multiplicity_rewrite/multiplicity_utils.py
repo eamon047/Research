@@ -19,7 +19,7 @@ from kge.util.seed import seed_from_config
 
 @dataclass(frozen=True)
 class LocalExperimentConfig:
-    experiments_root: str = "LibKGE/local/multiplicity"
+    experiments_root: str = "LibKGE/local"
     model: str = "RotatE"
     dataset: str = "FB15k237"
     experiment_name: str = "RotatE_FB15k237"

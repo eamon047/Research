@@ -582,8 +582,8 @@ using the same relation-level thesis setting.
 
 The `TransE` outputs are now stored under:
 
-- `results/TransE_FB15k237_N/relation_frequency/`
-- `results/TransE_FB15k237_N/relation_frequency/mapping_interaction/`
+- `results/TransE_FB15k237/relation_frequency/`
+- `results/TransE_FB15k237/relation_frequency/mapping_interaction/`
 
 ## TransE Base Result
 

@@ -621,7 +621,7 @@ The `TransE` comparison uses:
 
 - model: `TransE`
 - dataset: `FB15k-237`
-- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- experiment folder: `LibKGE/local/TransE_FB15k237`
 - repeated runs: `seed_0` to `seed_7`
 
 The comparison deliberately reused existing repeated runs rather than retraining from scratch.
@@ -654,12 +654,12 @@ This is an implementation detail rather than a thesis result, but it matters for
 
 The `TransE` outputs are stored under:
 
-- `results/TransE_FB15k237_N/symmetry/`
-- `results/TransE_FB15k237_N/symmetry_v2/`
+- `results/TransE_FB15k237/symmetry/`
+- `results/TransE_FB15k237/symmetry_v2/`
 
 The exported combined multiplicity table is:
 
-- `results/TransE_FB15k237_N/mapping_type/combined/relation_metrics_num7_agg7_k10.csv`
+- `results/TransE_FB15k237/mapping_type/combined/relation_metrics_num7_agg7_k10.csv`
 
 ## Raw TransE Symmetry Result
 

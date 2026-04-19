@@ -61,11 +61,11 @@
 
 #### TransE
 
-- [by_side/boxplots.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/mapping_type/by_side/boxplots.svg)
+- [by_side/boxplots.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/mapping_type/by_side/boxplots.svg)
   - 跨模型对照主图
-- [by_side/mapping_type_side_summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/mapping_type/by_side/mapping_type_side_summary.txt)
+- [by_side/mapping_type_side_summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/mapping_type/by_side/mapping_type_side_summary.txt)
   - 跨模型 replication 文字版
-- [by_side/mapping_type_side_grouped_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/mapping_type/by_side/mapping_type_side_grouped_stats.csv)
+- [by_side/mapping_type_side_grouped_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/mapping_type/by_side/mapping_type_side_grouped_stats.csv)
   - 分组统计表
 
 #### 当前展示建议
@@ -91,10 +91,10 @@
 
 #### TransE
 
-- [analysis_summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/inverse_v2/analysis_summary_v2.txt)
-- [correlation_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/inverse_v2/correlation_stats_v2.csv)
-- [bucket_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/inverse_v2/bucket_stats_v2.csv)
-- [mapping_interaction/summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/inverse_v2/mapping_interaction/summary_v2.txt)
+- [analysis_summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/inverse_v2/analysis_summary_v2.txt)
+- [correlation_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/inverse_v2/correlation_stats_v2.csv)
+- [bucket_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/inverse_v2/bucket_stats_v2.csv)
+- [mapping_interaction/summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/inverse_v2/mapping_interaction/summary_v2.txt)
 
 #### 当前展示建议
 
@@ -115,9 +115,9 @@
 
 #### TransE
 
-- [analysis_summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/symmetry_v2/analysis_summary_v2.txt)
-- [correlation_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/symmetry_v2/correlation_stats_v2.csv)
-- [bucket_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/symmetry_v2/bucket_stats_v2.csv)
+- [analysis_summary_v2.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/symmetry_v2/analysis_summary_v2.txt)
+- [correlation_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/symmetry_v2/correlation_stats_v2.csv)
+- [bucket_stats_v2.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/symmetry_v2/bucket_stats_v2.csv)
 
 #### 当前展示建议
 
@@ -137,10 +137,10 @@
 
 #### TransE
 
-- [analysis_summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/relation_frequency/analysis_summary.txt)
-- [correlation_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/relation_frequency/correlation_stats.csv)
-- [bucket_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/relation_frequency/bucket_stats.csv)
-- [mapping_interaction/summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237_N/relation_frequency/mapping_interaction/summary.txt)
+- [analysis_summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/relation_frequency/analysis_summary.txt)
+- [correlation_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/relation_frequency/correlation_stats.csv)
+- [bucket_stats.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/relation_frequency/bucket_stats.csv)
+- [mapping_interaction/summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/TransE_FB15k237/relation_frequency/mapping_interaction/summary.txt)
 
 #### 当前展示建议
 

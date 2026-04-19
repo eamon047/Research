@@ -177,15 +177,14 @@ python -c "import kge; print(kge.__file__)"
 
 当前已确认的 run 池包括：
 
-- `LibKGE/local/multiplicity/RotatE_FB15k237/seed_0~7`
-- `LibKGE/local/multiplicity/TransE_FB15k237/seed_0~7`
-- `LibKGE/local/multiplicity/TransE_FB15k237_N/seed_0~7`
+- `LibKGE/local/RotatE_FB15k237/seed_0~7`
+- `LibKGE/local/TransE_FB15k237/seed_0~7`
 
 其中如果要做正式的 `TransE` thesis 侧分析，优先使用：
 
-- `TransE_FB15k237_N`
+- `TransE_FB15k237`
 
-因为它更贴近当前统一使用的 `Hits@10` 验证口径。
+因为它对应当前统一使用的 `Hits@10` 验证口径。
 
 ## 7. 当前保留的主入口脚本
 
@@ -254,7 +253,7 @@ python -c "import kge; print(kge.__file__)"
 当前 thesis 相关输出主要放在：
 
 - `results/RotatE_FB15k237/`
-- `results/TransE_FB15k237_N/`
+- `results/TransE_FB15k237/`
 
 常见子目录包括：
 

@@ -1048,7 +1048,7 @@ The `TransE` follow-up uses:
 
 - model: `TransE`
 - dataset: `FB15k-237`
-- experiment folder: `LibKGE/local/multiplicity/TransE_FB15k237_N`
+- experiment folder: `LibKGE/local/TransE_FB15k237`
 - repeated runs: `seed_0` to `seed_7`
 
 The `_N` run family is used to stay aligned with the current `Hits@10`-based evaluation convention.
@@ -1074,13 +1074,13 @@ The analysis was run in the local `LibKGE` conda environment.
 
 The `TransE` outputs are now stored under:
 
-- `results/TransE_FB15k237_N/inverse/`
-- `results/TransE_FB15k237_N/inverse_v2/`
+- `results/TransE_FB15k237/inverse/`
+- `results/TransE_FB15k237/inverse_v2/`
 
 with the corresponding mapping-type interaction outputs under:
 
-- `results/TransE_FB15k237_N/inverse/mapping_interaction/`
-- `results/TransE_FB15k237_N/inverse_v2/mapping_interaction/`
+- `results/TransE_FB15k237/inverse/mapping_interaction/`
+- `results/TransE_FB15k237/inverse_v2/mapping_interaction/`
 
 ## TransE V1 Result
 

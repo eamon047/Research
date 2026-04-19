@@ -8,7 +8,7 @@ from kge import Dataset
 from kge.util.seed import seed_from_config
 
 
-DEFAULT_EXPERIMENTS_ROOT = "LibKGE/local/multiplicity"
+DEFAULT_EXPERIMENTS_ROOT = "LibKGE/local"
 DEFAULT_EXPERIMENT_NAME = "RotatE_FB15k237"
 DEFAULT_OUTPUT_DIR = "results/RotatE_FB15k237/inverse"
 

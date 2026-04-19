@@ -9,7 +9,7 @@ from kge.util.seed import seed_from_config
 from relation_frequency_utils import summarize_values, write_csv
 
 
-DEFAULT_EXPERIMENTS_ROOT = "LibKGE/local/multiplicity"
+DEFAULT_EXPERIMENTS_ROOT = "LibKGE/local"
 DEFAULT_EXPERIMENT_NAME = "RotatE_FB15k237"
 DEFAULT_OUTPUT_DIR = "results/RotatE_FB15k237/relation_frequency"
 
