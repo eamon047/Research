@@ -45,6 +45,85 @@ The stable hierarchy is:
 
 This hierarchy should remain visible throughout the writing.
 
+## Candidate-Factor Framing
+
+The four factor families in the main experimental block should **not** be
+introduced as pre-validated laws.
+
+The recommended framing is:
+
+- `mapping type` as a natural candidate explanatory factor
+- `inverse-like support` as a plausible structural candidate
+- `symmetry` as another plausible structural candidate
+- `relation frequency` as a support / sparsity control variable
+
+In other words, the thesis should present these factors as:
+
+> candidate explanatory factors to be tested under the current thesis setting
+
+rather than as structural rules that are assumed to hold in advance.
+
+This is important because the final contribution is not:
+
+- that every intuitive factor is confirmed
+
+but rather:
+
+- that the thesis distinguishes which relation-level candidate factors remain
+  explanatory after empirical testing, and which do not
+
+## Why These Factors Were Chosen
+
+The current writing should make clear that these factors were not chosen
+arbitrarily.
+
+Recommended high-level motivation:
+
+- `mapping type`
+  - it directly captures directional connectivity structure
+  - it is naturally aligned with head-side and tail-side prediction difficulty
+- `inverse-like support`
+  - it captures whether a relation has plausible reverse structural support in
+    the training graph
+- `symmetry`
+  - it captures whether a relation shows within-relation bidirectional support
+- `relation frequency`
+  - it provides a simple support / sparsity axis and acts as a control variable
+
+However, these motivations should be described as:
+
+- reasons that make the factors worth testing
+
+not as:
+
+- guarantees that the resulting empirical relation must be strong or clean
+
+## Interpreting Mixed Outcomes
+
+The chapter should not be written as a story of:
+
+- “one factor was guessed correctly, two were guessed incorrectly”
+
+The better framing is:
+
+- several motivated candidate factors were tested
+- these factors ended up with different explanatory status under the current
+  operationalization
+
+The current status should be written explicitly as:
+
+- `mapping type`: stable explanatory factor
+- `inverse`: conditional or subgroup-based factor
+- `symmetry`: not supported as a standalone explanatory factor
+- `relation frequency`: control axis
+
+This turns the contribution into a filtering result:
+
+> the thesis identifies which relation-level intuitions survive empirical
+> scrutiny under the current operationalization of predictive multiplicity
+
+instead of a yes/no scorecard on initial intuition.
+
 ## Main Experimental Block: Draft Structure
 
 ### X. Relation-Level Structural Analysis of Predictive Multiplicity
@@ -55,6 +134,8 @@ Its function is to state that:
 
 - the object of analysis is `relation-level predictive multiplicity`
 - the goal is to study how relation-level factors relate to multiplicity
+- the factor families are introduced as candidate explanatory factors rather
+  than pre-validated laws
 - metric definitions, datasets, models, and repeated-run settings have already
   been introduced earlier and are not redefined in full here
 
@@ -159,6 +240,14 @@ Its job is to make the hierarchy explicit:
 - `inverse` is an exploratory secondary result
 - `symmetry` is a weak / negative result
 - `relation frequency` is a control-variable analysis
+
+It should also make one higher-level point explicit:
+
+- a plausible structural intuition does not automatically become a stable
+  explanatory factor
+- whether it survives depends on how cleanly it is operationalized
+- whether it retains enough independent variation after cleaning
+- whether it is confounded with or interacts with other structural regimes
 
 ## Definition Placement Policy
 
