@@ -73,6 +73,18 @@
 * `n_r` 个尾查询
 * 共 `2n_r` 个查询
 
+## Filtered Ranking Convention
+
+当前分析采用标准的 filtered link-prediction ranking 口径。
+
+对于由测试三元组 `(h, r, t)` 构造的查询，其他与该查询对应的已知真答案会在排序前被过滤掉，而不会作为负例继续参与排名竞争。
+
+因此，在当前 thesis setting 下：
+
+* `1-N` 关系在 tail-side 上较低的 `Hits@10` 或较高的 multiplicity
+  不应被理解为“多个正确尾实体在未过滤条件下互相挤占 top-k 名额”的评估伪影
+* 更合理的解释是：即使在 filtered 评估下，many-side prediction 仍然更容易受到候选空间难度与跨 run 排序不稳定性的影响
+
 ## 支持变量（Support Variables）
 
 为了提高统计结果的可解释性，我们显式记录支持变量。

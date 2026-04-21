@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="338" viewBox="0 0 920 338">
+<rect width="100%" height="100%" fill="white"/>
+<text x="24" y="26" font-size="20" font-family="Arial" fill="#111111">Mapping-Type Analysis</text>
+<rect x="24" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
+<text x="34" y="66" font-size="13" font-family="Arial" fill="#111111">Hits@10 | test_support &gt;= 10</text>
+<line x1="74" y1="226.0" x2="284" y2="226.0" stroke="#ededed" stroke-width="1"/>
+<text x="66" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
+<line x1="74" y1="190.5" x2="284" y2="190.5" stroke="#ededed" stroke-width="1"/>
+<text x="66" y="194.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.25</text>
+<line x1="74" y1="155.0" x2="284" y2="155.0" stroke="#ededed" stroke-width="1"/>
+<text x="66" y="159.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.50</text>
+<line x1="74" y1="119.5" x2="284" y2="119.5" stroke="#ededed" stroke-width="1"/>
+<text x="66" y="123.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.75</text>
+<line x1="74" y1="84.0" x2="284" y2="84.0" stroke="#ededed" stroke-width="1"/>
+<text x="66" y="88.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">1.00</text>
+<line x1="74" y1="226" x2="284" y2="226" stroke="#999999" stroke-width="1.1"/>
+<text x="100.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-1</text>
+<line x1="100.25" y1="211.8382747215884" x2="100.25" y2="84.0" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="92.25" y1="211.8382747215884" x2="108.25" y2="211.8382747215884" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="92.25" y1="84.0" x2="108.25" y2="84.0" stroke="#4e79a7" stroke-width="1.3"/>
+<rect x="86.25" y="87.16964285714286" width="28" height="78.06542259454727" fill="#4e79a7" fill-opacity="0.22" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="86.25" y1="118.93651008605957" x2="114.25" y2="118.93651008605957" stroke="#4e79a7" stroke-width="1.8"/>
+<text x="100.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=7</text>
+<text x="152.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-N</text>
+<line x1="152.75" y1="181.2540199671473" x2="152.75" y2="84.0" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="144.75" y1="181.2540199671473" x2="160.75" y2="181.2540199671473" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="144.75" y1="84.0" x2="160.75" y2="84.0" stroke="#f28e2b" stroke-width="1.3"/>
+<rect x="138.75" y="86.51051707352912" width="28" height="65.61674742613519" fill="#f28e2b" fill-opacity="0.22" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="138.75" y1="103.33251865421022" x2="166.75" y2="103.33251865421022" stroke="#f28e2b" stroke-width="1.8"/>
+<text x="152.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=22</text>
+<text x="205.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-1</text>
+<line x1="205.25" y1="224.03198296935963" x2="205.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="197.25" y1="224.03198296935963" x2="213.25" y2="224.03198296935963" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="197.25" y1="84.0" x2="213.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<rect x="191.25" y="176.63752173100198" width="28" height="35.240500030773035" fill="#59a14f" fill-opacity="0.22" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="191.25" y1="201.03296655629362" x2="219.25" y2="201.03296655629362" stroke="#59a14f" stroke-width="1.8"/>
+<text x="205.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=63</text>
+<text x="257.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-N</text>
+<line x1="257.75" y1="226.0" x2="257.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="249.75" y1="226.0" x2="265.75" y2="226.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="249.75" y1="84.0" x2="265.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<rect x="243.75" y="98.57814928463526" width="28" height="79.09597941381591" fill="#e15759" fill-opacity="0.22" stroke="#e15759" stroke-width="1.3"/>
+<line x1="243.75" y1="134.09898126125336" x2="271.75" y2="134.09898126125336" stroke="#e15759" stroke-width="1.8"/>
+<text x="257.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=90</text>
+<rect x="320" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
+<text x="330" y="66" font-size="13" font-family="Arial" fill="#111111">Alpha | test_support &gt;= 10</text>
+<line x1="370" y1="226.0" x2="580" y2="226.0" stroke="#ededed" stroke-width="1"/>
+<text x="362" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
+<line x1="370" y1="190.5" x2="580" y2="190.5" stroke="#ededed" stroke-width="1"/>
+<text x="362" y="194.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.25</text>
+<line x1="370" y1="155.0" x2="580" y2="155.0" stroke="#ededed" stroke-width="1"/>
+<text x="362" y="159.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.50</text>
+<line x1="370" y1="119.5" x2="580" y2="119.5" stroke="#ededed" stroke-width="1"/>
+<text x="362" y="123.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.75</text>
+<line x1="370" y1="84.0" x2="580" y2="84.0" stroke="#ededed" stroke-width="1"/>
+<text x="362" y="88.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">1.00</text>
+<line x1="370" y1="226" x2="580" y2="226" stroke="#999999" stroke-width="1.1"/>
+<text x="396.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-1</text>
+<line x1="396.25" y1="226.0" x2="396.25" y2="84.0" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="388.25" y1="226.0" x2="404.25" y2="226.0" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="388.25" y1="84.0" x2="404.25" y2="84.0" stroke="#4e79a7" stroke-width="1.3"/>
+<rect x="382.25" y="141.6875" width="28" height="84.3125" fill="#4e79a7" fill-opacity="0.22" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="382.25" y1="216.93617023527622" x2="410.25" y2="216.93617023527622" stroke="#4e79a7" stroke-width="1.8"/>
+<text x="396.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=7</text>
+<text x="448.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-N</text>
+<line x1="448.75" y1="226.0" x2="448.75" y2="141.8518512248993" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="440.75" y1="226.0" x2="456.75" y2="226.0" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="440.75" y1="141.8518512248993" x2="456.75" y2="141.8518512248993" stroke="#f28e2b" stroke-width="1.3"/>
+<rect x="434.75" y="175.43939243257046" width="28" height="50.56060756742954" fill="#f28e2b" fill-opacity="0.22" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="434.75" y1="209.91562831401825" x2="462.75" y2="209.91562831401825" stroke="#f28e2b" stroke-width="1.8"/>
+<text x="448.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=22</text>
+<text x="501.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-1</text>
+<line x1="501.25" y1="226.0" x2="501.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="493.25" y1="226.0" x2="509.25" y2="226.0" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="493.25" y1="84.0" x2="509.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<rect x="487.25" y="114.99206376075745" width="28" height="53.27167171239853" fill="#59a14f" fill-opacity="0.22" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="487.25" y1="131.3333305120468" x2="515.25" y2="131.3333305120468" stroke="#59a14f" stroke-width="1.8"/>
+<text x="501.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=63</text>
+<text x="553.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-N</text>
+<line x1="553.75" y1="226.0" x2="553.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="545.75" y1="226.0" x2="561.75" y2="226.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="545.75" y1="84.0" x2="561.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<rect x="539.75" y="149.64952251315117" width="28" height="58.17212049663067" fill="#e15759" fill-opacity="0.22" stroke="#e15759" stroke-width="1.3"/>
+<line x1="539.75" y1="190.12234047055244" x2="567.75" y2="190.12234047055244" stroke="#e15759" stroke-width="1.8"/>
+<text x="553.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=88</text>
+<rect x="616" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
+<text x="626" y="66" font-size="13" font-family="Arial" fill="#111111">Delta | test_support &gt;= 10</text>
+<line x1="666" y1="226.0" x2="876" y2="226.0" stroke="#ededed" stroke-width="1"/>
+<text x="658" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
+<line x1="666" y1="190.5" x2="876" y2="190.5" stroke="#ededed" stroke-width="1"/>
+<text x="658" y="194.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.25</text>
+<line x1="666" y1="155.0" x2="876" y2="155.0" stroke="#ededed" stroke-width="1"/>
+<text x="658" y="159.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.50</text>
+<line x1="666" y1="119.5" x2="876" y2="119.5" stroke="#ededed" stroke-width="1"/>
+<text x="658" y="123.5" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.75</text>
+<line x1="666" y1="84.0" x2="876" y2="84.0" stroke="#ededed" stroke-width="1"/>
+<text x="658" y="88.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">1.00</text>
+<line x1="666" y1="226" x2="876" y2="226" stroke="#999999" stroke-width="1.1"/>
+<text x="692.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-1</text>
+<line x1="692.25" y1="226.0" x2="692.25" y2="119.5" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="684.25" y1="226.0" x2="700.25" y2="226.0" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="684.25" y1="119.5" x2="700.25" y2="119.5" stroke="#4e79a7" stroke-width="1.3"/>
+<rect x="678.25" y="177.1875" width="28" height="48.8125" fill="#4e79a7" fill-opacity="0.22" stroke="#4e79a7" stroke-width="1.3"/>
+<line x1="678.25" y1="216.93617021276597" x2="706.25" y2="216.93617021276597" stroke="#4e79a7" stroke-width="1.8"/>
+<text x="692.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=7</text>
+<text x="744.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">1-N</text>
+<line x1="744.75" y1="226.0" x2="744.75" y2="178.66666666666669" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="736.75" y1="226.0" x2="752.75" y2="226.0" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="736.75" y1="178.66666666666669" x2="752.75" y2="178.66666666666669" stroke="#f28e2b" stroke-width="1.3"/>
+<rect x="730.75" y="194.72619047619048" width="28" height="31.27380952380952" fill="#f28e2b" fill-opacity="0.22" stroke="#f28e2b" stroke-width="1.3"/>
+<line x1="730.75" y1="215.00979903670486" x2="758.75" y2="215.00979903670486" stroke="#f28e2b" stroke-width="1.8"/>
+<text x="744.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=22</text>
+<text x="797.25" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-1</text>
+<line x1="797.25" y1="226.0" x2="797.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="789.25" y1="226.0" x2="805.25" y2="226.0" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="789.25" y1="84.0" x2="805.25" y2="84.0" stroke="#59a14f" stroke-width="1.3"/>
+<rect x="783.25" y="155.0" width="28" height="32.16239316239316" fill="#59a14f" fill-opacity="0.22" stroke="#59a14f" stroke-width="1.3"/>
+<line x1="783.25" y1="169.2" x2="811.25" y2="169.2" stroke="#59a14f" stroke-width="1.8"/>
+<text x="797.25" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=63</text>
+<text x="849.75" y="244" text-anchor="middle" font-size="10" font-family="Arial" fill="#444444">M-N</text>
+<line x1="849.75" y1="226.0" x2="849.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="841.75" y1="226.0" x2="857.75" y2="226.0" stroke="#e15759" stroke-width="1.3"/>
+<line x1="841.75" y1="84.0" x2="857.75" y2="84.0" stroke="#e15759" stroke-width="1.3"/>
+<rect x="835.75" y="186.40384615384613" width="28" height="29.713369963369985" fill="#e15759" fill-opacity="0.22" stroke="#e15759" stroke-width="1.3"/>
+<line x1="835.75" y1="205.46689895470382" x2="863.75" y2="205.46689895470382" stroke="#e15759" stroke-width="1.8"/>
+<text x="849.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=88</text>
+</svg>

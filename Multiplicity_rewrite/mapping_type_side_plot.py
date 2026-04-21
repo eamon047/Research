@@ -39,6 +39,18 @@ def parse_args():
         default=DEFAULT_THRESHOLDS,
         help="Minimum test_support thresholds to visualize",
     )
+    parser.add_argument(
+        "--sides",
+        nargs="*",
+        choices=SIDES,
+        default=SIDES,
+        help="Prediction sides to visualize",
+    )
+    parser.add_argument(
+        "--title",
+        default="Mapping-Type By-Side Analysis",
+        help="Main figure title",
+    )
     return parser.parse_args()
 
 
@@ -128,9 +140,10 @@ def draw_panel(
     panel_width,
     panel_height,
     threshold,
-    side,
     metric,
     values_by_type,
+    show_side_in_title=False,
+    side=None,
 ):
     title_y = panel_top + 22
     chart_top = panel_top + 40
@@ -143,9 +156,14 @@ def draw_panel(
         f'<rect x="{panel_left}" y="{panel_top}" width="{panel_width}" height="{panel_height}" '
         'fill="white" stroke="#d9d9d9" stroke-width="1"/>'
     )
+    panel_title = f"{METRIC_LABELS[metric]} | test_support >= {threshold}"
+    if show_side_in_title and side is not None:
+        panel_title = (
+            f"{METRIC_LABELS[metric]} | {side} | test_support >= {threshold}"
+        )
     svg_parts.append(
         f'<text x="{panel_left + 10}" y="{title_y}" font-size="13" font-family="Arial" fill="#111111">'
-        f'{xml_escape(f"{METRIC_LABELS[metric]} | {side} | >= {threshold}")}</text>'
+        f"{xml_escape(panel_title)}</text>"
     )
 
     for tick in [0.0, 0.25, 0.5, 0.75, 1.0]:
@@ -228,7 +246,7 @@ def draw_panel(
         )
 
 
-def write_svg(path, rows, thresholds, metrics):
+def write_svg(path, rows, thresholds, metrics, sides, title):
     panel_width = 280
     panel_height = 230
     left_margin = 24
@@ -236,20 +254,20 @@ def write_svg(path, rows, thresholds, metrics):
     gap_x = 16
     gap_y = 18
     cols = len(metrics)
-    rows_count = len(thresholds) * len(SIDES)
+    rows_count = len(thresholds) * len(sides)
     width = left_margin * 2 + cols * panel_width + (cols - 1) * gap_x
     height = top_margin * 2 + rows_count * panel_height + (rows_count - 1) * gap_y + 20
 
     svg_parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
-        '<rect width="100%" height="100%" fill="#fafafa"/>',
+        '<rect width="100%" height="100%" fill="white"/>',
         '<text x="24" y="26" font-size="20" font-family="Arial" fill="#111111">'
-        'Mapping-Type By-Side Analysis</text>',
+        f"{xml_escape(title)}</text>",
     ]
 
     panel_row = 0
     for threshold in thresholds:
-        for side in SIDES:
+        for side in sides:
             for col_index, metric in enumerate(metrics):
                 panel_left = left_margin + col_index * (panel_width + gap_x)
                 panel_top = top_margin + panel_row * (panel_height + gap_y)
@@ -261,9 +279,10 @@ def write_svg(path, rows, thresholds, metrics):
                     panel_width,
                     panel_height,
                     threshold,
-                    side,
                     metric,
                     values_by_type,
+                    show_side_in_title=len(sides) > 1,
+                    side=side,
                 )
             panel_row += 1
 
@@ -279,7 +298,14 @@ def write_svg(path, rows, thresholds, metrics):
 def main():
     args = parse_args()
     rows = load_rows(args.input_csv)
-    write_svg(args.output_svg, rows, args.thresholds, DEFAULT_METRICS)
+    write_svg(
+        args.output_svg,
+        rows,
+        args.thresholds,
+        DEFAULT_METRICS,
+        args.sides,
+        args.title,
+    )
     print(f"Saved SVG to: {args.output_svg}")
 
 

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="950" height="230" viewBox="0 0 950 230">
+<rect width="100%" height="100%" fill="white"/>
+<text x="28" y="30" font-family="Arial" font-size="22" font-weight="700" fill="#111111">Inverse-Like Support Summary</text>
+<rect x="28" y="54" width="890" height="32" fill="#eef7ea" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="75.0" text-anchor="start" font-family="Arial" font-size="16" font-weight="700" fill="#222222">High-Confidence Inverse-Like Subgroups (threshold = 10)</text>
+<rect x="28" y="86" width="90" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="108.0" text-anchor="start" font-family="Arial" font-size="13" font-weight="700" fill="#222222">Model</text>
+<rect x="118" y="86" width="430" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="128" y="108.0" text-anchor="start" font-family="Arial" font-size="13" font-weight="700" fill="#222222">Criterion</text>
+<rect x="548" y="86" width="60" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="578.0" y="108.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#222222">n</text>
+<rect x="608" y="86" width="110" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="663.0" y="108.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#222222">Hits@10</text>
+<rect x="718" y="86" width="100" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="768.0" y="108.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#222222">Alpha</text>
+<rect x="818" y="86" width="100" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="868.0" y="108.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#222222">Delta</text>
+<rect x="28" y="120" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="142.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">RotatE</text>
+<rect x="118" y="120" width="430" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="128" y="142.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">High mutual inverse-like strength (mutual_inverse_strength &gt; 0.5)</text>
+<rect x="548" y="120" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="578.0" y="142.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">10</text>
+<rect x="608" y="120" width="110" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="663.0" y="142.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.6838</text>
+<rect x="718" y="120" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="768.0" y="142.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0971</text>
+<rect x="818" y="120" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="868.0" y="142.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0627</text>
+<rect x="28" y="154" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="176.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">RotatE</text>
+<rect x="118" y="154" width="430" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="128" y="176.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">High inverse-like clarity (inverse_clarity &gt; 0.5)</text>
+<rect x="548" y="154" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="578.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">5</text>
+<rect x="608" y="154" width="110" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="663.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.8000</text>
+<rect x="718" y="154" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="768.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0000</text>
+<rect x="818" y="154" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="868.0" y="176.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0000</text>
+<rect x="28" y="188" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="210.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">TransE</text>
+<rect x="118" y="188" width="430" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="128" y="210.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">High mutual inverse-like strength (mutual_inverse_strength &gt; 0.5)</text>
+<rect x="548" y="188" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="578.0" y="210.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">10</text>
+<rect x="608" y="188" width="110" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="663.0" y="210.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.6866</text>
+<rect x="718" y="188" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="768.0" y="210.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.1361</text>
+<rect x="818" y="188" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="868.0" y="210.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0813</text>
+<rect x="28" y="222" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="244.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">TransE</text>
+<rect x="118" y="222" width="430" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="128" y="244.0" text-anchor="start" font-family="Arial" font-size="12" font-weight="400" fill="#222222">High inverse-like clarity (inverse_clarity &gt; 0.5)</text>
+<rect x="548" y="222" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="578.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">5</text>
+<rect x="608" y="222" width="110" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="663.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.8000</text>
+<rect x="718" y="222" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="768.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0000</text>
+<rect x="818" y="222" width="100" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="868.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#222222">0.0000</text>
+</svg>
