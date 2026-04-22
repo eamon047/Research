@@ -2,8 +2,8 @@ import csv
 import os
 
 
-INPUT_CSV = "results/thesis_selected/inverse/inverse_selected_summary.csv"
-OUTPUT_SVG = "results/thesis_selected/inverse/inverse_selected_summary_table.svg"
+INPUT_CSV = "results/thesis_selected/symmetry/symmetry_selected_summary.csv"
+OUTPUT_SVG = "results/thesis_selected/symmetry/symmetry_selected_summary_table.svg"
 PAPER_BASELINES = {
     "RotatE": {"hits": 0.520, "alpha": 0.163, "delta": 0.064},
     "TransE": {"hits": 0.455, "alpha": 0.385, "delta": 0.145},
@@ -29,7 +29,20 @@ def fmt_float(value):
     return f"{float(value):.4f}"
 
 
-def draw_cell(svg, x, y, w, h, text, *, fill="white", bold=False, align="left", color="#222222", size=13):
+def draw_cell(
+    svg,
+    x,
+    y,
+    w,
+    h,
+    text,
+    *,
+    fill="white",
+    bold=False,
+    align="left",
+    color="#222222",
+    size=13,
+):
     svg.append(
         f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="#cfcfcf" stroke-width="1"/>'
     )
@@ -55,13 +68,23 @@ def render_global_section(svg, rows, left, top):
     cols = [
         ("Model", 90, "left"),
         ("n", 60, "center"),
-        ("Spearman(Hits)", 150, "center"),
-        ("Spearman(Alpha)", 155, "center"),
-        ("Spearman(Delta)", 155, "center"),
-        ("Reading", 220, "left"),
+        ("Spearman(Hits)", 145, "center"),
+        ("Spearman(Alpha)", 150, "center"),
+        ("Spearman(Delta)", 150, "center"),
+        ("Reading", 295, "left"),
     ]
 
-    draw_cell(svg, left, top, sum(w for _, w, _ in cols), title_h, "Global Trend (threshold = 10)", fill="#eaf2fb", bold=True, size=16)
+    draw_cell(
+        svg,
+        left,
+        top,
+        sum(w for _, w, _ in cols),
+        title_h,
+        "Global Trend (threshold = 10)",
+        fill="#eaf2fb",
+        bold=True,
+        size=16,
+    )
     y = top + title_h
     x = left
     for name, width, align in cols:
@@ -76,7 +99,7 @@ def render_global_section(svg, rows, left, top):
             fmt_float(row["hits_value"]),
             fmt_float(row["alpha_value"]),
             fmt_float(row["delta_value"]),
-            "No clean global monotonic law",
+            "Near-zero global association",
         ]
         x = left
         for value, (_, width, align) in zip(values, cols):
@@ -86,16 +109,17 @@ def render_global_section(svg, rows, left, top):
     return y + row_h
 
 
-def render_subgroup_section(svg, rows, left, top):
+def render_bucket_section(svg, rows, left, top):
     title_h = 32
     row_h = 34
     cols = [
         ("Model", 90, "left"),
-        ("Criterion", 430, "left"),
+        ("Group", 180, "left"),
         ("n", 60, "center"),
-        ("Hits@10", 110, "center"),
+        ("Hits@10", 100, "center"),
         ("Alpha", 100, "center"),
         ("Delta", 100, "center"),
+        ("Reading", 260, "left"),
     ]
 
     draw_cell(
@@ -104,8 +128,8 @@ def render_subgroup_section(svg, rows, left, top):
         top,
         sum(w for _, w, _ in cols),
         title_h,
-        "High-Confidence Inverse-Like Subgroups (threshold = 10)",
-        fill="#eef7ea",
+        "Bucket Comparison (threshold = 10)",
+        fill="#f9efe2",
         bold=True,
         size=16,
     )
@@ -115,38 +139,30 @@ def render_subgroup_section(svg, rows, left, top):
         draw_cell(svg, x, y, width, row_h, name, fill="#f5f5f5", bold=True, align=align, size=13)
         x += width
 
-    criterion_map = {
-        "mutual_inverse_strength>0.5": "High mutual inverse-like strength (mutual_inverse_strength > 0.5)",
-        "inverse_clarity>0.5": "High inverse-like clarity (inverse_clarity > 0.5)",
+    group_map = {
+        "zero": "Zero symmetry",
+        "high_symmetry": "High symmetry (> 0.5)",
+    }
+    reading_map = {
+        "main_reference_group": "Reference group",
+        "no_clean_benefit": "Not cleaner than zero-symmetry",
     }
     grouped_rows = {}
     for row in rows:
         grouped_rows.setdefault(row["model"], []).append(row)
 
-    preferred_order = {
-        "RotatE": [
-            "mutual_inverse_strength>0.5",
-            "inverse_clarity>0.5",
-        ],
-        "TransE": [
-            "mutual_inverse_strength>0.5",
-        ],
-    }
-
     model_order = ["RotatE", "TransE"]
     first_group = True
+    total_width = sum(w for _, w, _ in cols)
+
     for model in model_order:
         model_rows = grouped_rows.get(model, [])
-        order = preferred_order.get(model, [])
-        if order:
-            by_key = {row["metric_or_group"]: row for row in model_rows}
-            model_rows = [by_key[key] for key in order if key in by_key]
         if not model_rows:
             continue
 
         if not first_group:
             svg.append(
-                f'<line x1="{left}" y1="{y + row_h}" x2="{left + sum(w for _, w, _ in cols)}" y2="{y + row_h}" '
+                f'<line x1="{left}" y1="{y + row_h}" x2="{left + total_width}" y2="{y + row_h}" '
                 'stroke="#9e9e9e" stroke-width="2.2"/>'
             )
 
@@ -154,15 +170,16 @@ def render_subgroup_section(svg, rows, left, top):
             y += row_h
             values = [
                 row["model"],
-                criterion_map.get(row["metric_or_group"], row["metric_or_group"]),
+                group_map.get(row["group_or_metric"], row["group_or_metric"]),
                 row["n"],
                 fmt_float(row["hits_value"]),
                 fmt_float(row["alpha_value"]),
                 fmt_float(row["delta_value"]),
+                reading_map.get(row["reading"], row["reading"]),
             ]
             x = left
             for value, (_, width, align) in zip(values, cols):
-                draw_cell(svg, x, y, width, row_h, value, align=align, size=12)
+                draw_cell(svg, x, y, width, row_h, value, align=align, size=13)
                 x += width
 
         baseline = PAPER_BASELINES.get(model)
@@ -175,6 +192,7 @@ def render_subgroup_section(svg, rows, left, top):
                 fmt_float(baseline["hits"]),
                 fmt_float(baseline["alpha"]),
                 fmt_float(baseline["delta"]),
+                "Overall reference row",
             ]
             x = left
             for value, (_, width, align) in zip(values, cols):
@@ -198,20 +216,26 @@ def render_subgroup_section(svg, rows, left, top):
 
 
 def write_svg(output_path, rows):
-    subgroup_rows = [row for row in rows if row["view"] == "selected_bucket"]
+    global_rows = [row for row in rows if row["view"] == "global_spearman"]
+    bucket_rows = [
+        row
+        for row in rows
+        if row["view"] == "bucket" and row["group_or_metric"] in {"zero", "high_symmetry"}
+    ]
 
-    width = 950
-    height = 340
+    width = 1020
+    height = 500
     left = 28
     top = 54
 
     svg = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
         '<rect width="100%" height="100%" fill="white"/>',
-        '<text x="28" y="30" font-family="Arial" font-size="22" font-weight="700" fill="#111111">Inverse-Like Support Summary</text>',
+        '<text x="28" y="30" font-family="Arial" font-size="22" font-weight="700" fill="#111111">Symmetry Summary</text>',
     ]
 
-    render_subgroup_section(svg, subgroup_rows, left, top)
+    bottom_y = render_global_section(svg, global_rows, left, top)
+    render_bucket_section(svg, bucket_rows, left, bottom_y + 24)
     svg.append("</svg>")
 
     output_dir = os.path.dirname(output_path)

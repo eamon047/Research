@@ -31,12 +31,12 @@
 
 当前最值得直接看的精选文件：
 
-- [mapping_type_by_side_RotatE_t10.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type_by_side_RotatE_t10.svg)
-- [mapping_type_by_side_TransE_t10.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type_by_side_TransE_t10.svg)
-- [mapping_type_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type_selected_summary.csv)
-- [inverse_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse_selected_summary.csv)
-- [symmetry_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry_selected_summary.csv)
-- [relation_frequency_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/relation_frequency_selected_summary.csv)
+- [mapping_type_by_side_RotatE_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_RotatE_t10_with_table5_baseline.svg)
+- [mapping_type_by_side_TransE_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_TransE_t10_with_table5_baseline.svg)
+- [mapping_type_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/mapping_type_selected_summary.csv)
+- [inverse_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse/inverse_selected_summary.csv)
+- [symmetry_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry/symmetry_selected_summary.csv)
+- [relation_frequency_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/relation_frequency/relation_frequency_selected_summary.csv)
 
 当前正文展示建议：
 

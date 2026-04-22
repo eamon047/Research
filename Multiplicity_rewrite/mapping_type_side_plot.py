@@ -51,6 +51,29 @@ def parse_args():
         default="Mapping-Type By-Side Analysis",
         help="Main figure title",
     )
+    parser.add_argument(
+        "--baseline-hits",
+        type=float,
+        default=None,
+        help="Optional horizontal reference line for Hits@10",
+    )
+    parser.add_argument(
+        "--baseline-alpha",
+        type=float,
+        default=None,
+        help="Optional horizontal reference line for Alpha",
+    )
+    parser.add_argument(
+        "--baseline-delta",
+        type=float,
+        default=None,
+        help="Optional horizontal reference line for Delta",
+    )
+    parser.add_argument(
+        "--baseline-label",
+        default=None,
+        help="Optional label shown next to the baseline line",
+    )
     return parser.parse_args()
 
 
@@ -144,6 +167,8 @@ def draw_panel(
     values_by_type,
     show_side_in_title=False,
     side=None,
+    baseline_value=None,
+    baseline_label=None,
 ):
     title_y = panel_top + 22
     chart_top = panel_top + 40
@@ -177,6 +202,19 @@ def draw_panel(
             'font-family="Arial" fill="#666666">'
             f'{tick:.2f}</text>'
         )
+
+    if baseline_value is not None and 0.0 <= baseline_value <= 1.0:
+        baseline_y = y_to_svg(baseline_value, chart_top, chart_height)
+        svg_parts.append(
+            f'<line x1="{chart_left}" y1="{baseline_y}" x2="{chart_left + chart_width}" y2="{baseline_y}" '
+            'stroke="#c7352b" stroke-width="1.6" stroke-dasharray="6 4"/>'
+        )
+        if baseline_label:
+            svg_parts.append(
+                f'<text x="{chart_left + chart_width - 4}" y="{baseline_y - 6}" text-anchor="end" '
+                'font-size="9" font-family="Arial" fill="#c7352b">'
+                f"{xml_escape(baseline_label)}</text>"
+            )
 
     svg_parts.append(
         f'<line x1="{chart_left}" y1="{chart_bottom}" x2="{chart_left + chart_width}" y2="{chart_bottom}" '
@@ -246,7 +284,7 @@ def draw_panel(
         )
 
 
-def write_svg(path, rows, thresholds, metrics, sides, title):
+def write_svg(path, rows, thresholds, metrics, sides, title, baseline_values=None, baseline_label=None):
     panel_width = 280
     panel_height = 230
     left_margin = 24
@@ -283,6 +321,8 @@ def write_svg(path, rows, thresholds, metrics, sides, title):
                     values_by_type,
                     show_side_in_title=len(sides) > 1,
                     side=side,
+                    baseline_value=(baseline_values or {}).get(metric),
+                    baseline_label=baseline_label,
                 )
             panel_row += 1
 
@@ -305,6 +345,12 @@ def main():
         DEFAULT_METRICS,
         args.sides,
         args.title,
+        baseline_values={
+            "hits_r": args.baseline_hits,
+            "alpha_r": args.baseline_alpha,
+            "delta_r": args.baseline_delta,
+        },
+        baseline_label=args.baseline_label,
     )
     print(f"Saved SVG to: {args.output_svg}")
 
