@@ -552,17 +552,19 @@ The current recommended status is:
 
 At this stage, the relation-frequency line already looks useful enough to keep.
 
-## Immediate Next Step
+## Historical Next Step
 
-The immediate next step is no longer to ask whether this section should exist.
+The immediate next step at that stage was no longer to ask whether this section should exist.
 
 That is now answered.
 
-The next reasonable options are:
+The next reasonable options were:
 
 1. polish the current `RotatE` result into thesis-ready wording
-2. decide whether the same control-variable analysis should later be replicated on `TransE`
+2. replicate the same control-variable analysis on `TransE`
 3. optionally add one or two lightweight figures after the textual interpretation is stabilized
+
+The `TransE` follow-up has now been completed and is recorded below.
 
 ## TransE Follow-Up Has Now Been Completed
 

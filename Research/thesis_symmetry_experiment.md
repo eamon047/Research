@@ -593,21 +593,23 @@ The recommended status is now:
 - keep inverse as the more promising exploratory secondary line
 - treat symmetry as a weak or negative result unless later cross-model evidence changes the picture
 
-At this stage, the best next use of symmetry is not deeper analysis on `RotatE` alone, but:
+At that stage, the best next use of symmetry was not deeper analysis on `RotatE` alone, but:
 
-- later cross-model comparison, especially against `TransE`
+- cross-model comparison, especially against `TransE`
 
 because model-class expressiveness may matter more here than within-model relation-level variation alone.
 
-## Immediate Next Step
+## Historical Next Step
 
-The immediate next step for symmetry is no longer another within-`RotatE` refinement.
+The immediate next step for symmetry was no longer another within-`RotatE` refinement.
 
-Instead, the most informative follow-up would likely be:
+Instead, the most informative follow-up was:
 
 1. keep the current `RotatE` symmetry result as a completed baseline
-2. later run the same excluding-self symmetry analysis on `TransE`
+2. run the same excluding-self symmetry analysis on `TransE`
 3. then compare whether model-class differences are more informative than relation-level variation within `RotatE`
+
+These follow-up steps have now been completed and are recorded below.
 
 ## TransE Follow-Up Has Now Been Run
 

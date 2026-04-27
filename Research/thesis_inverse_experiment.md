@@ -205,10 +205,9 @@ Currently implemented:
 - `inverse_mapping_interaction_analysis.py`
   analyzes inverse-strength effects within each mapping type
 
-Still planned:
-
-- `inverse_plot.py`
-  generates visualizations
+No inverse-specific plotting script is currently required for the main thesis
+line. The selected inverse result is better represented as a compact summary
+table and, if needed, a small number of case-oriented examples.
 
 The preferred principle remains:
 
@@ -385,13 +384,16 @@ At the current stage, the safest interpretation is:
 
 This means the inverse-family section remains viable, but it currently points toward a more nuanced structural story than the original first-round hypothesis.
 
-## Immediate Next Step
+## Historical Next Step
 
-The immediate next step should be one of the following:
+At that stage, the immediate next step was one of the following:
 
 1. visualize the merged results with scatter plots and bucket plots
 2. inspect whether `mapping_type` or other relation structure is interacting with inverse strength
 3. consider whether a side-aware inverse follow-up is necessary if the combined relation-level signal remains difficult to interpret
+
+The mapping-type interaction and stricter v2 rerun have now been completed and
+are recorded below.
 
 ## Mapping-Type Interaction Follow-up
 
@@ -1051,7 +1053,7 @@ The `TransE` follow-up uses:
 - experiment folder: `LibKGE/local/TransE_FB15k237`
 - repeated runs: `seed_0` to `seed_7`
 
-The `_N` run family is used to stay aligned with the current `Hits@10`-based evaluation convention.
+The current standardized `TransE_FB15k237` run family is used to stay aligned with the current `Hits@10`-based evaluation convention.
 
 The workflow reused existing repeated runs rather than retraining.
 

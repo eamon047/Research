@@ -902,9 +902,15 @@ inverse family 的第一轮朴素假设可以表述为：
 
 > In addition to relation patterns, we include relation frequency as a relation-level support variable. It is not treated as a pattern itself, but as a baseline control factor that helps us examine whether low-support relations are more multiplicity-prone and whether the effect of mapping type remains after accounting for simple sparsity differences.
 
-## 下一步工作
+## 当前维护重点
 
-下一步的重点不是重新设计理论，而是让代码能够导出上述定义的关系层级表。
+当前主线所需的关系层级表已经由对应实验脚本导出并记录在各实验说明中。
+
+因此，下一步的重点不是继续重新设计理论定义，而是：
+
+* 保持本文件中的指标口径稳定
+* 确保实验记录与结果索引使用同一套术语
+* 只在论文写作暴露出具体缺口时，再补充必要的定义说明
 
 ## 配套实验记录
 

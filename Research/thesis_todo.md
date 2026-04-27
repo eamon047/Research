@@ -18,6 +18,31 @@ This means the immediate priority is no longer to invent new experiments, but to
 3. decide which lightweight figures are still worth adding
 4. then move to the next thesis component in a controlled way
 
+## Current Decision On Further Metric Redefinition
+
+The current recommendation is **not** to continue redefining the weaker
+relation-level factors as a new main experimental round.
+
+Reason:
+
+- `inverse` has already received a stricter v2 metric family and a cross-model
+  check; its remaining contribution is subgroup-oriented rather than global
+- `symmetry` has already received the necessary self-loop correction and a
+  cross-model check; the result remains weak and structurally concentrated
+- further redefinitions would likely expand the scope faster than they improve
+  the central thesis argument
+
+The more thesis-safe direction is:
+
+- close the current main-line block
+- perform writing-oriented gap checking
+- only add small supplementary analyses if a concrete thesis-writing gap
+  appears
+
+This decision does not forbid future appendix-level checks. It means that new
+metric redesign should not be treated as the default next step for the main
+thesis line.
+
 ## What Is Already Largely Completed
 
 ### Mapping Type

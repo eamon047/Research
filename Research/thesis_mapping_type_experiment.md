@@ -254,15 +254,17 @@ A safe wording for the current stage is:
 > Predictive multiplicity is not uniformly distributed across relation structure.  
 > When relation-level analysis is separated into head-side and tail-side prediction, the effect of mapping type becomes much clearer: structurally harder directions tend to be both less accurate and more multiplicity-prone.
 
-## Immediate Next Step
+## Historical Next Step
 
 This part of the experiment can be considered temporarily stabilized.
 
-The next reasonable steps are:
+At that stage, the next reasonable steps were:
 
 1. write the current findings into thesis-style result paragraphs
-2. decide whether to replicate the same workflow on `TransE`
-3. later compare whether the same directional mapping-type pattern also appears across models
+2. replicate the same workflow on `TransE`
+3. compare whether the same directional mapping-type pattern also appears across models
+
+These follow-up steps have now been completed and are recorded below.
 
 ## TransE Follow-Up Has Now Been Completed
 
@@ -287,7 +289,7 @@ The `TransE` follow-up uses:
 - experiment folder: `LibKGE/local/TransE_FB15k237`
 - repeated runs: `seed_0` to `seed_7`
 
-The `_N` run family is used because it is the cleaner `TransE` repeated-run set aligned with the current `Hits@10`-based evaluation convention.
+The current standardized `TransE_FB15k237` run family is used because it is the cleaner `TransE` repeated-run set aligned with the current `Hits@10`-based evaluation convention.
 
 The workflow reuses existing stored runs rather than retraining from scratch.
 
