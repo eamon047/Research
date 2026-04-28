@@ -271,7 +271,126 @@ python -c "import kge; print(kge.__file__)"
 - 不覆盖旧版分析结果
 - 新指标族尽量使用新的子目录，例如 `inverse_v2/`
 
-## 9. 关于 `README_Eamon` 与 `Research/` 文档的边界
+## 9. Thesis 主线复现入口清单
+
+这一节只记录工程复现链路，不记录实验结论。具体结论仍以 `Research/`
+下的实验记录为准。
+
+通用前提：
+
+- 环境：`LibKGE` conda environment
+- repeated runs:
+  - `LibKGE/local/RotatE_FB15k237/seed_0~7`
+  - `LibKGE/local/TransE_FB15k237/seed_0~7`
+- 主要参数：`num = 7`、`agg_num = 7`、`k = 10`
+- 正式 thesis 口径：`baseline = without`
+
+### 9.1 Mapping Type
+
+输入：
+
+- repeated-run checkpoints under `LibKGE/local/<experiment_name>/`
+
+主要脚本链：
+
+1. `relation_mapping_analysis.py`
+   - 导出 by-side relation-level multiplicity table
+2. `relation_multiplicity_combined_export.py`
+   - 导出 combined relation-level multiplicity table
+3. `mapping_type_side_analysis.py`
+   - 汇总 by-side grouped statistics
+4. `mapping_type_analysis.py`
+   - 汇总 combined grouped statistics
+
+主要输出：
+
+- `results/RotatE_FB15k237/mapping_type/by_side/`
+- `results/RotatE_FB15k237/mapping_type/combined/`
+- `results/TransE_FB15k237/mapping_type/by_side/`
+- `results/TransE_FB15k237/mapping_type/combined/`
+
+### 9.2 Inverse
+
+输入：
+
+- training triples from the corresponding LibKGE dataset
+- combined relation-level multiplicity table from mapping-type export
+
+主要脚本链：
+
+1. `inverse_relation_stats.py`
+   - v1 directional reverse-overlap baseline
+2. `inverse_analysis.py`
+   - v1 merge and summary
+3. `inverse_mapping_interaction_analysis.py`
+   - v1 mapping-type interaction
+4. `inverse_relation_stats_v2.py`
+   - stricter v2 metric family
+5. `inverse_analysis_v2.py`
+   - v2 merge and summary
+6. `inverse_mapping_interaction_analysis_v2.py`
+   - v2 mapping-type interaction
+
+主要输出：
+
+- `results/RotatE_FB15k237/inverse/`
+- `results/RotatE_FB15k237/inverse_v2/`
+- `results/TransE_FB15k237/inverse/`
+- `results/TransE_FB15k237/inverse_v2/`
+
+### 9.3 Symmetry
+
+输入：
+
+- training triples from the corresponding LibKGE dataset
+- combined relation-level multiplicity table from mapping-type export
+
+主要脚本链：
+
+1. `symmetry_relation_stats.py`
+   - 导出 raw symmetry statistics and self-loop diagnostics
+2. `symmetry_analysis.py`
+   - raw symmetry merge and summary
+3. `symmetry_analysis_v2.py`
+   - excluding-self-loop symmetry merge and summary
+
+主要输出：
+
+- `results/RotatE_FB15k237/symmetry/`
+- `results/RotatE_FB15k237/symmetry_v2/`
+- `results/TransE_FB15k237/symmetry/`
+- `results/TransE_FB15k237/symmetry_v2/`
+
+### 9.4 Relation Frequency
+
+输入：
+
+- training triples from the corresponding LibKGE dataset
+- combined and by-side relation-level multiplicity tables from mapping-type export
+
+主要脚本链：
+
+1. `relation_frequency_stats.py`
+   - 导出 relation-level train frequency statistics
+2. `relation_frequency_analysis.py`
+   - base combined relation-level frequency analysis
+3. `relation_frequency_mapping_interaction.py`
+   - by-side mapping type x frequency control analysis
+
+主要输出：
+
+- `results/RotatE_FB15k237/relation_frequency/`
+- `results/TransE_FB15k237/relation_frequency/`
+
+### 9.5 Thesis Selected Outputs
+
+精选展示版结果统一索引在：
+
+- `results/README.md`
+
+其中 `results/thesis_selected/` 只保留实际结果文件，不再单独维护第二份 README。
+
+## 10. 关于 `README_Eamon` 与 `Research/` 文档的边界
 
 后续维护时，建议遵守：
 
@@ -292,7 +411,7 @@ python -c "import kge; print(kge.__file__)"
 
 这些内容应继续维护在 `Research/` 下。
 
-## 10. 后续最可能继续用到这份文件的场景
+## 11. 后续最可能继续用到这份文件的场景
 
 这份文件后面仍然会在下面几类工作中有用：
 
@@ -307,7 +426,7 @@ python -c "import kge; print(kge.__file__)"
 - 如果后面继续做参数收缩、committee 缩减或其他计算量控制实验，
   这份文件仍应作为 `Multiplicity_rewrite/` 的工程说明入口
 
-## 11. 当前一句话总结
+## 12. 当前一句话总结
 
 `Multiplicity_rewrite/` 现在的角色，是 thesis 主线分析与后续工程维护的本地工作目录；
 它负责脚本、入口和方法约定，而具体实验结论与写作结构应统一放在 `Research/` 下维护。

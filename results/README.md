@@ -21,6 +21,21 @@
 
 这里面的文件不是全量原始输出，而是已经筛过口径、适合论文展示的版本。
 
+目录结构：
+
+- `mapping_type/`
+  - `legacy/`: 之前直接挑出来的 SVG 图，不删除，只归档
+  - `with_table5_baseline/`: 新版带 Table 5 全局参考线的图
+  - `mapping_type_selected_summary.csv`: 课件 / 写作使用的分组摘要
+- `inverse/`
+  - `inverse_selected_summary.csv`
+  - `inverse_selected_summary_table.svg`
+- `symmetry/`
+  - `symmetry_selected_summary.csv`
+  - `symmetry_selected_summary_table.svg`
+- `relation_frequency/`
+  - `relation_frequency_selected_summary.csv`
+
 当前统一采用的展示口径：
 
 - threshold: `test_support >= 10`
@@ -29,10 +44,23 @@
 - `symmetry`: 使用 excluding-self 的 `v2` 主定义
 - `relation frequency`: 使用 control-variable 解释口径
 
+精选文件使用建议：
+
+- `mapping type`：优先看 `with_table5_baseline/` 里的新版图
+- `inverse / symmetry / relation frequency`：优先看各自 summary csv / table
+
+口径提醒：
+
+- `mapping_type` 图中的红色线来自原论文 `Multiplicity/paper.pdf` 的 `Table 5`
+- 这条线是 `FB15k-237 + without` 的 dataset-level 全局参考值
+- 当前箱线图是 thesis 的 relation-level by-side 分布，因此红线应当理解为外部参考线，而不是完全同层级统计量
+
 当前最值得直接看的精选文件：
 
-- [mapping_type_by_side_RotatE_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_RotatE_t10_with_table5_baseline.svg)
-- [mapping_type_by_side_TransE_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_TransE_t10_with_table5_baseline.svg)
+- [mapping_type_by_side_RotatE_head_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_RotatE_head_t10_with_table5_baseline.svg)
+- [mapping_type_by_side_RotatE_tail_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_RotatE_tail_t10_with_table5_baseline.svg)
+- [mapping_type_by_side_TransE_head_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_TransE_head_t10_with_table5_baseline.svg)
+- [mapping_type_by_side_TransE_tail_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_TransE_tail_t10_with_table5_baseline.svg)
 - [mapping_type_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/mapping_type_selected_summary.csv)
 - [inverse_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse/inverse_selected_summary.csv)
 - [symmetry_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry/symmetry_selected_summary.csv)
@@ -43,6 +71,12 @@
 - `mapping type` 正文以 `threshold = 10` 的 by-side 图为主
 - 其余三条线先以 summary tables 为主
 - 原始 `5 / 10` 全量图与完整 csv 保留作备查或附录材料
+
+一致性审计记录：
+
+- 已核对 selected summary CSV 中的核心数值均可追溯到对应原始结果目录下的 source CSV，按四位小数一致。
+- 对 `inverse / symmetry / relation_frequency` 的 global Spearman 行，selected summary 中的 `n` 用于快速概括 threshold 后的关系数量；正式写作或答辩时，如需精确到每个 prediction metric 的有效样本数，应以原始 `correlation_stats*.csv` 为准。
+- 当前需要注意的唯一细节是：`TransE` 在 `test_support >= 10` 的若干 global Spearman 结果中，`hits_r` 的有效样本数为 `182`，而 `alpha_r / delta_r` 的有效样本数为 `181`。这不影响相关系数数值，但不应在正式文本中笼统写成所有三个指标都使用同一个 `n`。
 
 ## 1. 当前最值得展示的结果
 

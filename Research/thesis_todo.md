@@ -2,7 +2,8 @@
 
 ## Current Overall Judgment
 
-The current thesis main-line experiment block is now close to a stable stopping point.
+The current thesis main-line experiment block is now closed on the experimental
+side.
 
 At this stage, the most reasonable thesis structure is:
 
@@ -11,12 +12,52 @@ At this stage, the most reasonable thesis structure is:
 - `symmetry` as a documented weak/negative result
 - `relation frequency` as a support / sparsity control variable
 
-This means the immediate priority is no longer to invent new experiments, but to:
+This means the immediate priority is no longer to invent new relation-level
+experiments. The remaining work for this block is writing and presentation,
+not new analysis design:
 
-1. freeze the current main-line experiment block
-2. convert stable findings into thesis-safe wording
-3. decide which lightweight figures are still worth adding
-4. then move to the next thesis component in a controlled way
+1. keep the current main-line block frozen
+2. preserve the current result hierarchy
+3. postpone figure polishing and full chapter drafting until the user chooses to
+   write the thesis sections together
+4. move to the computation-reduction / model-pool side branch as the next
+   experimental component
+
+## Main-Line Experiment Closure Decision
+
+The relation-level predictive multiplicity block can now be treated as
+experimentally complete.
+
+Closed components:
+
+- `mapping type`
+- `inverse`
+- `symmetry`
+- `relation frequency`
+
+Closure conditions already satisfied:
+
+- core results exist for both `RotatE` and `TransE`
+- selected thesis-friendly summaries have been created
+- result files are indexed under `results/README.md`
+- key terms and fields are consolidated in `thesis_theory.md`
+- outdated path and status notes have been cleaned up
+- no further metric redesign or full five-repeat retraining is recommended
+
+Allowed future work on this block:
+
+- wording fixes
+- figure polishing
+- table formatting
+- small consistency corrections
+- appendix-level robustness only if a concrete writing or defense need appears
+
+Disallowed as default next steps:
+
+- new relation patterns
+- further inverse / symmetry metric redesign
+- broad regression-heavy control analysis
+- new full model retraining solely for mean/std reporting
 
 ## Current Decision On Further Metric Redefinition
 
@@ -42,6 +83,37 @@ The more thesis-safe direction is:
 This decision does not forbid future appendix-level checks. It means that new
 metric redesign should not be treated as the default next step for the main
 thesis line.
+
+## Current Decision On Five-Repeat Retraining
+
+The current recommendation is **not** to run a new full five-repeat retraining
+protocol solely to report mean and standard deviation.
+
+Reason:
+
+- the common "repeat five times and report mean +/- std" protocol is mainly
+  used to show that a model-performance number is not a seed accident
+- in this thesis, repeated-run variation is itself part of the research object:
+  predictive multiplicity is measured from disagreement across trained runs
+- the current main results already use a model pool of repeated seeds rather
+  than a single training run
+- the main positive result has also been checked across `RotatE` and `TransE`
+  and across support thresholds
+- retraining five complete experimental pools would be expensive while adding
+  limited evidence to the current relation-level thesis claim
+
+The more appropriate robustness option, if a writing or defense need appears,
+is a lightweight model-pool subsampling check:
+
+- repeatedly sample smaller subsets from the existing seed pool
+- recompute the core mapping-type by-side summary
+- verify whether the key directional ordering remains stable
+- report this explicitly as pool-subsampling robustness, not as a fresh
+  five-repeat retraining protocol
+
+This also connects naturally to the later computation-reduction branch, where
+the question is how much of the original model pool is needed to recover the
+same qualitative conclusions.
 
 ## What Is Already Largely Completed
 
@@ -127,9 +199,13 @@ The next valuable work is:
 - decide which figures are worth keeping
 - convert the current results into compact result-section logic
 
-### 3. Keep The Efficiency Branch Deferred
+### 3. Move To The Efficiency Branch
 
-The computation-reduction branch remains real, but it should stay below the main thesis writing task for now.
+The computation-reduction / model-pool branch is now the next experimental
+component to inspect.
+
+The branch should be positioned as a secondary method / efficiency analysis,
+not as a replacement for the relation-level structural findings.
 
 ## Recommended Near-Term Work
 
@@ -197,13 +273,16 @@ Recommended status:
 
 Current judgment:
 
-- this branch is real but secondary
-- most of the core experimentation is already done
-- remaining work is mainly parameter consolidation and final presentation
+- this branch is real and can now be inspected
+- it should remain secondary to the relation-level main result
+- its likely role is to ask how much of the original model pool is needed to
+  recover similar multiplicity or voting conclusions
 
 Recommended status:
 
-- postpone until the main thesis analysis block is better frozen
+- start with code and artifact inspection
+- clarify the exact optimization question before running new experiments
+- avoid letting this branch reopen the relation-pattern analysis
 
 ## Writing-Oriented To-Dos
 
@@ -221,14 +300,14 @@ These should begin in parallel only lightly, not as the main focus yet.
 - large-scale result section polishing
 - heavy figure production
 
-These are better handled after the remaining high-value experiments are finished.
+These are better handled after the computation-reduction branch is scoped.
 
 ## Current Recommended Order
 
-1. freeze the main-line experiment block
-2. convert the stable findings into thesis-safe wording
-3. decide whether one or two additional figures are worth adding
-4. later return to the efficiency branch and parameter consolidation
+1. keep the main-line experiment block frozen
+2. inspect the computation-reduction / model-pool branch
+3. decide whether a small experiment is needed there
+4. later return to figure polishing and thesis prose drafting as one writing pass
 
 ## Current Non-Goals
 
@@ -242,4 +321,6 @@ At the current stage, the following should **not** be expanded further:
 
 ## One-Sentence Working Summary
 
-The current thesis work should now move from “running more main-line experiments” to “closing the main-line block cleanly and converting it into thesis-ready structure and wording.”
+The relation-level main-line experiment block is closed; the next experimental
+work should inspect the computation-reduction / model-pool branch without
+reopening the relation-pattern analysis.

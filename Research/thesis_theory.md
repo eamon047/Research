@@ -191,6 +191,74 @@
 
 该表是连接多重性评估代码与映射类型分析的核心桥梁。
 
+## 字段与术语速查表
+
+本节用于快速统一论文写作、结果表和答辩说明中的字段口径。详细定义仍以后文各节为准。
+
+### 基础标识字段
+
+| 字段 | 含义 | 写作注意 |
+|---|---|---|
+| `relation_id` | LibKGE / dataset 中的 relation 数值编号 | 仅作索引，不作为语义解释依据 |
+| `relation_name` | relation 的文本名称 | case study 可使用，但主统计不依赖语义判断 |
+| `mapping_type` | LibKGE relation mapping type: `1-1 / 1-N / M-1 / M-N` | 代码和表格中保留 `M-1 / M-N`，正文可解释为 many-to-one / many-to-many |
+| `side` | prediction side: `head` or `tail` | mapping type 主结果必须区分 side |
+| `baseline` | multiplicity evaluation baseline | thesis 主线使用 `without`，不把 voting mitigation 作为主结果 |
+
+### 支持度字段
+
+| 字段 | 含义 | 写作注意 |
+|---|---|---|
+| `test_support` | relation 在测试集中的三元组数量 | 当前展示版主要使用 `test_support >= 10` |
+| `head_support` | relation 生成的 head prediction 查询数量 | 标准评估下等于 `test_support` |
+| `tail_support` | relation 生成的 tail prediction 查询数量 | 标准评估下等于 `test_support` |
+| `side_support` | by-side 表中该 side 的查询数量 | 标准评估下等于对应 relation 的 `test_support` |
+| `eligible_support` | 至少有一个 run 命中 `Hits@k` 的查询数量 | `alpha_r` 和 `delta_r` 的有效计算子集，不等于所有测试查询 |
+| `train_support` | relation 在训练图中的三元组数量 | 在 frequency analysis 中与 `train_frequency` 数值一致 |
+| `train_frequency` | relation frequency，即训练图中 relation 出现次数 | 作为 support / sparsity control variable 使用 |
+| `log_train_frequency` | `log(train_frequency + 1)` | frequency 主分析默认使用该长尾压缩形式 |
+
+### 预测表现与多重性字段
+
+| 字段 | 含义 | 写作注意 |
+|---|---|---|
+| `hits_r` | relation-level mean `Hits@k` across repeated-run outputs | 当前主链路为 `Hits@10`；它是准确性指标，不是 multiplicity severity 本身 |
+| `alpha_r` | relation-level ambiguity score | 在 eligible 子集上计算，表示 hit/miss 分歧出现频率 |
+| `delta_r` | relation-level discrepancy score | 在 eligible 子集上计算，表示参考输出与其他输出的最大 hit/miss 分歧比例 |
+| `epsilon_r` | epsilon-level-set 相关字段 | 当前 thesis 主线不作为必须字段，避免与原论文严格 epsilon pipeline 混同 |
+
+### Inverse-Like 字段
+
+| 字段 | 含义 | 写作注意 |
+|---|---|---|
+| `inverse_strength` | v1 directional reverse-overlap score | 旧 baseline 字段，等价于 one-sided directional inverse proxy，不应写成严格 inverse |
+| `directional_inverse_strength` | v2 中保留的 one-sided reverse-overlap baseline | 主要作为 audit / comparison baseline |
+| `mutual_inverse_strength` | 最强 mutual inverse-like partner 的双向支持强度 | inverse section 的主分析变量之一 |
+| `inverse_clarity` | best mutual partner 相对 second-best partner 的清晰度 | inverse section 的主分析变量之一；更接近 high-confidence subgroup 判断 |
+| `overlap_jaccard` | pair-level reverse-overlap Jaccard | 辅助 sanity check / case study，不作为主统计变量 |
+
+### Symmetry 字段
+
+| 字段 | 含义 | 写作注意 |
+|---|---|---|
+| `symmetry_score_raw` | 包含 self-loop 的 raw symmetry score | 只作为 self-loop 诊断字段 |
+| `symmetry_score_excluding_self_loops` | 排除 self-loop 后的 symmetry score | 概念上的主分析指标 |
+| `symmetry_score` | v2 输出表中的主 symmetry score | 在 v2 表中指 excluding-self-loop score，不是 raw score |
+| `self_loop_count` | relation 的 self-loop 训练事实数量 | 用于解释 raw symmetry inflation |
+| `symmetric_supported_edge_count` | raw symmetric-supported directed edge count | raw symmetry 诊断相关 |
+| `symmetric_supported_non_self_edge_count` | excluding-self 后的 symmetric-supported directed edge count | v2 symmetry 主指标相关 |
+
+### 展示与统计口径
+
+| 口径 | 当前约定 | 写作注意 |
+|---|---|---|
+| 主展示 threshold | `test_support >= 10` | `>= 5` 可作为 robustness / 备查 |
+| mapping type 主视图 | by-side relation-level analysis | combined view 只作辅助，不能支撑主结论 |
+| inverse 主视图 | v2 metrics + high-confidence subgroup | 不写成 global monotonic law |
+| symmetry 主视图 | excluding-self v2 metric | 当前结果是 weak / negative，不强行包装为 positive |
+| relation frequency 主视图 | control-variable analysis | 不写成第四个 relation pattern |
+| Table 5 baseline | 原论文 dataset-level global reference | 与 thesis relation-level by-side 分布不是同层级统计量 |
+
 ## 解释原则（Interpretation Principle）
 
 建议的解释路径为：
@@ -347,7 +415,9 @@ E_r^{\neg loop} = \{(h,t) \in E_r \mid h \neq t\}
 
 因此，在当前 thesis 设定里：
 
-* 主分析变量是 `symmetry_score`
+* 主分析变量是 excluding-self-loop symmetry score
+* 在 v2 输出表中，该主变量记为 `symmetry_score`
+* raw self-loop-sensitive value 只作为 `symmetry_score_raw` 诊断字段保留
 * 不把 `1 - symmetry_score` 当作正式的 `antisymmetry_score`
 
 这可以避免概念上把：
@@ -385,7 +455,7 @@ symmetry family 的温和主假设可以写为：
 * `self_loop_count`
 * `symmetric_supported_edge_count`
 * `symmetry_score_raw`
-* `symmetry_score`
+* `symmetry_score`，即 excluding-self-loop symmetry score
 
 在与 multiplicity 表 merge 之后，主分析表至少包含：
 
@@ -696,20 +766,20 @@ inverse family 的第一轮朴素假设可以表述为：
 
 > inverse-like support is an interpretable relation-level structural factor family that may be associated with multiplicity severity, especially for high-confidence subgroups.
 
-### 第一轮实验建议
+### First-Round Baseline Design
 
-在 inverse family 的第一轮实验中，建议优先做最小可运行版本：
+在 inverse family 的第一轮实验中，采用的最小可运行设计是：
 
 1. 只计算 direction-based `inverse_strength`
 2. 先做 sanity check，不急着做复杂统计控制
 3. 先与当前 relation-level multiplicity 表做 join
 4. 先做相关性与分桶分析
 
-更严格的 mutual inverse 定义、回归控制与案例分析可以放在后续增强阶段。
+这一轮主要作为 directional reverse-overlap baseline；更严格的 mutual inverse 定义与案例分析属于后续 v2 增强。
 
-### 第二轮实验建议
+### Second-Round V2 Design
 
-在第一轮 directional baseline 之后，第二轮更合理的增强步骤是：
+在第一轮 directional baseline 之后，第二轮 v2 增强采用：
 
 1. 保留 `directional_inverse_strength` 作为基线
 2. 加入 `mutual_inverse_strength`

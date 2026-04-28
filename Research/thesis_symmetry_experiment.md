@@ -13,6 +13,10 @@ At the current stage, this document should be treated as a maintained experiment
 - the `TransE` comparison
 - the current weak / negative-result interpretation
 
+Any sections titled as "planned" below should now be read as historical design
+notes for reproducibility. The current thesis status is given by the later
+raw-run, v2, and `TransE` comparison sections.
+
 ## Current Scope
 
 The current symmetry study follows the same fixed thesis setting already used for the other main-line sections:

@@ -13,6 +13,10 @@ At the current stage, this document should be treated as a maintained experiment
 - the `TransE` comparison
 - the current control-variable interpretation
 
+Any sections titled as "planned" below should now be read as historical design
+notes for reproducibility. The current thesis status is given by the later
+implemented-output and `TransE` comparison sections.
+
 ## Current Positioning
 
 The central decision for this section is already fixed:

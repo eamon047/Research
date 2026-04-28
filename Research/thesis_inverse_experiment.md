@@ -11,6 +11,10 @@ At the current stage, this document has moved beyond pure planning. It now serve
 - the resulting subgroup-oriented interpretation
 - the `RotatE / TransE` comparison
 
+Any sections titled as "planned" below should now be read as historical design
+notes for reproducibility. The current thesis status is given by the later
+`Current Status`, `V2`, and `TransE` sections.
+
 ## Current Scope
 
 The current inverse-family study follows the same narrow thesis setup used in the mapping-type study:
