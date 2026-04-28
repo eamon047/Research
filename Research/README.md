@@ -19,6 +19,8 @@
   - 主体实验部分的写作结构、层级与衔接逻辑
 - [thesis_todo.md](/data/satori_hdd1/EamonZhao/EamonFile/Research/thesis_todo.md)
   - 当前阶段任务与优先级
+- [thesis_efficiency_experiment.md](/data/satori_hdd1/EamonZhao/EamonFile/Research/thesis_efficiency_experiment.md)
+  - optional computation-reduction / shared model-pool voting branch
 
 ### 实验记录
 

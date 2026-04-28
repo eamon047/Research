@@ -20,8 +20,9 @@ not new analysis design:
 2. preserve the current result hierarchy
 3. postpone figure polishing and full chapter drafting until the user chooses to
    write the thesis sections together
-4. move to the computation-reduction / model-pool side branch as the next
-   experimental component
+4. optionally inspect the computation-reduction / model-pool side branch as a
+   secondary efficiency component, without treating it as required for the main
+   thesis argument
 
 ## Main-Line Experiment Closure Decision
 
@@ -199,13 +200,20 @@ The next valuable work is:
 - decide which figures are worth keeping
 - convert the current results into compact result-section logic
 
-### 3. Move To The Efficiency Branch
+### 3. Optional Efficiency Branch
 
-The computation-reduction / model-pool branch is now the next experimental
-component to inspect.
+The computation-reduction / model-pool branch can now be inspected, but it is
+not required for the relation-level thesis block to be complete.
 
-The branch should be positioned as a secondary method / efficiency analysis,
-not as a replacement for the relation-level structural findings.
+The branch should be positioned as a secondary method / efficiency analysis, not
+as a replacement for the relation-level structural findings.
+
+Current policy:
+
+- do not commit to it as a second main thesis line before pilot results exist
+- do not let it dilute the mapping-type main result in writing or slides
+- keep it as an optional branch that can be dropped, moved to appendix, or kept
+  as a concise supplementary result depending on empirical clarity
 
 ## Recommended Near-Term Work
 
@@ -273,16 +281,66 @@ Recommended status:
 
 Current judgment:
 
-- this branch is real and can now be inspected
+- this branch is real and can now be inspected, but it is optional rather than
+  thesis-critical
 - it should remain secondary to the relation-level main result
-- its likely role is to ask how much of the original model pool is needed to
-  recover similar multiplicity or voting conclusions
+- its likely role is to ask whether a smaller shared model pool can recover most
+  of the voting-based multiplicity reduction obtained from larger voting
+  communities
 
 Recommended status:
 
 - start with code and artifact inspection
 - clarify the exact optimization question before running new experiments
 - avoid letting this branch reopen the relation-pattern analysis
+
+Recommended framing:
+
+> resource-efficient voting approximation under a shared model-pool setting
+
+This should not be written as a strict reproduction of the original voting
+protocol. A safer thesis question is:
+
+> In a shared model-pool setting, can smaller voting communities recover most of
+> the multiplicity reduction achieved by a larger voting setup while using fewer
+> uniquely trained models?
+
+Important caveat:
+
+- if multiple voting communities are sampled from the same small pool, the
+  communities overlap
+- lower multiplicity may therefore reflect both voting aggregation and increased
+  similarity between communities
+- this is not a fatal flaw, but it must be measured and reported rather than
+  ignored
+
+Minimum information to record for each setting:
+
+- unique model pool size `P`
+- number of communities `C`
+- community size `m`
+- total voting slots `C * m`
+- average pairwise community overlap / Jaccard
+- `Hits`, `Epsilon`, `Alpha`, and `Delta`
+- multiplicity-reduction ratio relative to the `without` baseline
+- recovery ratio relative to a larger voting reference
+
+Suggested first pilot:
+
+- start with `RotatE + FB15k-237`, because the local model pool currently has
+  more available seeds than `TransE`
+- use the existing model pool before training new checkpoints
+- test a small grid such as `P in {10, 20, 30}` and `m in {2, 3, 4, 5, 6, 8}`
+- repeat community sampling over several random seeds
+- expand to more models or more seeds only if the pilot gives a clean,
+  thesis-useful trend
+
+Decision rule after pilot:
+
+- keep in main text only if the result is simple and clearly supports an
+  efficiency claim
+- move to appendix if useful but secondary
+- drop from thesis if it needs too many caveats or weakens the main narrative
 
 ## Writing-Oriented To-Dos
 
@@ -305,8 +363,9 @@ These are better handled after the computation-reduction branch is scoped.
 ## Current Recommended Order
 
 1. keep the main-line experiment block frozen
-2. inspect the computation-reduction / model-pool branch
-3. decide whether a small experiment is needed there
+2. optionally inspect the computation-reduction / model-pool branch as an
+   efficiency side branch
+3. decide whether a small pilot experiment is worth running there
 4. later return to figure polishing and thesis prose drafting as one writing pass
 
 ## Current Non-Goals
@@ -321,6 +380,6 @@ At the current stage, the following should **not** be expanded further:
 
 ## One-Sentence Working Summary
 
-The relation-level main-line experiment block is closed; the next experimental
-work should inspect the computation-reduction / model-pool branch without
-reopening the relation-pattern analysis.
+The relation-level main-line experiment block is closed; any computation-
+reduction / model-pool work should remain an optional efficiency side branch and
+must not reopen the relation-pattern analysis.
