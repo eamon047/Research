@@ -1,3 +1,70 @@
+Efficiency voting sweep commands for direct copy/paste.
+
+Important:
+- Run these commands from the repository root, not from LibKGE/.
+- Repository root: /data/satori_hdd1/EamonZhao/EamonFile
+- Activate the LibKGE conda environment first.
+- CUDA_VISIBLE_DEVICES selects the physical GPU.
+- If CUDA_VISIBLE_DEVICES=2, the process sees that selected GPU as cuda:0.
+
+Prepare shell:
+
+cd /data/satori_hdd1/EamonZhao/EamonFile
+conda activate LibKGE
+
+Runtime probe on physical GPU 0:
+
+CUDA_VISIBLE_DEVICES=0 python Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 10 --community-sizes 2,8 --num-communities 10 --sampling-seeds 0 --reference-community-size 8 --baselines without,major --output-csv results/RotatE_FB15k237/efficiency_voting/runtime_probe.csv
+
+Runtime probe on physical GPU 1:
+
+CUDA_VISIBLE_DEVICES=1 python Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 10 --community-sizes 2,8 --num-communities 10 --sampling-seeds 0 --reference-community-size 8 --baselines without,major --output-csv results/RotatE_FB15k237/efficiency_voting/runtime_probe.csv
+
+Medium pilot P=10 on physical GPU 0:
+
+CUDA_VISIBLE_DEVICES=0 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 10 --community-sizes 2,4,6,8 --num-communities 10 --sampling-seeds 0,1,2 --reference-community-size 8 --baselines without,major,borda,range --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_P10.csv > results/RotatE_FB15k237/efficiency_voting/sweep_P10.log 2>&1
+
+Medium pilot P=20 on physical GPU 1:
+
+CUDA_VISIBLE_DEVICES=1 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 20 --community-sizes 2,4,6,8 --num-communities 10 --sampling-seeds 0,1,2 --reference-community-size 8 --baselines without,major,borda,range --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_P20.csv > results/RotatE_FB15k237/efficiency_voting/sweep_P20.log 2>&1
+
+Medium pilot P=30 on physical GPU 0:
+
+CUDA_VISIBLE_DEVICES=0 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 30 --community-sizes 2,4,6,8 --num-communities 10 --sampling-seeds 0,1,2 --reference-community-size 8 --baselines without,major,borda,range --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_P30.csv > results/RotatE_FB15k237/efficiency_voting/sweep_P30.log 2>&1
+
+Medium pilot P=30 on physical GPU 1:
+
+CUDA_VISIBLE_DEVICES=1 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --pool-sizes 30 --community-sizes 2,4,6,8 --num-communities 10 --sampling-seeds 0,1,2 --reference-community-size 8 --baselines without,major,borda,range --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_P30.csv > results/RotatE_FB15k237/efficiency_voting/sweep_P30.log 2>&1
+
+Check P=10 progress:
+
+tail -f /data/satori_hdd1/EamonZhao/EamonFile/results/RotatE_FB15k237/efficiency_voting/sweep_P10.log
+
+Check P=20 progress:
+
+tail -f /data/satori_hdd1/EamonZhao/EamonFile/results/RotatE_FB15k237/efficiency_voting/sweep_P20.log
+
+Check P=30 progress:
+
+tail -f /data/satori_hdd1/EamonZhao/EamonFile/results/RotatE_FB15k237/efficiency_voting/sweep_P30.log
+
+Full pilot sweep on physical GPU 0:
+
+CUDA_VISIBLE_DEVICES=0 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_metrics.csv > results/RotatE_FB15k237/efficiency_voting/sweep.log 2>&1
+
+Full pilot sweep on physical GPU 1:
+
+CUDA_VISIBLE_DEVICES=1 python -u Multiplicity_rewrite/efficiency_voting_sweep.py --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_metrics.csv > results/RotatE_FB15k237/efficiency_voting/sweep.log 2>&1
+
+Check progress:
+
+tail -f /data/satori_hdd1/EamonZhao/EamonFile/results/RotatE_FB15k237/efficiency_voting/sweep.log
+
+Plan-only command, no model loading:
+
+CUDA_VISIBLE_DEVICES=0 python Multiplicity_rewrite/efficiency_voting_sweep.py --plan-only --output-csv results/RotatE_FB15k237/efficiency_voting/sweep_plan.csv
+
+
 RotatE FB15k-237 commands for direct copy/paste.
 
 Single-line version:

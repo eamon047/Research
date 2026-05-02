@@ -98,7 +98,7 @@
 - 维护已有脚本和结果
 - 整理图表和表格
 - 支持论文写作与结果复查
-- 继续计算量缩减支线
+- 可选地检查计算量缩减 / model-pool efficiency 支线
 
 ## 5. 当前最重要的方法口径
 
@@ -177,7 +177,7 @@ python -c "import kge; print(kge.__file__)"
 
 当前已确认的 run 池包括：
 
-- `LibKGE/local/RotatE_FB15k237/seed_0~7`
+- `LibKGE/local/RotatE_FB15k237/seed_0~29`
 - `LibKGE/local/TransE_FB15k237/seed_0~7`
 
 其中如果要做正式的 `TransE` thesis 侧分析，优先使用：
@@ -248,6 +248,24 @@ python -c "import kge; print(kge.__file__)"
 - 这条线是 control-variable analysis
 - 不是第四个 pattern
 
+### 7.6 Efficiency / Reduced Computation
+
+- `efficiency_voting_sweep.py`
+
+用途：
+
+- optional shared model-pool voting sweep
+- 检查较小 voting communities 是否能恢复较大 voting setting 的大部分
+  multiplicity reduction
+- 记录 pool size、community size、community overlap / Jaccard 与
+  `Hits / Epsilon / Alpha / Delta`
+
+说明：
+
+- 这条线是可退出的 efficiency side branch
+- 不属于 relation-pattern 主线
+- 不应覆盖现有 mapping type / inverse / symmetry / relation frequency 输出
+
 ## 8. 结果目录的一般约定
 
 当前 thesis 相关输出主要放在：
@@ -264,6 +282,7 @@ python -c "import kge; print(kge.__file__)"
 - `symmetry/`
 - `symmetry_v2/`
 - `relation_frequency/`
+- `efficiency_voting/`
 
 一般原则：
 

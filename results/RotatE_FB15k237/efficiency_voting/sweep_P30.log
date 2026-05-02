@@ -1,0 +1,560 @@
+RotatE-FB15k237
+Loading runs from: LibKGE/local/RotatE_FB15k237
+Available runs: 30
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_0/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[0073d007] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_0/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_1/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[004c439c] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_1/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_10/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[26d666ea] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_10/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_11/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[13bdec27] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_11/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_12/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[229f4ce8] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_12/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_13/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[fcc00cf5] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_13/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_14/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[5bb3f79c] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_14/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_15/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[02d054be] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_15/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_16/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[69dba83c] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_16/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_17/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[7fbf425a] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_17/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_18/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[78fa9011] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_18/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_19/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[aa9b4b5a] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_19/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_2/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[4efe7676] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_2/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_20/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[5d31b2e1] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_20/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_21/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[fda32953] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_21/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_22/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[3ed99ce8] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_22/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_23/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[86aaedda] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_23/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_24/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[b81e2531] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_24/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_25/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[bb365d34] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_25/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_26/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[6bbee8fa] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_26/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_27/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[4fd2f40b] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_27/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_28/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[82dfb1a2] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_28/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_29/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[d20e6962] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_29/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_3/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[f4d2d271] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_3/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_4/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[35faba0b] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_4/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_5/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[d9debdc3] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_5/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_6/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[b5793ba8] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_6/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_7/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[d52a487e] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_7/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_8/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[ff96c0ff] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_8/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Resuming from configuration LibKGE/local/RotatE_FB15k237/seed_9/config.yaml...
+Loading configuration of dataset fb15k-237 from /data/satori_hdd1/EamonZhao/EamonFile/LibKGE/data/fb15k-237 ...
+Loaded 14541 keys from map entity_ids
+Loaded 237 keys from map relation_ids
+Loaded 272115 train triples
+Loaded 17535 valid triples
+Loaded 20466 test triples
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/util/io.py:41: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(checkpoint_file, map_location="cpu")
+Setting reciprocal_relations_model.base_model.entity_embedder.dropout to 0., was set to -0.20997447613626719.
+Setting reciprocal_relations_model.base_model.relation_embedder.dropout to 0., was set to -0.17978530656546354.
+[8e637393] Loaded checkpoint from LibKGE/local/RotatE_FB15k237/seed_9/checkpoint_best.pt...
+  93372 distinct sp pairs in train
+  56317 distinct po pairs in train
+  12079 distinct sp pairs in valid
+  8033 distinct po pairs in valid
+  13737 distinct sp pairs in test
+  9113 distinct po pairs in test
+Evaluating P=30, C=10, m=2, seed=0
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/job/util.py:53: UserWarning: The torch.cuda.*DtypeTensor constructors are no longer recommended. It's best to use methods such as torch.tensor(data, dtype=*, device='cuda') to create tensors. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:78.)
+  labels = torch.cuda.sparse.FloatTensor(
+/data/satori_hdd1/EamonZhao/EamonFile/LibKGE/kge/job/util.py:53: UserWarning: torch.sparse.SparseTensor(indices, values, shape, *, device=) is deprecated.  Please use torch.sparse_coo_tensor(indices, values, shape, dtype=, device=). (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:641.)
+  labels = torch.cuda.sparse.FloatTensor(
+Evaluating P=30, C=10, m=4, seed=0
+Evaluating P=30, C=10, m=6, seed=0
+Evaluating P=30, C=10, m=8, seed=0
+Evaluating P=30, C=10, m=2, seed=1
+Evaluating P=30, C=10, m=4, seed=1
+Evaluating P=30, C=10, m=6, seed=1
+Evaluating P=30, C=10, m=8, seed=1
+Evaluating P=30, C=10, m=2, seed=2
+Evaluating P=30, C=10, m=4, seed=2
+Evaluating P=30, C=10, m=6, seed=2
+Evaluating P=30, C=10, m=8, seed=2
+Saved sweep results to: results/RotatE_FB15k237/efficiency_voting/sweep_P30.csv
