@@ -45,6 +45,38 @@ The stable hierarchy is:
 
 This hierarchy should remain visible throughout the writing.
 
+## Core Motivation
+
+The thesis motivation should distinguish global performance from local decision
+stability.
+
+A concise formulation is:
+
+> Hits@10 tells us how well a model performs on average, but it does not tell us
+> whether the same individual queries are consistently solved across similarly
+> performing models. Predictive multiplicity fills this gap by measuring
+> query-level instability among models with comparable global performance. This
+> thesis further asks whether such instability is randomly distributed, or
+> systematically associated with relation-level structure.
+
+The key writing point is:
+
+- global accuracy hides local instability
+- predictive multiplicity identifies query-level disagreement among similarly
+  performing models
+- relation-level analysis explains where this instability is concentrated
+
+This should prevent the reader from interpreting predictive multiplicity as a
+replacement for `Hits@10`. The intended framing is:
+
+> Accuracy measures average performance; predictive multiplicity measures
+> whether individual top-k decisions are stable across comparable models.
+
+The relation-level contribution then becomes:
+
+> from global performance to local reliability, and from local instability to
+> relation-level structural explanation.
+
 ## Candidate-Factor Framing
 
 The four factor families in the main experimental block should **not** be

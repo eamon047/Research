@@ -24,6 +24,36 @@
 
 当前目标不是构建选择器或新的投票方法，而是对多重性模式进行分析与解释。
 
+## Global Accuracy 与 Local Stability 的区别
+
+在当前 thesis 中，`Hits@10` 和 predictive multiplicity 回答的是不同问题。
+
+`Hits@10` 描述的是模型在测试集上的全局平均表现：
+
+> 在所有测试 query 中，平均有多少比例被模型成功排入 top-10。
+
+但它不直接说明：
+
+> 对于某一个具体 query，性能相近的 repeated runs 是否会给出一致的
+> hit / miss 判断。
+
+因此，整体准确率较高并不等价于每个 query 都具有相同程度的可靠性。两个
+model family 可以有相近的 `Hits@10`，但其中一个 family 的错误集合在不同
+seeds 之间很稳定，另一个 family 的 hit / miss 决策则可能随 seed 明显变化。
+
+Predictive multiplicity 补充的正是这个局部稳定性视角：
+
+- accuracy 问的是模型平均做对多少 query
+- multiplicity 问的是这些 query-level decisions 在性能相近模型之间是否稳定
+
+因此，在本文中 predictive multiplicity 不被解释为 accuracy 的替代指标，而是
+解释为一种 local reliability / instability signal。它用于刻画：
+
+> 即使模型整体性能相近，具体 query 的 top-k decision 是否仍然可能发生冲突。
+
+这种区分也是 relation-level 分析的前提：本文进一步追问这种 query-level
+instability 是否均匀分布，还是集中出现在某些 relation-level structures 中。
+
 ## 关系映射类型（Relation Mapping Type）
 
 我们采用 LibKGE 中使用的标准关系类型划分方法，其来源可追溯至 Bordes 等人的工作：
