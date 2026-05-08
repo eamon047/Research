@@ -2,7 +2,7 @@
 <rect width="100%" height="100%" fill="white"/>
 <text x="24" y="26" font-size="20" font-family="Arial" fill="#111111">Mapping-Type Analysis (TransE, head, t&gt;=10)</text>
 <rect x="24" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
-<text x="34" y="66" font-size="13" font-family="Arial" fill="#111111">Hits@10 | test_support &gt;= 10</text>
+<text x="34" y="66" font-size="13" font-family="Arial" fill="#111111">Hits@10</text>
 <line x1="74" y1="226.0" x2="284" y2="226.0" stroke="#ededed" stroke-width="1"/>
 <text x="66" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
 <line x1="74" y1="190.5" x2="284" y2="190.5" stroke="#ededed" stroke-width="1"/>
@@ -44,7 +44,7 @@
 <line x1="243.75" y1="137.93423775264196" x2="271.75" y2="137.93423775264196" stroke="#e15759" stroke-width="1.8"/>
 <text x="257.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=90</text>
 <rect x="320" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
-<text x="330" y="66" font-size="13" font-family="Arial" fill="#111111">Alpha | test_support &gt;= 10</text>
+<text x="330" y="66" font-size="13" font-family="Arial" fill="#111111">Alpha</text>
 <line x1="370" y1="226.0" x2="580" y2="226.0" stroke="#ededed" stroke-width="1"/>
 <text x="362" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
 <line x1="370" y1="190.5" x2="580" y2="190.5" stroke="#ededed" stroke-width="1"/>
@@ -86,7 +86,7 @@
 <line x1="539.75" y1="166.23938339948654" x2="567.75" y2="166.23938339948654" stroke="#e15759" stroke-width="1.8"/>
 <text x="553.75" y="258" text-anchor="middle" font-size="9" font-family="Arial" fill="#777777">n=87</text>
 <rect x="616" y="44" width="280" height="230" fill="white" stroke="#d9d9d9" stroke-width="1"/>
-<text x="626" y="66" font-size="13" font-family="Arial" fill="#111111">Delta | test_support &gt;= 10</text>
+<text x="626" y="66" font-size="13" font-family="Arial" fill="#111111">Delta</text>
 <line x1="666" y1="226.0" x2="876" y2="226.0" stroke="#ededed" stroke-width="1"/>
 <text x="658" y="230.0" text-anchor="end" font-size="10" font-family="Arial" fill="#666666">0.00</text>
 <line x1="666" y1="190.5" x2="876" y2="190.5" stroke="#ededed" stroke-width="1"/>

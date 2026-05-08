@@ -30,9 +30,13 @@
 - `inverse/`
   - `inverse_selected_summary.csv`
   - `inverse_selected_summary_table.svg`
+  - `inverse_selected_relation_baseline_summary.csv`
+  - `inverse_selected_relation_baseline_table.svg`
 - `symmetry/`
   - `symmetry_selected_summary.csv`
   - `symmetry_selected_summary_table.svg`
+  - `symmetry_global_spearman_table.svg`
+  - `symmetry_bucket_comparison_table.svg`
 - `relation_frequency/`
   - `relation_frequency_selected_summary.csv`
 
@@ -63,7 +67,11 @@
 - [mapping_type_by_side_TransE_tail_t10_with_table5_baseline.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/with_table5_baseline/mapping_type_by_side_TransE_tail_t10_with_table5_baseline.svg)
 - [mapping_type_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/mapping_type/mapping_type_selected_summary.csv)
 - [inverse_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse/inverse_selected_summary.csv)
+- [inverse_selected_relation_baseline_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse/inverse_selected_relation_baseline_summary.csv)
+- [inverse_selected_relation_baseline_table.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/inverse/inverse_selected_relation_baseline_table.svg)
 - [symmetry_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry/symmetry_selected_summary.csv)
+- [symmetry_global_spearman_table.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry/symmetry_global_spearman_table.svg)
+- [symmetry_bucket_comparison_table.svg](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/symmetry/symmetry_bucket_comparison_table.svg)
 - [relation_frequency_selected_summary.csv](/data/satori_hdd1/EamonZhao/EamonFile/results/thesis_selected/relation_frequency/relation_frequency_selected_summary.csv)
 
 当前正文展示建议：

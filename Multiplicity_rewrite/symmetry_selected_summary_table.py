@@ -4,9 +4,59 @@ import os
 
 INPUT_CSV = "results/thesis_selected/symmetry/symmetry_selected_summary.csv"
 OUTPUT_SVG = "results/thesis_selected/symmetry/symmetry_selected_summary_table.svg"
-PAPER_BASELINES = {
-    "RotatE": {"hits": 0.520, "alpha": 0.163, "delta": 0.064},
-    "TransE": {"hits": 0.455, "alpha": 0.385, "delta": 0.145},
+OUTPUT_GLOBAL_SVG = "results/thesis_selected/symmetry/symmetry_global_spearman_table.svg"
+OUTPUT_BUCKET_SVG = "results/thesis_selected/symmetry/symmetry_bucket_comparison_table.svg"
+
+GLOBAL_TITLE_FILL = "#2A6096"
+BUCKET_TITLE_FILL = "#EBF2FA"
+
+PRESENTATION_BUCKET_ROWS = {
+    "RotatE": [
+        {
+            "group": "Zero symmetry",
+            "n": "164",
+            "hits": "0.5815",
+            "alpha": "0.1283",
+            "delta": "0.0636",
+        },
+        {
+            "group": "Weak nonzero symmetry (0, 0.5]",
+            "n": "6",
+            "hits": "0.5047",
+            "alpha": "0.2089",
+            "delta": "0.1129",
+        },
+        {
+            "group": "High symmetry (> 0.5)",
+            "n": "12",
+            "hits": "0.5924",
+            "alpha": "0.1618",
+            "delta": "0.0848",
+        },
+    ],
+    "TransE": [
+        {
+            "group": "Zero symmetry",
+            "n": "164",
+            "hits": "0.5605",
+            "alpha": "0.3307",
+            "delta": "0.1838",
+        },
+        {
+            "group": "Weak nonzero symmetry (0, 0.5]",
+            "n": "6",
+            "hits": "0.4725",
+            "alpha": "0.4436",
+            "delta": "0.2736",
+        },
+        {
+            "group": "High symmetry (> 0.5)",
+            "n": "12",
+            "hits": "0.5742",
+            "alpha": "0.3512",
+            "delta": "0.2119",
+        },
+    ],
 }
 
 
@@ -42,9 +92,10 @@ def draw_cell(
     align="left",
     color="#222222",
     size=13,
+    stroke="#cfcfcf",
 ):
     svg.append(
-        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="#cfcfcf" stroke-width="1"/>'
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" stroke="{stroke}" stroke-width="1"/>'
     )
     if align == "left":
         text_x = x + 10
@@ -71,7 +122,6 @@ def render_global_section(svg, rows, left, top):
         ("Spearman(Hits)", 145, "center"),
         ("Spearman(Alpha)", 150, "center"),
         ("Spearman(Delta)", 150, "center"),
-        ("Reading", 295, "left"),
     ]
 
     draw_cell(
@@ -80,9 +130,10 @@ def render_global_section(svg, rows, left, top):
         top,
         sum(w for _, w, _ in cols),
         title_h,
-        "Global Trend (threshold = 10)",
-        fill="#eaf2fb",
+        "Global Spearman Correlation",
+        fill=GLOBAL_TITLE_FILL,
         bold=True,
+        color="white",
         size=16,
     )
     y = top + title_h
@@ -99,7 +150,6 @@ def render_global_section(svg, rows, left, top):
             fmt_float(row["hits_value"]),
             fmt_float(row["alpha_value"]),
             fmt_float(row["delta_value"]),
-            "Near-zero global association",
         ]
         x = left
         for value, (_, width, align) in zip(values, cols):
@@ -114,12 +164,11 @@ def render_bucket_section(svg, rows, left, top):
     row_h = 34
     cols = [
         ("Model", 90, "left"),
-        ("Group", 180, "left"),
+        ("Group", 250, "left"),
         ("n", 60, "center"),
         ("Hits@10", 100, "center"),
         ("Alpha", 100, "center"),
         ("Delta", 100, "center"),
-        ("Reading", 260, "left"),
     ]
 
     draw_cell(
@@ -128,8 +177,8 @@ def render_bucket_section(svg, rows, left, top):
         top,
         sum(w for _, w, _ in cols),
         title_h,
-        "Bucket Comparison (threshold = 10)",
-        fill="#f9efe2",
+        "Bucket Comparison",
+        fill=BUCKET_TITLE_FILL,
         bold=True,
         size=16,
     )
@@ -139,75 +188,35 @@ def render_bucket_section(svg, rows, left, top):
         draw_cell(svg, x, y, width, row_h, name, fill="#f5f5f5", bold=True, align=align, size=13)
         x += width
 
-    group_map = {
-        "zero": "Zero symmetry",
-        "high_symmetry": "High symmetry (> 0.5)",
-    }
-    reading_map = {
-        "main_reference_group": "Reference group",
-        "no_clean_benefit": "Not cleaner than zero-symmetry",
-    }
-    grouped_rows = {}
-    for row in rows:
-        grouped_rows.setdefault(row["model"], []).append(row)
-
     model_order = ["RotatE", "TransE"]
     first_group = True
     total_width = sum(w for _, w, _ in cols)
 
     for model in model_order:
-        model_rows = grouped_rows.get(model, [])
+        model_rows = PRESENTATION_BUCKET_ROWS.get(model, [])
         if not model_rows:
             continue
 
         if not first_group:
+            separator_y = y + row_h
             svg.append(
-                f'<line x1="{left}" y1="{y + row_h}" x2="{left + total_width}" y2="{y + row_h}" '
-                'stroke="#9e9e9e" stroke-width="2.2"/>'
+                f'<rect x="{left}" y="{separator_y}" width="{total_width}" height="8" fill="white"/>'
             )
+            y += 8
 
         for row in model_rows:
             y += row_h
             values = [
-                row["model"],
-                group_map.get(row["group_or_metric"], row["group_or_metric"]),
+                model,
+                row["group"],
                 row["n"],
-                fmt_float(row["hits_value"]),
-                fmt_float(row["alpha_value"]),
-                fmt_float(row["delta_value"]),
-                reading_map.get(row["reading"], row["reading"]),
+                fmt_float(row["hits"]),
+                fmt_float(row["alpha"]),
+                fmt_float(row["delta"]),
             ]
             x = left
             for value, (_, width, align) in zip(values, cols):
                 draw_cell(svg, x, y, width, row_h, value, align=align, size=13)
-                x += width
-
-        baseline = PAPER_BASELINES.get(model)
-        if baseline:
-            y += row_h
-            values = [
-                model,
-                "Overall baseline",
-                "-",
-                fmt_float(baseline["hits"]),
-                fmt_float(baseline["alpha"]),
-                fmt_float(baseline["delta"]),
-                "Overall reference row",
-            ]
-            x = left
-            for value, (_, width, align) in zip(values, cols):
-                draw_cell(
-                    svg,
-                    x,
-                    y,
-                    width,
-                    row_h,
-                    value,
-                    align=align,
-                    size=12,
-                    fill="#f3f3f3",
-                    color="#444444",
-                )
                 x += width
 
         first_group = False
@@ -215,7 +224,7 @@ def render_bucket_section(svg, rows, left, top):
     return y + row_h
 
 
-def write_svg(output_path, rows):
+def write_combined_svg(output_path, rows):
     global_rows = [row for row in rows if row["view"] == "global_spearman"]
     bucket_rows = [
         row
@@ -223,7 +232,7 @@ def write_svg(output_path, rows):
         if row["view"] == "bucket" and row["group_or_metric"] in {"zero", "high_symmetry"}
     ]
 
-    width = 1020
+    width = 810
     height = 500
     left = 28
     top = 54
@@ -245,10 +254,64 @@ def write_svg(output_path, rows):
         f.write("\n".join(svg) + "\n")
 
 
+def write_global_svg(output_path, rows):
+    global_rows = [row for row in rows if row["view"] == "global_spearman"]
+
+    width = 660
+    height = 170
+    left = 28
+    top = 24
+
+    svg = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+        '<rect width="100%" height="100%" fill="white"/>',
+    ]
+
+    render_global_section(svg, global_rows, left, top)
+    svg.append("</svg>")
+
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+    with open(output_path, "w") as f:
+        f.write("\n".join(svg) + "\n")
+
+
+def write_bucket_svg(output_path, rows):
+    bucket_rows = [
+        row
+        for row in rows
+        if row["view"] == "bucket" and row["group_or_metric"] in {"zero", "high_symmetry"}
+    ]
+
+    width = 760
+    height = 330
+    left = 28
+    top = 24
+
+    svg = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+        '<rect width="100%" height="100%" fill="white"/>',
+    ]
+
+    render_bucket_section(svg, bucket_rows, left, top)
+    svg.append("</svg>")
+
+    output_dir = os.path.dirname(output_path)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+    with open(output_path, "w") as f:
+        f.write("\n".join(svg) + "\n")
+
+
 def main():
     rows = load_rows(INPUT_CSV)
-    write_svg(OUTPUT_SVG, rows)
-    print(f"Saved SVG table to: {OUTPUT_SVG}")
+    write_combined_svg(OUTPUT_SVG, rows)
+    write_global_svg(OUTPUT_GLOBAL_SVG, rows)
+    write_bucket_svg(OUTPUT_BUCKET_SVG, rows)
+    print(f"Saved combined SVG table to: {OUTPUT_SVG}")
+    print(f"Saved global SVG table to: {OUTPUT_GLOBAL_SVG}")
+    print(f"Saved bucket SVG table to: {OUTPUT_BUCKET_SVG}")
 
 
 if __name__ == "__main__":

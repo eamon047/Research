@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="170" viewBox="0 0 660 170">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="28" y="24" width="595" height="32" fill="#2A6096" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="45.0" text-anchor="start" font-family="Arial" font-size="16" font-weight="700" fill="white">Global Spearman Correlation</text>
+<rect x="28" y="56" width="90" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="78.0" text-anchor="start" font-family="Arial" font-size="14" font-weight="700" fill="#222222">Model</text>
+<rect x="118" y="56" width="60" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="148.0" y="78.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#222222">n</text>
+<rect x="178" y="56" width="145" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="250.5" y="78.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#222222">Spearman(Hits)</text>
+<rect x="323" y="56" width="150" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="398.0" y="78.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#222222">Spearman(Alpha)</text>
+<rect x="473" y="56" width="150" height="34" fill="#f5f5f5" stroke="#cfcfcf" stroke-width="1"/>
+<text x="548.0" y="78.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#222222">Spearman(Delta)</text>
+<rect x="28" y="90" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="112.0" text-anchor="start" font-family="Arial" font-size="14" font-weight="400" fill="#222222">RotatE</text>
+<rect x="118" y="90" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="148.0" y="112.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">182</text>
+<rect x="178" y="90" width="145" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="250.5" y="112.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.0122</text>
+<rect x="323" y="90" width="150" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="398.0" y="112.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.1310</text>
+<rect x="473" y="90" width="150" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="548.0" y="112.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.1292</text>
+<rect x="28" y="124" width="90" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="38" y="146.0" text-anchor="start" font-family="Arial" font-size="14" font-weight="400" fill="#222222">TransE</text>
+<rect x="118" y="124" width="60" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="148.0" y="146.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">182</text>
+<rect x="178" y="124" width="145" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="250.5" y="146.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.0117</text>
+<rect x="323" y="124" width="150" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="398.0" y="146.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.0425</text>
+<rect x="473" y="124" width="150" height="34" fill="white" stroke="#cfcfcf" stroke-width="1"/>
+<text x="548.0" y="146.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#222222">0.0520</text>
+</svg>

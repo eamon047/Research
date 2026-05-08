@@ -1,0 +1,7 @@
+model,threshold,group,group_key,n_relations,test_triples,eligible_support,hits_mean,alpha_mean,delta_mean,reading
+RotatE,10,All relations (global baseline),all_relations,182,20262,23777,0.5797,0.1630,0.0640,paper_global_reference
+RotatE,10,High mutual inverse-like strength (> 0.5),mutual_inverse_strength_gt_0.5,10,494,679,0.6838,0.0971,0.0627,high_strength_subgroup
+RotatE,10,High inverse-like clarity (> 0.5),inverse_clarity_gt_0.5,5,61,100,0.8000,0.0000,0.0000,very_clear_subgroup
+TransE,10,All relations (global baseline),all_relations,182,20262,24690,0.5585,0.3850,0.1450,paper_global_reference
+TransE,10,High mutual inverse-like strength (> 0.5),mutual_inverse_strength_gt_0.5,10,494,701,0.6866,0.1361,0.0813,high_strength_subgroup
+TransE,10,High inverse-like clarity (> 0.5),inverse_clarity_gt_0.5,5,61,100,0.8000,0.0000,0.0000,very_clear_subgroup
