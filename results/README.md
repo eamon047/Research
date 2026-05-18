@@ -7,7 +7,7 @@
 - `mapping type`：以图为主，表为辅
 - `inverse`：以摘要表为主，图为辅
 - `symmetry`：以简短负结果表为主
-- `relation frequency`：以控制变量结果表为主
+- `relation frequency`：保留为备用控制变量结果，不作为当前默认正文展示
 
 也就是说，当前结果整理的目标不是“每一条线都配一张图”，而是：
 
@@ -46,16 +46,20 @@
 - `mapping type`: 使用 `by-side` 结果
 - `inverse`: 使用 `v2` 指标族
 - `symmetry`: 使用 excluding-self 的 `v2` 主定义
-- `relation frequency`: 使用 control-variable 解释口径
+- `relation frequency`: 使用 control-variable 解释口径，但当前只作为
+  backup / appendix / defense material
 
 精选文件使用建议：
 
 - `mapping type`：优先看 `with_table5_baseline/` 里的新版图
-- `inverse / symmetry / relation frequency`：优先看各自 summary csv / table
+- `inverse / symmetry`：优先看各自 summary csv / table
+- `relation frequency`：仅在需要说明 `mapping type` 不是 frequency
+  artifact 时查看 summary csv / mapping interaction 结果
 
 口径提醒：
 
-- `mapping_type` 图中的红色线来自原论文 `Multiplicity/paper.pdf` 的 `Table 5`
+- `mapping_type` 图中的红色线来自原论文 Table 5；本地参考 PDF 保存在
+  `Research/references/predictive_multiplicity_paper.pdf`
 - 这条线是 `FB15k-237 + without` 的 dataset-level 全局参考值
 - 当前箱线图是 thesis 的 relation-level by-side 分布，因此红线应当理解为外部参考线，而不是完全同层级统计量
 
@@ -77,7 +81,8 @@
 当前正文展示建议：
 
 - `mapping type` 正文以 `threshold = 10` 的 by-side 图为主
-- 其余三条线先以 summary tables 为主
+- `inverse / symmetry` 先以 summary tables 为主
+- `relation frequency` 暂不主动进入正文展示
 - 原始 `5 / 10` 全量图与完整 csv 保留作备查或附录材料
 
 一致性审计记录：
@@ -170,6 +175,14 @@
 
 这部分的价值主要在于 control-variable 结论，而不是单独画出“漂亮趋势图”。
 
+当前写作决策已经调整：
+
+- 不默认把它写成正文中的独立实验小节
+- 不为了形式对称而给 `inverse` / `symmetry` 追加 frequency control
+- 保留它作为 `mapping type` 主结果的备用控制材料
+- 只有当需要回应“mapping type 结果是否只是 relation frequency / support
+  artifact”时，再引用这部分结果
+
 #### RotatE
 
 - [analysis_summary.txt](/data/satori_hdd1/EamonZhao/EamonFile/results/RotatE_FB15k237/relation_frequency/analysis_summary.txt)
@@ -186,8 +199,10 @@
 
 #### 当前展示建议
 
-- 先做一张 cross-model summary table
-- 如果后面只补一张额外图，优先考虑 `mapping type × frequency`，而不是单独的 frequency scatter
+- 不作为默认正文展示
+- 如需使用，优先用一张 compact table 或一段文字说明
+  `mapping type` effect survives frequency stratification
+- 不建议单独补 frequency scatter
 
 ## 2. 当前建议的结果展示层级
 
@@ -200,28 +215,35 @@
 
 - `inverse` cross-model summary table
 - `symmetry` cross-model summary table
-- `relation frequency` cross-model summary table
+- `relation frequency` cross-model summary table only if a control-variable
+  objection needs to be addressed
 
 ### 第三层：附录 / 备查文件
 
 - 各目录下的完整 `csv`
 - 所有 `summary.txt / analysis_summary.txt`
 - case-specific 明细表
+- `relation frequency` full outputs and selected summary
 
 ## 3. 当前最专业的整理策略
 
 从 thesis 展示角度，当前最合理的下一步不是一口气补很多图，而是：
 
 1. 保留 `mapping type` 现有图作为主图
-2. 为 `inverse / symmetry / relation frequency` 各做一张简洁摘要表
-3. 如果之后确实需要，再补极少量额外图
+2. 为 `inverse / symmetry` 各做一张简洁摘要表
+3. 暂缓 `relation frequency` 的正文展示，保留为控制变量备查
+4. 如果之后确实需要，再补极少量额外图
 
 原因是：
 
 - `mapping type` 的图像信号最强
-- 其他三条线更适合用“简洁结果表 + 一句话结论”表达
+- `inverse / symmetry` 更适合用“简洁结果表 + 一句话结论”表达
+- `relation frequency` 对主结果有防守价值，但作为独立正文线条会显得
+  不够对称，因为它没有同样控制 `inverse` 和 `symmetry`
 - 这样结果会更容易给别人看懂，也更符合当前 thesis 的层级结构
 
 ## 4. 当前一句话总结
 
-目前只有 `mapping type` 拥有真正适合作为主展示的图；其余三条线更适合先整理成清楚的 cross-model summary tables，而不是为了形式统一而强行补图。
+目前只有 `mapping type` 拥有真正适合作为主展示的图；`inverse` 和
+`symmetry` 更适合整理成清楚的 cross-model summary tables；`relation
+frequency` 暂时保留为控制变量备查，而不是为了形式统一强行写入正文。

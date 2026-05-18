@@ -56,7 +56,7 @@ The computation-reduction branch is real, but it is not the default top priority
 
 When starting a new Codex session on this repository, read files in roughly this order:
 
-1. `Multiplicity_rewrite/README_Eamon.md`
+1. `Multiplicity/README_Eamon.md`
 2. `Research/README.md`
 3. `Research/thesis_theory.md`
 4. `Research/thesis_writing.md`
@@ -132,7 +132,7 @@ The thesis-friendly selected outputs live in:
 ## Coding and Maintenance Guidance
 
 - prefer lightweight cleanup over large refactors
-- avoid moving scripts in `Multiplicity_rewrite/` unless necessary
+- avoid moving scripts in `Multiplicity/` unless necessary
 - before changing paths, check for code/document coupling
 - before editing conclusions, check the corresponding experiment notes
 - preserve existing experiment artifacts unless the user explicitly wants cleanup

@@ -12,6 +12,8 @@ At the current stage, this document should be treated as a maintained experiment
 - the `mapping type × frequency` interaction analysis
 - the `TransE` comparison
 - the current control-variable interpretation
+- the later writing decision to keep this material as backup rather than as a
+  default main-text section
 
 Any sections titled as "planned" below should now be read as historical design
 notes for reproducibility. The current thesis status is given by the later
@@ -19,11 +21,15 @@ implemented-output and `TransE` comparison sections.
 
 ## Current Positioning
 
-The central decision for this section is already fixed:
+The experimental work for this line is completed, but the writing status has
+been downgraded.
 
 - `relation frequency` is **not** treated as a fourth relation pattern
 - it is treated as a relation-level support / sparsity factor
-- its main role is to serve as a baseline control variable
+- its main role is to serve as a backup control variable for the `mapping type`
+  result
+- it should not be proactively written as a standalone main-text experiment
+  section unless a concrete writing, supervisor, or defense need appears
 
 Therefore, this section is conceptually different from:
 
@@ -33,9 +39,19 @@ Therefore, this section is conceptually different from:
 
 Its purpose is not to add another structural pattern, but to test whether simple support differences can explain part of the observed multiplicity behavior.
 
+Current writing policy:
+
+- keep all outputs and records
+- do not expand this line into a fourth result section
+- do not add frequency controls for `inverse` or `symmetry` merely for symmetry
+  of presentation
+- if used, present it narrowly as evidence that the main `mapping type` effect
+  is not simply a frequency artifact
+
 ## Main Thesis Role
 
-The relation-frequency section should serve two purposes.
+The relation-frequency material serves two purposes as backup / appendix-level
+evidence.
 
 ### 1. Baseline validation
 
@@ -46,6 +62,14 @@ Check whether low-support relations are more multiplicity-prone under the curren
 Check whether the main `mapping type` result remains meaningful after relation support / sparsity is brought into the analysis explicitly.
 
 This second purpose is the more important one.
+
+Current writing preference:
+
+- do not write this as a default main-text section
+- if the thesis later needs it, use at most a short robustness paragraph or a
+  compact appendix table
+- the key sentence would be: `mapping type is not merely a proxy for relation
+  frequency`
 
 ## Current Scope
 
@@ -148,15 +172,15 @@ Reason:
 
 ## Planned Code Path
 
-The frequency-family analysis should live in `Multiplicity_rewrite/` and remain separate from `main.py`.
+The frequency-family analysis should live in `Multiplicity/` and remain separate from `main.py`.
 
 Recommended first-round scripts:
 
-- `Multiplicity_rewrite/relation_frequency_stats.py`
+- `Multiplicity/relation_frequency_stats.py`
   computes relation-level frequency statistics from training triples
-- `Multiplicity_rewrite/relation_frequency_analysis.py`
+- `Multiplicity/relation_frequency_analysis.py`
   merges frequency statistics with relation-level multiplicity results and computes grouped summaries
-- `Multiplicity_rewrite/relation_frequency_mapping_interaction.py`
+- `Multiplicity/relation_frequency_mapping_interaction.py`
   analyzes the interaction between frequency and mapping type, with by-side results as the main target
 
 ## Planned Outputs
@@ -305,14 +329,14 @@ The section should avoid stronger claims such as:
 
 ## Current Code Status
 
-The first-round `RotatE` relation-frequency pipeline has now been implemented in `Multiplicity_rewrite/`.
+The first-round `RotatE` relation-frequency pipeline has now been implemented in `Multiplicity/`.
 
 Current scripts:
 
-- `Multiplicity_rewrite/relation_frequency_utils.py`
-- `Multiplicity_rewrite/relation_frequency_stats.py`
-- `Multiplicity_rewrite/relation_frequency_analysis.py`
-- `Multiplicity_rewrite/relation_frequency_mapping_interaction.py`
+- `Multiplicity/relation_frequency_utils.py`
+- `Multiplicity/relation_frequency_stats.py`
+- `Multiplicity/relation_frequency_analysis.py`
+- `Multiplicity/relation_frequency_mapping_interaction.py`
 
 ## Current Outputs
 
@@ -534,7 +558,7 @@ The first `RotatE` run supports a more precise thesis reading than the original 
 
 The safest interpretation is:
 
-- relation frequency is relevant and should be kept in the thesis
+- relation frequency is relevant as backup control material
 - but it does not form a simple “low support causes multiplicity” story under the current relation-level setting
 - the base combined result is structurally confounded
 - once frequency is used as a control axis, the mapping-type result remains clearly visible
@@ -547,14 +571,18 @@ Because the real thesis-value sentence now becomes:
 
 ## Current Decision After The First RotatE Run
 
-The current recommended status is:
+The historical recommendation after the first `RotatE` run was:
 
-- keep relation frequency in the thesis
+- keep relation frequency available for thesis use
 - present it as a support / sparsity control variable, not as a pattern
 - report that the base relation-level frequency effect is not simply aligned with the naive low-support hypothesis
 - emphasize that the main mapping-type result survives frequency stratification
 
-At this stage, the relation-frequency line already looks useful enough to keep.
+At that stage, the relation-frequency line looked useful enough to keep as a
+candidate thesis component.
+
+This recommendation has since been narrowed: keep the material, but do not
+proactively write it as a standalone main-text section.
 
 ## Historical Next Step
 
@@ -672,16 +700,22 @@ After adding the `TransE` comparison, the safest overall interpretation becomes:
 - the relation-level combined frequency effect is structurally confounded
 - once frequency is used as a control axis, the by-side mapping-type result remains robust
 
-This actually strengthens the current thesis positioning of relation frequency.
+This supports the technical usefulness of relation frequency as a control check.
 
-It is not a clean main result by itself, but it is a useful control variable that helps defend the main mapping-type claim.
+It is not a clean main result by itself. It is useful mainly for defending the
+main mapping-type claim if a frequency-confounding concern is raised.
 
 ## Updated Current Status
 
 The recommended thesis positioning is now:
 
-- keep relation frequency as a support / sparsity control variable
+- keep relation frequency as documented support / sparsity control material
 - explicitly note that the simple original-paper negative trend does not directly carry over to the current thesis setting
-- emphasize that the most important finding is the persistence of the mapping-type effect after frequency stratification
+- emphasize, if used, that the most important finding is the persistence of the mapping-type effect after frequency stratification
 
-At this point, the relation-frequency section is already useful enough to keep in the thesis.
+Current writing decision:
+
+- do not proactively include relation frequency as a standalone thesis section
+- do not run additional frequency controls for `inverse` or `symmetry` only for
+  presentational symmetry
+- retain the existing outputs as backup, appendix, or defense material

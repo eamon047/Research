@@ -198,7 +198,7 @@ At the current stage, no plotting choices are frozen yet.
 
 ## Code Status
 
-The inverse-family code is implemented in `Multiplicity_rewrite/` using the same general style as the mapping-type scripts.
+The inverse-family code is implemented in `Multiplicity/` using the same general style as the mapping-type scripts.
 
 Currently implemented:
 
@@ -406,7 +406,7 @@ The next follow-up has now also been completed.
 This analysis uses:
 
 - input: `relation_inverse_multiplicity_merged.csv`
-- script: `Multiplicity_rewrite/inverse_mapping_interaction_analysis.py`
+- script: `Multiplicity/inverse_mapping_interaction_analysis.py`
 - output directory: `results/RotatE_FB15k237/inverse/mapping_interaction/`
 
 The current outputs are:
@@ -612,10 +612,10 @@ The first-round scripts were kept unchanged as the directional baseline.
 
 The new v2 code path is:
 
-- `Multiplicity_rewrite/inverse_relation_stats_v2.py`
-- `Multiplicity_rewrite/inverse_analysis_v2.py`
-- `Multiplicity_rewrite/inverse_mapping_interaction_analysis_v2.py`
-- `Multiplicity_rewrite/inverse_v2_utils.py`
+- `Multiplicity/inverse_relation_stats_v2.py`
+- `Multiplicity/inverse_analysis_v2.py`
+- `Multiplicity/inverse_mapping_interaction_analysis_v2.py`
+- `Multiplicity/inverse_v2_utils.py`
 
 The purpose of this split is to preserve:
 
@@ -1067,12 +1067,12 @@ The `TransE` inverse comparison keeps the same `v1` / `v2` split already used fo
 
 Current scripts:
 
-- `Multiplicity_rewrite/inverse_relation_stats.py`
-- `Multiplicity_rewrite/inverse_analysis.py`
-- `Multiplicity_rewrite/inverse_mapping_interaction_analysis.py`
-- `Multiplicity_rewrite/inverse_relation_stats_v2.py`
-- `Multiplicity_rewrite/inverse_analysis_v2.py`
-- `Multiplicity_rewrite/inverse_mapping_interaction_analysis_v2.py`
+- `Multiplicity/inverse_relation_stats.py`
+- `Multiplicity/inverse_analysis.py`
+- `Multiplicity/inverse_mapping_interaction_analysis.py`
+- `Multiplicity/inverse_relation_stats_v2.py`
+- `Multiplicity/inverse_analysis_v2.py`
+- `Multiplicity/inverse_mapping_interaction_analysis_v2.py`
 
 The analysis was run in the local `LibKGE` conda environment.
 

@@ -41,11 +41,8 @@
 
 - `examples/RotatE_FB15k237.yaml`
 
-这个文件来自：
-
-- `Multiplicity/configs/RotatE_FB15k237.yaml`
-
-并且当前已经加入：
+这个文件来自早期本地整理的 multiplicity 配置，当前正式维护在
+`LibKGE/examples/` 下。配置中已经加入：
 
 ```yaml
 random_seed:
@@ -98,14 +95,15 @@ CUDA_VISIBLE_DEVICES=<物理GPU编号> kge start ... --job.device cuda:0
 
 ## 当前输出目录约定
 
-我们当前把 repeated runs 放在：
+我们当前把 repeated runs 放在标准化后的目录：
 
-- `local/multiplicity/RotatE_FB15k237/seed_<n>`
+- `local/RotatE_FB15k237/seed_<n>`
+- `local/TransE_FB15k237/seed_<n>`
 
 目前已经存在：
 
-- `local/multiplicity/RotatE_FB15k237/seed_0`
-- `local/multiplicity/RotatE_FB15k237/seed_1`
+- `local/RotatE_FB15k237/seed_0~29`
+- `local/TransE_FB15k237/seed_0~7`
 
 如果不指定 `--folder`，LibKGE 会默认把结果放到：
 
@@ -153,7 +151,7 @@ random_seed:
 
 ```bash
 cd /data/satori_hdd1/EamonZhao/EamonFile/LibKGE
-CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --folder local/multiplicity/RotatE_FB15k237/seed_1
+CUDA_VISIBLE_DEVICES=0 kge start examples/RotatE_FB15k237.yaml --job.device cuda:0 --folder local/RotatE_FB15k237/seed_1
 ```
 
 如果之后要跑新的独立实验，就修改 YAML 中的 seed，并把输出目录同步改成对应的 `seed_n`。

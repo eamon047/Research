@@ -41,9 +41,19 @@ The stable hierarchy is:
 - `mapping type` as the main structural result
 - `inverse` as an exploratory secondary result
 - `symmetry` as a weak / negative result
-- `relation frequency` as a control-variable analysis
+- `relation frequency` as an optional control / robustness note, not as a
+  default main-text experiment section
 
 This hierarchy should remain visible throughout the writing.
+
+Current writing decision:
+
+- do **not** proactively write `relation frequency` as a standalone section in
+  the main experimental block
+- keep the completed frequency outputs as backup material for defending the
+  `mapping type` result against a support / sparsity confounding objection
+- only bring it into the main text if a concrete writing, supervisor, or
+  defense need appears
 
 ## Core Motivation
 
@@ -79,7 +89,7 @@ The relation-level contribution then becomes:
 
 ## Candidate-Factor Framing
 
-The four factor families in the main experimental block should **not** be
+The main factor families in the experimental block should **not** be
 introduced as pre-validated laws.
 
 The recommended framing is:
@@ -87,7 +97,8 @@ The recommended framing is:
 - `mapping type` as a natural candidate explanatory factor
 - `inverse-like support` as a plausible structural candidate
 - `symmetry` as another plausible structural candidate
-- `relation frequency` as a support / sparsity control variable
+- `relation frequency` as a support / sparsity control variable that is
+  available as backup material rather than a default equal-status section
 
 In other words, the thesis should present these factors as:
 
@@ -147,7 +158,7 @@ The current status should be written explicitly as:
 - `mapping type`: stable explanatory factor
 - `inverse`: conditional or subgroup-based factor
 - `symmetry`: not supported as a standalone explanatory factor
-- `relation frequency`: control axis
+- `relation frequency`: optional control axis for the `mapping type` result
 
 This turns the contribution into a filtering result:
 
@@ -237,31 +248,34 @@ Suggested internal structure:
   - conclude that symmetry is not a useful main explanatory factor under the
     current thesis setting
 
-### X.4 Relation Frequency as a Control Variable
+### Optional: Relation Frequency as a Mapping-Type Control Check
 
-This section should **not** be framed as another pattern section.
+This material should **not** be framed as another pattern section.
 
-Its writing role is to act as a control analysis.
+Current writing decision: do not include it as a default standalone main-text
+section. The completed analysis can be used as a short robustness paragraph,
+appendix table, or defense backup if the reader asks whether the `mapping type`
+effect is merely a relation-frequency / support artifact.
 
-Suggested internal structure:
+If it is used later, the suggested compact structure is:
 
-- `X.4.1 Motivation and Definition`
+- motivation and definition
   - explain that relation frequency comes from training-graph support
   - state explicitly that it is a control variable rather than a fourth pattern
-- `X.4.2 Base Relation-Level Frequency Results`
+- base relation-level frequency result
   - report that the original paper's simple negative trend is not directly
     reproduced under the current thesis setting
   - explain briefly that the statistical scope differs from the original pooled
     analysis
-- `X.4.3 Frequency-Stratified Mapping Type Analysis`
+- frequency-stratified mapping type check
   - present the key result of this section
   - show that the by-side mapping-type effect remains after frequency
     stratification
-- `X.4.4 Interim Summary of Relation Frequency`
+- compact conclusion
   - conclude that relation frequency is better treated as a control variable
   - state that `mapping type` is not merely a frequency artifact
 
-### X.5 Chapter Discussion
+### X.4 Chapter Discussion
 
 This section should unify the main experimental block before the thesis moves on
 to later chapters.
@@ -271,7 +285,8 @@ Its job is to make the hierarchy explicit:
 - `mapping type` is the main result
 - `inverse` is an exploratory secondary result
 - `symmetry` is a weak / negative result
-- `relation frequency` is a control-variable analysis
+- `relation frequency` is not part of the default main-text storyline, but
+  remains available as a control check for the `mapping type` result
 
 It should also make one higher-level point explicit:
 
@@ -330,7 +345,8 @@ Recommended relative emphasis:
 - `mapping type`: heaviest
 - `inverse`: medium
 - `symmetry`: light
-- `relation frequency`: medium-light but methodologically important
+- `relation frequency`: backup / appendix-level unless specifically needed for
+  a control-variable objection
 - `chapter discussion`: short but explicit
 
 ## Transition Logic Between Sections
@@ -340,22 +356,21 @@ The current preferred order is:
 1. `mapping type`
 2. `inverse`
 3. `symmetry`
-4. `relation frequency`
-5. chapter discussion
+4. chapter discussion
 
 Reasoning:
 
 - start from the strongest and most stable structural finding
 - then move to a weaker but still informative structural factor
 - then present a clearly weak / negative pattern
-- then close with a control-variable analysis
+- then close by making the hierarchy and mixed outcomes explicit
 
 This produces a natural progression from:
 
 - main positive result
 - to exploratory secondary result
 - to weak / negative result
-- to control-based consolidation
+- to chapter-level consolidation
 
 ## Current Non-Goals for This File
 
@@ -373,5 +388,6 @@ Those decisions belong to a later writing stage.
 
 At the writing-structure level, the main experimental block should be organized
 around `mapping type` as the core result, with `inverse` as a limited secondary
-result, `symmetry` as a weak/negative result, and `relation frequency` as a
-control-variable analysis.
+result and `symmetry` as a weak/negative result; `relation frequency` should be
+kept as backup control material rather than proactively written as a standalone
+main-text section.

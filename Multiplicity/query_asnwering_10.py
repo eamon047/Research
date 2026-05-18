@@ -6,6 +6,7 @@ import pickle
 import math
 import random
 import argparse
+from pathlib import Path
 from tqdm import tqdm
 import pickle
 import logging
@@ -21,6 +22,63 @@ import numpy as np
 from kge.util.seed import seed_from_config
 from kge.util.io import get_checkpoint_file, load_checkpoint
 #%%
+DEFAULT_MODELS = ["TransE", "RotatE", "ComplEx", "RESCAL", "DistMult", "ConvE"]
+DEFAULT_DATASETS = ["WN18", "WN18RR", "FB15k237", "FB15k"]
+DATASET_DIR_ALIASES = {
+    "WN18": "wn18",
+    "WN18RR": "wnrr",
+    "FB15k237": "fb15k-237",
+    "FB15k": "fb15k",
+    "YAGO3": "yago3-10",
+}
+
+
+def parse_name_list(values):
+    items = []
+    for value in values:
+        items.extend([part for part in value.split(",") if part])
+    return items
+
+
+def resolve_dataset_dir(data_root, dataset):
+    try:
+        dataset_dir = Path(data_root) / DATASET_DIR_ALIASES[dataset]
+    except KeyError as exc:
+        raise KeyError(f"Unsupported dataset alias: {dataset}") from exc
+    if not dataset_dir.is_dir():
+        raise FileNotFoundError(f"Cannot find dataset directory: {dataset_dir}")
+    return dataset_dir
+
+
+def resolve_model_dataset_dir(root, model, dataset):
+    path = Path(root) / model / f"{model}_{dataset}"
+    if not path.is_dir():
+        raise FileNotFoundError(f"Cannot find directory: {path}")
+    return path
+
+
+def sample_result_sets(result_list, num, agg_num, random_seed):
+    if len(result_list) < agg_num:
+        raise ValueError(
+            f"Need at least {agg_num} runs, but found only {len(result_list)}."
+        )
+    if len(result_list) < num:
+        raise ValueError(
+            f"Need at least {num} candidate runs, but found only {len(result_list)}."
+        )
+
+    random.seed(random_seed)
+    select_results = random.sample(result_list, num)
+    rep_path_list = []
+    for select_result in select_results:
+        agg_results = random.sample(
+            [x for x in result_list if x != select_result], agg_num - 1
+        )
+        agg_results.append(select_result)
+        rep_path_list.append(agg_results)
+    return rep_path_list
+
+
 def get_top10(scores):
     """
     get sorted top 10 entity IDs for each query.
@@ -91,7 +149,7 @@ def average_aggregation(score_paths):
         score_tensor = []
         for score_path in score_paths:
             scores = torch.load(score_path)
-            score_tensor.append(scores[i:i+batch_size, :]*random.randint(0, 1000))
+            score_tensor.append(scores[i:i+batch_size, :])
         # aggregate scores
         score_tensor = torch.stack(score_tensor, dim=2).cuda()
          # average aggregation here
@@ -120,7 +178,7 @@ def norm_aggregation(score_paths):
         agg_scores.append(trunk_scores.cpu())
     return torch.cat(agg_scores)
 
-def calc_performance(o_scores, s_scores, mask, one_mask, dataset):
+def calc_performance(o_scores, s_scores, mask, one_mask, dataset_dir):
     """
     note o_ranks and s_ranks should be
     the ranks for testing triples
@@ -141,16 +199,7 @@ def calc_performance(o_scores, s_scores, mask, one_mask, dataset):
                     sum(mask["1-N"]) + \
                     sum(mask["M-1"]))).item()
     def score2rank(o_scores, s_scores):
-        lookup = dict(
-            WN18 = "/home/zyh7abt/kge/data/wn18", 
-            WN18RR = "/home/zyh7abt/kge/data/wnrr",
-            FB15k237 = "/home/zyh7abt/kge/data/fb15k-237",
-            FB15k = "/home/zyh7abt/kge/data/fb15k",
-            YAGO3 = "/home/zyh7abt/kge/data/yago3-10"
-            )
-        
-        dataset_path = lookup[dataset]
-        filename = os.path.join(dataset_path, "test.del")
+        filename = os.path.join(dataset_dir, "test.del")
         with open(filename, 'r') as file:
             test_triples = []
             for line in file:
@@ -292,18 +341,16 @@ def evaluation(model, dataset, aggregation_func, args):
     random_seed = int(args.seed)
 
     # specify relevant dir
-    result_dir = os.path.join("/fs/scratch/rb_bd_dlp_rng_dl01_cr_ICT_employees/zyh7abt/finished", f"{model}/{model}_{dataset}")
-    result_list = [name for name in os.listdir(result_dir) if os.path.isdir(os.path.join(result_dir, name))]
-    score_dir = os.path.join("/fs/scratch/rb_bd_dlp_rng_dl01_cr_ICT_employees/zyh7abt/multi_scores", f"{model}/{model}_{dataset}")
+    result_dir = resolve_model_dataset_dir(args.experiments_root, model, dataset)
+    result_list = sorted(
+        name for name in os.listdir(result_dir)
+        if os.path.isdir(os.path.join(result_dir, name))
+    )
+    score_dir = resolve_model_dataset_dir(args.scores_root, model, dataset)
+    dataset_dir = resolve_dataset_dir(args.data_root, dataset)
 
     # select results to be evaluated
-    random.seed(random_seed)
-    select_results = random.sample(result_list, num)
-    rep_path_list = []
-    for select_result in select_results:
-        agg_results = random.sample([x for x in result_list if x != select_result], agg_num-1)
-        agg_results.append(select_result)
-        rep_path_list.append(agg_results)
+    rep_path_list = sample_result_sets(result_list, num, agg_num, random_seed)
 
     # load relation mask
     mask_path = os.path.join(score_dir, "relation_mask.pkl")
@@ -329,10 +376,12 @@ def evaluation(model, dataset, aggregation_func, args):
         s_agg_scores = aggregation_func(s_score_paths)
         
         # performance evaluation
-        performance_list.append(calc_performance(o_agg_scores, s_agg_scores, rel_mask, one_mask, dataset))
+        performance_list.append(
+            calc_performance(o_agg_scores, s_agg_scores, rel_mask, one_mask, dataset_dir)
+        )
 
         o_tensor.append(get_top10(o_agg_scores))
-        s_tensor.append(get_top10(o_agg_scores))
+        s_tensor.append(get_top10(s_agg_scores))
     
     # evaluate performance
     performance_dict = retrieve_performance(performance_list)
@@ -364,17 +413,61 @@ def print_multiplicity(multiplicity_dict):
         logging.info(out_str)
 
 def batch_evaluation():
-    parser = argparse.ArgumentParser(description='evaluate single model.')
-    parser.add_argument('-num', '--num', help='number of repetition', default=2)
-    parser.add_argument('-agg', '--agg', help='number of aggregation', default=2)
-    parser.add_argument('-seed', '--seed', help='random seed', default=0)
+    parser = argparse.ArgumentParser(description="Evaluate top-10 query-answering multiplicity.")
+    parser.add_argument("-num", "--num", help="number of repetition", type=int, default=2)
+    parser.add_argument("-agg", "--agg", help="number of aggregation", type=int, default=2)
+    parser.add_argument("-seed", "--seed", help="random seed", type=int, default=0)
+    parser.add_argument(
+        "--experiments-root",
+        type=Path,
+        required=True,
+        help="Root directory containing trained LibKGE runs.",
+    )
+    parser.add_argument(
+        "--scores-root",
+        type=Path,
+        required=True,
+        help="Root directory containing cached query-answering score tensors.",
+    )
+    parser.add_argument(
+        "--data-root",
+        type=Path,
+        default=Path(__file__).resolve().parents[1] / "LibKGE" / "data",
+        help="LibKGE data directory that contains processed datasets.",
+    )
+    parser.add_argument(
+        "--models",
+        nargs="+",
+        default=DEFAULT_MODELS,
+        help="Models to evaluate. Accepts repeated args or comma-separated lists.",
+    )
+    parser.add_argument(
+        "--datasets",
+        nargs="+",
+        default=DEFAULT_DATASETS,
+        help="Datasets to evaluate. Accepts repeated args or comma-separated lists.",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=200,
+        help="Batch size used when loading cached score tensors.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("local"),
+        help="Directory for log and pickle outputs.",
+    )
     args = parser.parse_args()
 
-    model_list = ["ConvE"]#["TransE", "RotatE", "ComplEx", "RESCAL", "DistMult", "ConvE"]
-    dataset_list = ["FB15k"]# ["WN18", "WN18RR", "FB15k237", "FB15k"]
+    global batch_size
+    batch_size = args.batch_size
+    model_list = parse_name_list(args.models)
+    dataset_list = parse_name_list(args.datasets)
 
-    # save_name = f"local/rep{settings['num']}_agg{settings['agg_num']}_random{settings['random_seed']}"
-    save_name = f"local/multiN_ConvE_rep{args.num}_agg{args.agg}_random{args.seed}"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    save_name = args.output_dir / f"multi_top10_rep{args.num}_agg{args.agg}_random{args.seed}"
 
     # file logger
     logging.basicConfig(
@@ -446,7 +539,6 @@ def batch_evaluation():
         pickle.dump(result_dict, pickle_file)
 #%%
 if __name__ == "__main__":
-    batch_size = 200
     # single_evaluation()
     batch_evaluation()
 

@@ -91,33 +91,33 @@ This keeps the first round focused and avoids turning symmetry into an oversized
 
 ## Planned Code Path
 
-The intended code path should live in `Multiplicity_rewrite/` and remain separate from `main.py`.
+The intended code path should live in `Multiplicity/` and remain separate from `main.py`.
 
 Recommended first-round scripts:
 
-- `Multiplicity_rewrite/symmetry_relation_stats.py`
+- `Multiplicity/symmetry_relation_stats.py`
   computes relation-level symmetry statistics from training triples
-- `Multiplicity_rewrite/symmetry_analysis.py`
+- `Multiplicity/symmetry_analysis.py`
   merges symmetry statistics with relation-level multiplicity results and computes grouped summaries
 
 Optional follow-up, only if the first round shows a usable signal:
 
-- `Multiplicity_rewrite/symmetry_mapping_interaction_analysis.py`
+- `Multiplicity/symmetry_mapping_interaction_analysis.py`
   examines whether the symmetry effect remains after conditioning on `mapping_type`
-- `Multiplicity_rewrite/symmetry_plot.py`
+- `Multiplicity/symmetry_plot.py`
   generates plots for thesis writing
 
 ## Code Status
 
-The first-round symmetry code has now been implemented in `Multiplicity_rewrite/`.
+The first-round symmetry code has now been implemented in `Multiplicity/`.
 
 Current scripts:
 
-- `Multiplicity_rewrite/symmetry_relation_stats.py`
+- `Multiplicity/symmetry_relation_stats.py`
   computes relation-level symmetry statistics from training triples
-- `Multiplicity_rewrite/symmetry_analysis.py`
+- `Multiplicity/symmetry_analysis.py`
   merges symmetry statistics with relation-level multiplicity results and computes grouped summaries
-- `Multiplicity_rewrite/symmetry_utils.py`
+- `Multiplicity/symmetry_utils.py`
   provides shared helpers for CSV I/O and basic summary statistics
 
 ## Planned Outputs
@@ -440,7 +440,7 @@ The second-round symmetry analysis has now been implemented and executed.
 
 The new second-round script is:
 
-- `Multiplicity_rewrite/symmetry_analysis_v2.py`
+- `Multiplicity/symmetry_analysis_v2.py`
 
 The first-round scripts remain unchanged:
 
@@ -644,13 +644,13 @@ Instead, the workflow was:
 
 The `TransE` follow-up required one more export step:
 
-- `Multiplicity_rewrite/relation_multiplicity_combined_export.py`
+- `Multiplicity/relation_multiplicity_combined_export.py`
 
 This script exports the combined relation-level multiplicity table in the same format used by the symmetry merge analysis.
 
 There was also a small infrastructure adjustment:
 
-- `Multiplicity_rewrite/multiplicity_utils.py`
+- `Multiplicity/multiplicity_utils.py`
 
 The helper that restores stored runs now falls back to CPU when the original checkpoint config points to CUDA but no visible GPU is available in the current environment.
 

@@ -10,7 +10,8 @@ At this stage, the most reasonable thesis structure is:
 - `mapping type` as the main structural result
 - `inverse` as an exploratory secondary result
 - `symmetry` as a documented weak/negative result
-- `relation frequency` as a support / sparsity control variable
+- `relation frequency` as completed support / sparsity control material, but
+  currently **not** a default main-text section
 
 This means the immediate priority is no longer to invent new relation-level
 experiments. The remaining work for this block is writing and presentation,
@@ -172,8 +173,9 @@ Current status:
 
 Current thesis role:
 
-- support / sparsity control variable
+- backup support / sparsity control material
 - useful mainly for defending the independence of the mapping-type result
+- not currently planned as a standalone main-text experiment section
 
 ## Immediate Priorities
 
@@ -184,7 +186,7 @@ This includes:
 - `mapping type`
 - `inverse`
 - `symmetry`
-- `relation frequency`
+- `relation frequency` outputs as retained backup material
 
 The current recommendation is:
 
@@ -225,12 +227,12 @@ Goal:
 
 Key tasks:
 
-- align the wording across `mapping type`, `inverse`, `symmetry`, and `relation frequency`
+- align the wording across `mapping type`, `inverse`, and `symmetry`
 - keep the hierarchy clear:
   - `mapping type` main result
   - `inverse` exploratory secondary result
   - `symmetry` weak / negative result
-  - `relation frequency` support-level control variable
+  - `relation frequency` only as backup control material unless needed
 
 ### B. Decide Which Figures Are Necessary
 
@@ -242,22 +244,32 @@ Current likely priorities:
 
 - `mapping type` by-side figure
 - `TransE` by-side figure for mapping type
-- optionally one `relation frequency × mapping type` figure if it materially helps the control-variable argument
+- no default `relation frequency × mapping type` figure in the main text
+- only prepare a frequency-control figure/table if a concrete writing or
+  defense need appears
 
 ## Topics To Defer Until After The Pattern Block
 
 ### `relation frequency`
 
-This block is no longer pending; it has already been integrated into the main line.
+This block is no longer pending experimentally, but it should no longer be
+treated as automatically integrated into the main text.
 
 Current judgment:
 
 - it fits the thesis direction better than `entity frequency`
-- it should be integrated into the current relation-level framing rather than copied mechanically from the original paper
+- it is useful as a relation-level support / sparsity control for the
+  `mapping type` result
+- it feels structurally asymmetric if written as a fourth experiment line,
+  because it was not used to control all three candidate pattern families
 
 Recommended policy:
 
-- keep it as a control-variable section
+- keep the results and documentation
+- do not proactively write it as a standalone control-variable section
+- use it as a short robustness paragraph, appendix table, or defense backup only
+  if the `mapping type` result needs explicit protection against a frequency
+  confounding objection
 - do not inflate it into a fourth pattern section
 - do not force reproduction of the original paper’s negative trend when the current thesis setting does not support it
 

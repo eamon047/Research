@@ -42,24 +42,24 @@ and does not treat `major`, `borda`, or `range` as part of the primary result.
 
 ## Code Entry Points
 
-The current code path lives in `Multiplicity_rewrite/`.
+The current code path lives in `Multiplicity/`.
 
 Relevant scripts:
 
-- `Multiplicity_rewrite/relation_mapping_analysis.py`
+- `Multiplicity/relation_mapping_analysis.py`
   exports relation-level CSVs for mapping-type analysis
-- `Multiplicity_rewrite/support_distribution_analysis.py`
+- `Multiplicity/support_distribution_analysis.py`
   summarizes support distributions and candidate thresholds
-- `Multiplicity_rewrite/mapping_type_analysis.py`
+- `Multiplicity/mapping_type_analysis.py`
   analyzes the combined head+tail relation-level CSV
-- `Multiplicity_rewrite/mapping_type_plot.py`
+- `Multiplicity/mapping_type_plot.py`
   plots the combined head+tail analysis
-- `Multiplicity_rewrite/mapping_type_side_analysis.py`
+- `Multiplicity/mapping_type_side_analysis.py`
   analyzes the side-aware CSV
-- `Multiplicity_rewrite/mapping_type_side_plot.py`
+- `Multiplicity/mapping_type_side_plot.py`
   plots the side-aware analysis
 
-The original `Multiplicity_rewrite/main.py` remains the separate entry point for the overall link-prediction multiplicity experiment and is not used as the main thesis analysis script for mapping type.
+The original `Multiplicity/main.py` remains the separate entry point for the overall link-prediction multiplicity experiment and is not used as the main thesis analysis script for mapping type.
 
 ## Output Structure
 
@@ -297,13 +297,13 @@ The workflow reuses existing stored runs rather than retraining from scratch.
 
 The `TransE` follow-up uses the same mapping-type code chain plus one helper export path:
 
-- `Multiplicity_rewrite/relation_mapping_analysis.py`
+- `Multiplicity/relation_mapping_analysis.py`
   exports the by-side relation-level table
-- `Multiplicity_rewrite/relation_multiplicity_combined_export.py`
+- `Multiplicity/relation_multiplicity_combined_export.py`
   exports the combined relation-level table
-- `Multiplicity_rewrite/mapping_type_side_analysis.py`
+- `Multiplicity/mapping_type_side_analysis.py`
   summarizes the by-side grouped results
-- `Multiplicity_rewrite/mapping_type_analysis.py`
+- `Multiplicity/mapping_type_analysis.py`
   summarizes the combined grouped results
 
 The analysis was run in the local `LibKGE` conda environment.

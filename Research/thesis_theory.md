@@ -145,7 +145,7 @@ instability 是否均匀分布，还是集中出现在某些 relation-level stru
 
 ## 为什么使用“至少一个输出命中 hits@k”的条件
 
-当前多重性分析流程遵循 `Multiplicity_rewrite/main.py` 中已有的逻辑。
+当前多重性分析流程遵循 `Multiplicity/main.py` 中已有的逻辑。
 
 对于某个查询，如果所有输出都未命中 `hits@k`，则该查询被视为“统一失败”的情况，而非“模型间存在分歧”的情况，因此会从多重性分析子集中排除。
 

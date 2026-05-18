@@ -191,7 +191,7 @@ After the first pilot:
 
 Before running the pilot:
 
-1. use `Multiplicity_rewrite/efficiency_voting_sweep.py`
+1. use `Multiplicity/efficiency_voting_sweep.py`
 2. reuse the existing rank and voting utilities where possible
 3. keep explicit community-overlap statistics
 4. write outputs under a separate results directory, for example:
@@ -202,7 +202,7 @@ Do not modify the closed relation-level main-line outputs for this branch.
 
 Current implementation status:
 
-- initial sweep script added: `Multiplicity_rewrite/efficiency_voting_sweep.py`
+- initial sweep script added: `Multiplicity/efficiency_voting_sweep.py`
 - script outputs global `Hits / Epsilon / Alpha / Delta` rows for each setting
 - script records pool membership, community membership, unique model count,
   total voting slots, average pairwise overlap, and average pairwise Jaccard

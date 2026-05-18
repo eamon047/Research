@@ -1,25 +1,24 @@
-# Predictive Multiplicity for Knowledge Graph Embeddings in Link Prediction
+# Multiplicity Thesis Analysis Code
 
-## Introduction
+This directory contains the maintained local analysis code for the thesis line:
+relation-level predictive multiplicity analysis for KGE link prediction.
 
-This is the implementation of evaluating predictive multiplicity for knowledge graph embedding (KGE) models. We use LibKGE (https://github.com/DeepGraphLearning/KnowledgeGraphEmbedding) to train the KGE models and search for the hyperparameters for the baseline models.
+It was previously named `Multiplicity_rewrite/`. The original upstream-style
+release directory has been moved out of this thesis repository to:
 
-## Files
+```text
+/data/satori_hdd1/EamonZhao/EamonFile_dated/Multiplicity_original_release
+```
 
-- HPO.yaml: the template for the configurations of hyperparameter search.
-- configs: contains all configuration files used for training KGE models.
-- main.py: the script to reproduce the main table (Table 5 in the paper).
-- query_answering_1.py/query_answering_1.py: the script to reproduce results for evaluating predictive multiplicity for query answering setting.
-- epsilon_evaluation.py: the script to reproduce the results of investigating predictive multiplicity wrt. the change of epsilon.
+For the current project state, read:
 
-## Hyperparameter Search
+- `README_Eamon.md` for engineering role, local conventions, and script entry points
+- `Research/thesis_theory.md` for definitions and metric wording
+- `Research/thesis_*_experiment.md` for experiment records and interpretation
+- `results/README.md` for result indexing and presentation guidance
 
-Once you install LibKGE, run 
+The original paper PDF used as a reference for the Table 5 baseline is kept in:
 
-`kge resume YOUR_CONFIGURATION --search.num_workers TRIAL_NUMBER`
-
-## Model Training
-
-`kge start YOUR_CONFIGURATION`
-
-Please use the configuration files provided in "config" folder to collect competing models.
+```text
+Research/references/predictive_multiplicity_paper.pdf
+```
